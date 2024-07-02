@@ -28,7 +28,7 @@
               <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>
           </button>
-          <div x-show="open_big" class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+          <div x-show="open_big" x-transition class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div class="py-1" role="none">
               <%= link_to month_calender_index_path, class: "block px-4 pr-3.5 py-2 text-sm #{current_page?(month_calender_index_path) ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100':'text-gray-700 dark:text-gray-300'}", role: 'menuitem', tabindex: '-1', id: 'menu-item-4', 'up-target': '.container' do %><%= t('simple_calendar.month') %><% end %>
               <%= link_to week_calender_index_path, class: "block px-4 pr-3.5 py-2 text-sm #{current_page?(week_calender_index_path) ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100' : 'text-gray-700 dark:text-gray-300'}", role: 'menuitem', tabindex: '-1', id: 'menu-item-5', 'up-target': '.container' do %><%= t('simple_calendar.week') %><% end %>
@@ -52,7 +52,7 @@
             <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
           </svg>
         </button>
-        <div x-show="open_small" class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
+        <div x-show="open_small" x-transition class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
           <% if can? :create, Task %>
             <div class="py-1" role="none">
               <%= link_to 'Add event', new_task_path(event: 'exam'), class: 'block px-4 py-2 text-sm text-gray-700 dark:text-gray-300', role: 'menuitem', tabindex: '-1', id: 'menu-item-6', 'up-target': '.container', 'up-layer': 'new', 'up-history': 'false', 'up-accept-event': 'task:created', 'up-on-accepted': "up.reload('.tasks')" %>
@@ -89,7 +89,7 @@
                 <% @load_tasks.each do |task| %>
                   <% if task.due_date.to_date == day.to_date %>
                     <li>
-                      <%= link_to task_path(task), class: "group flex", tabindex: "0", 'up-layer': 'new' do %>
+                      <%= link_to task_path(task), class: "group flex", tabindex: "0", 'up-layer': 'new', 'up-history': 'false' do %>
                         <p class="flex-auto truncate font-medium text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400"><%= task.title %></p>
                         <time datetime="<%= task.due_date %>" class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 xl:block"><%= task.due_date.strftime('%I:%M %p') %></time>
                       <% end %>

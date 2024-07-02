@@ -1,0 +1,2 @@
+class Learnset < ApplicationRecord
+end

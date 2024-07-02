@@ -32,7 +32,7 @@
               <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>
           </button>
-          <div x-show="open_big" class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+          <div x-show="open_big" x-transition class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div class="py-1" role="none">
               <%= link_to month_calender_index_path, class: "block px-4 pr-3.5 py-2 text-sm #{current_page?(month_calender_index_path) ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100':'text-gray-700 dark:text-gray-300'}", role: 'menuitem', tabindex: '-1', id: 'menu-item-4', 'up-target': '.container' do %><%= t('simple_calendar.month') %><% end %>
               <%= link_to week_calender_index_path, class: "block px-4 pr-3.5 py-2 text-sm #{current_page?(week_calender_index_path) ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100' : 'text-gray-700 dark:text-gray-300'}", role: 'menuitem', tabindex: '-1', id: 'menu-item-5', 'up-target': '.container' do %><%= t('simple_calendar.week') %><% end %>
@@ -56,7 +56,7 @@
             <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
           </svg>
         </button>
-        <div x-show="open_small" class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
+        <div x-show="open_small" x-transition class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
           <% if can? :create, Task %>
             <div class="py-1" role="none">
               <%= link_to 'Add event', new_task_path(event: 'exam'), class: 'block px-4 py-2 text-sm text-gray-700 dark:text-gray-300', role: 'menuitem', tabindex: '-1', id: 'menu-item-6', 'up-target': '.container', 'up-layer': 'new', 'up-history': 'false', 'up-accept-event': 'task:created', 'up-on-accepted': "up.reload('.tasks')" %>
@@ -125,7 +125,7 @@
             <% grid_row_start, grid_row_span = event_position(task.due_date) %>
             <ol class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8" style="grid-template-rows: 2rem repeat(300, minmax(0, 1fr)) auto">
               <li class="relative mt-px flex <%= "sm:col-start-#{task.due_date.wday}" if task.due_date.wday < 7 %>" style="grid-row: <%= grid_row_start %> / span <%= grid_row_span %>">
-                <%= link_to task_path(task), class: "group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 dark:bg-pink-900 p-2 text-xs leading-5 hover:bg-pink-100 dark:hover:bg-pink-800", tabindex: "0", 'up-layer': 'new' do %>
+                <%= link_to task_path(task), class: "group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 dark:bg-pink-900 p-2 text-xs leading-5 hover:bg-pink-100 dark:hover:bg-pink-800", tabindex: "0", 'up-layer': 'new', 'up-history': 'false' do %>
                   <p class="order-1 font-semibold text-pink-700 dark:text-pink-300"><%= task.title %></p>
                   <p class="text-pink-500 group-hover:text-pink-700 dark:text-pink-400 dark:group-hover:text-pink-300">
                     <time datetime="<%= task.due_date %>"><%= task.due_date.strftime('%I:%M %p') %></time>

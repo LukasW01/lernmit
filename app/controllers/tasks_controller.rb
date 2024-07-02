@@ -48,12 +48,10 @@ class TasksController < ApplicationController
   def destroy
     if can? :destroy, Task
       load_task
-      if @load_task.destroy
-        up.layer.emit('task:destroyed')
-        redirect_to tasks_path
-      else
-        redirect_to @load_task, alert: 'Could not delete task'
-      end
+      render tasks_path if @load_task.nil?
+
+      up.layer.emit('task:destroyed') if @load_task.destroy
+      redirect_to tasks_path
     else
       head :forbidden
     end

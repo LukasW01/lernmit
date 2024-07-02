@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  default_url_options host: ENV.fetch('HOST', 'localhost:3000')
+
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
-  resources :achievements
-  default_url_options host: ENV.fetch('HOST', 'localhost:3000')
 
   ActiveAdmin.routes(self)
   root to: 'pages#home'
@@ -22,4 +22,5 @@ Rails.application.routes.draw do
     end
   end
   resources :achievements
+  resources :learnsets
 end
