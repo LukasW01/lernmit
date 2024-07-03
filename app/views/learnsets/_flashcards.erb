@@ -1,0 +1,20 @@
+<div class="items-center justify-center bg-gray-100 dark:bg-gray-900 w-full h-2/3" x-data="{ flipped: false }" @keydown.space.prevent="flipped = !flipped" tabindex="0">
+  <div @click="flipped = !flipped">
+    <div class="absolute w-2/3 h-1/2 transition-transform duration-300 transform preserve-3d" :class="flipped ? 'rotate-x-180' : ''">
+      <!-- Front of the card -->
+      <div class="absolute rounded-md w-full h-full bg-white dark:bg-gray-800 flex items-center justify-center backface-hidden">
+        <div class="text-center">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white">Term</h2>
+        </div>
+      </div>
+      <!-- Back of the card -->
+      <div class="absolute rounded-md w-full h-full bg-indigo-600 dark:bg-indigo-800 flex items-center justify-center backface-hidden rotate-x-180">
+        <div class="text-center">
+          <h2 class="text-xl font-bold text-white">Definition</h2>
+          <p class="text-white">This is the definition of the term.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

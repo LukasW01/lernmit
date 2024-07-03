@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
   has_many :achievement_users, dependent: :destroy
+  has_many :achievements, through: :achievement_users
+  has_many :learnsets, dependent: :destroy
 
   enum roles: %w[user admin]
 

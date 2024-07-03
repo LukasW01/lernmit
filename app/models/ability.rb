@@ -7,6 +7,7 @@ class Ability
     else
       can :read, :all
       cannot %i[create update destroy], Task
+      cannot %i[create update destroy], Learnset
     end
   end
 end

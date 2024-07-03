@@ -28,4 +28,14 @@
   }
 }
 
+.rotate-x-180 {
+  transform: rotateX(180deg);
+}
 
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
