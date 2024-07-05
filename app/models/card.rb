@@ -1,5 +1,6 @@
 class Card < ApplicationRecord
-  validates :defintion, :term, presence: true
+  belongs_to :load_learnset
+  validates :definition, :term, presence: true
 
   def multiple_choice(terms_and_definitions)
     terms_and_definitions.transform_values do |e|

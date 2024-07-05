@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  default_url_options host: ENV.fetch('HOST', 'localhost:3000')
+  default_url_options host: ENV.fetch('HOST', 'localhost:3001')
 
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -22,5 +22,10 @@ Rails.application.routes.draw do
     end
   end
   resources :achievements
-  resources :learnsets
+  resources :learnsets do
+    member do
+      get 'card/', to: 'learnsets#card', as: :card
+      get 'card/json', to: 'learnsets#card_json', as: :card_json
+    end
+  end
 end

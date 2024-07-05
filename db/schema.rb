@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 20_240_702_170_840) do # rubocop:disab
   end
 
   create_table 'cards', force: :cascade do |t|
-    t.integer 'learnsets_id'
+    t.integer 'learnset_id'
     t.string 'term'
     t.string 'defintion'
     t.datetime 'created_at', null: false
