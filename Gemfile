@@ -28,7 +28,7 @@ gem 'simple_calendar'
 gem 'sprockets-rails'
 gem 'sqlite3', '~>1.7'
 gem 'stimulus-rails'
-gem 'tailwindcss-rails', '~> 2.6'
+gem 'tailwindcss-rails', '~> 2.7'
 gem 'terser'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
