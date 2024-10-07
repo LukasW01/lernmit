@@ -1,0 +1,40 @@
+<%= form_for @load_task, html: { 'up-target': '.tasks', class: 'bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl dark:bg-gray-800 dark:ring-gray-700' } do |form| %>
+  <div class="card-body px-4 py-6 sm:p-8">
+    <div class="form-group flex-grow-1 mb-0">
+      <%= form.label :title, class: "block text-sm font-medium leading-6 text-gray-900 dark:text-white" %>
+      <%= form.text_field :title, class: 'block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white dark:bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+      <%= form.error_message :title %>
+    </div>
+    <div class="form-group flex-grow-1 mb-0 mt-4">
+      <%= form.label :text, class: "block text-sm font-medium leading-6 text-gray-900 dark:text-white" %>
+      <%= form.text_area :text, class: 'block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white dark:bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6', rows: 3 %>
+      <%= form.error_message :text %>
+    </div>
+    <div class="form-group flex-grow-1 mb-0 mt-4">
+      <%= form.label :types, class: "block text-sm font-medium leading-6 text-gray-900 dark:text-white" %>
+      <% if params[:event] == 'exam' %>
+        <%= form.select :types, options_for_select(%w[Task Exam], selected: @load_task.types = 'Exam'), {}, { disabled: true, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white dark:bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" } %>
+        <%= form.hidden_field :types, value: "Exam" %>
+      <% else %>
+        <%= form.select :types, options_for_select(%w[Task Exam], selected: @load_task.types), {}, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white dark:bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+      <% end %>
+      <%= form.error_message :types %>
+    </div>
+    <div class="form-group flex-grow-0 mb-0 mt-4">
+      <%= form.label :due_date, class: "block text-sm font-medium leading-6 text-gray-900 dark:text-white" %>
+      <%= form.datetime_field :due_date, class: 'block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white dark:bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+      <%= form.error_message :due_date %>
+    </div>
+    <div class="form-group flex-grow-0 mb-0 mt-4">
+      <%= form.label :points, class: "block text-sm font-medium leading-6 text-gray-900 dark:text-white" %>
+      <%= form.number_field :points, class: 'block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white dark:bg-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
+      <%= form.error_message :points %>
+    </div>
+    <div class="flex-grow-0 mt-4">
+      <%= form.submit "Save", class: 'ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400' %>
+    </div>
+  </div>
+<% end %>
+
+
+

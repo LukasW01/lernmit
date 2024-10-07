@@ -1,0 +1,10 @@
+<h1 class="m-8 lg:mx-20 text-gray-800 dark:text-white text-3xl font-bold">Calendar</h1>
+
+<div class="lg:block hidden mx-8 mb-8 lg:mx-20 lg:mb-20">
+  <%= month_calendar { |date| date } %>
+  <%= render 'calender/events' %>
+</div>
+
+<div class="lg:hidden mx-8 mb-8 lg:mx-20 lg:mb-20">
+  <%= week_calendar(number_of_weeks: 1) { |date| date } %>
+</div>

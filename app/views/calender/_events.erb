@@ -1,0 +1,20 @@
+<section class="mt-12">
+  <h2 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Upcoming events</h2>
+  <ol class="mt-2 divide-y divide-gray-200 dark:divide-gray-700 text-sm leading-6 text-gray-500 dark:text-gray-400">
+    <% if @load_tasks_limit.empty? %>
+      <li class="py-4 sm:flex">
+        <time datetime="<%= Date.today %>" class="w-28 flex-none"><%= Date.today.strftime('%B %d, %Y') %></time>
+        <p class="mt-2 flex-auto sm:mt-0">Nothing on your schedule.</p>
+      </li>
+    <%  end %>
+    <% @load_tasks_limit.each do |task| %>
+      <li class="py-4 sm:flex">
+        <time datetime="<%= task.due_date %>" class="w-28 flex-none"><%= task.due_date.strftime('%B %d, %Y') %></time>
+        <%= link_to task_path(task), tabindex: "0", 'up-layer': 'new' do %>
+          <p class="mt-2 flex-auto font-semibold text-gray-900 dark:text-white sm:mt-0"><%= task.title %></p>
+        <% end %>
+        <span class="ml-auto flex-none md:block hidden"><time datetime="<%= task.due_date %>"><%= task.due_date.strftime('%I:%M %p') %></time></span>
+      </li>
+    <% end %>
+  </ol>
+</section>

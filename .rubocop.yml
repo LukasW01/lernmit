@@ -1,0 +1,25 @@
+AllCops:
+  NewCops: enable
+  UseCache: true
+  CacheRootDirectory: tmp/cache/rubocop
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 35
+
+Metrics/BlockLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 30
+
+Layout/LineLength:
+  Max: 300
+
+Style/GuardClause:
+  Enabled: false

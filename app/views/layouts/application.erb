@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lern Mit</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1'>
+    <%= javascript_include_tag 'application', defer: true %>
+    <%= javascript_include_tag 'importmap', defer: true, type: "module"%>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag "tailwind", media: "all" %>
+    <%= favicon_link_tag("logo-lernmit.png") %>
+  </head>
+
+  <body x-data="{ dropdown: false }" class="flex flex-col h-full bg-gray-100 dark:bg-gray-900">
+    <loading-indicator></loading-indicator>
+    <%= render 'layouts/nav' %>
+    <div up-main>
+      <%= yield %>
+    </div>
+  </body>
+</html>

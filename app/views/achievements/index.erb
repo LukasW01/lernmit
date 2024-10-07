@@ -1,0 +1,50 @@
+<h1 class="m-8 lg:mx-20 text-gray-800 dark:text-white text-3xl font-bold">Achievements</h1>
+
+<h2 class="mb-2 mx-8 lg:mx-20 text-gray-800 dark:text-white font-bold">Lernen</h2>
+<div class="mb-8 mx-8 lg:mx-20 bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+  <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+    <% if @achievements.empty? %>
+      <p class="text-gray-500">No achievements found.</p>
+    <% else %>
+      <% @achievements.each do |a| %>
+      <div class="my-6">
+        <% matched_achievement = @user_achievements.find { |u| a.id == u.achievements_id } %>
+
+        <%= image_tag(matched_achievement ? "achievement/#{a[:image]}.svg" : "achievement/locked_#{a[:image]}.svg", alt: a[:image], :class => 'h-auto max-w-full rounded-lg mx-auto') %>
+        <p class="mx-2 text-black dark:text-white"><%= a[:title] %></p>
+        <p class="mb-2 text-sm text-gray-500"><%= matched_achievement ? "Earned at: #{matched_achievement.created_at.strftime('%B %d, %Y')}" : "Locked" %></p>
+        <p></p>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<h2 class="mb-2 mx-8 lg:mx-20 text-gray-800 dark:text-white font-bold">Serien</h2>
+<div class="mb-8 mx-8 lg:mx-20 bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+  <h1 class="pl-8 py-4 text-gray-800 dark:text-white">Tägliche Lernserien</h1>
+  <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+    <% [3, 5, 7, 10, 20, 30, 45, 60, 70, 80].each do |e| %>
+      <div class="relative">
+        <%= image_tag(@streak_daily >= e ? "streak/badge_Day.svg" : "streak/locked_badge_Day.svg", alt: "badge-Day", :class => 'h-auto max-w-full rounded-lg mx-auto') %>
+        <span class="absolute font-bold text-xl <%= @streak_daily  >= e ? '' : 'text-slate-500' %>" style="top: 40%; transform: translate(-50%,-50%);"><%= e %></span>
+        <p class="mt-2 text-black dark:text-white"><%= e %> Days</p>
+      </div>
+    <% end %>
+  </div>
+  <div class="relative py-8">
+    <div class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+      <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+    </div>
+  </div>
+  <h1 class="pl-8 py-4 text-gray-800 dark:text-white">Wöchentliche Lernserien</h1>
+  <div class="pb-4  grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+    <% [3, 5, 7, 10, 20, 30, 45].each do |e| %>
+      <div class="relative">
+        <%= image_tag(@streak_daily  >= e ? "streak/badge_Week.svg" : "streak/locked_badge_Week.svg", alt: "badge-Week", :class => 'h-auto max-w-full rounded-lg mx-auto') %>
+        <span class="absolute font-bold text-xl <%= @streak_daily  >= e ? '' : 'text-slate-500' %>" style="top: 40%; transform: translate(-50%,-50%);"><%= e %></span>
+        <p class="mt-2 text-black dark:text-white"><%= e %> Weeks</p>
+      </div>
+    <% end %>
+  </div>
+</div>

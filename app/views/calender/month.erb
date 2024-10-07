@@ -1,0 +1,6 @@
+<h1 class="m-8 lg:mx-20 text-gray-800 dark:text-white text-3xl font-bold">Calendar</h1>
+
+<div class="mx-8 mb-8 lg:mx-20 lg:mb-20">
+    <%= month_calendar { |date| date } %>
+    <%= render 'calender/events' %>
+</div>
