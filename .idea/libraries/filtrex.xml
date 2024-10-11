@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="filtrex" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/filtrex/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/filtrex/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/filtrex/lib" />
+      <root url="file://$PROJECT_DIR$/deps/filtrex/priv" />
+    </SOURCES>
+  </library>
+</component>

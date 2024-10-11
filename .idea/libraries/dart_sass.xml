@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="dart_sass" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/dart_sass/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/dart_sass/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/dart_sass/lib" />
+      <root url="file://$PROJECT_DIR$/deps/dart_sass/priv" />
+    </SOURCES>
+  </library>
+</component>

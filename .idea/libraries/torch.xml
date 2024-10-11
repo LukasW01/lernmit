@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="torch" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/torch/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/torch/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/torch/lib" />
+      <root url="file://$PROJECT_DIR$/deps/torch/priv" />
+    </SOURCES>
+  </library>
+</component>
