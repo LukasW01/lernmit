@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="junit_formatter" type="mix">
-    <CLASSES />
-    <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/deps/junit_formatter/lib" />
-    </SOURCES>
-  </library>
-</component>
