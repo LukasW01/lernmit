@@ -13,7 +13,11 @@ config :lernmit,
 
 # Configures the endpoint
 config :lernmit, LernmitWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [
+    host: System.get_env("HOSTNAME"),
+    port: 443,
+    scheme: "https"
+  ],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
     formats: [html: LernmitWeb.ErrorHTML, json: LernmitWeb.ErrorJSON],
@@ -70,7 +74,7 @@ config :lernmit, :pow_assent,
            strategy: Lernmit.AuthProvider
          ]
        ]
-  
+
   # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

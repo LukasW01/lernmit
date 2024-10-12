@@ -16,7 +16,7 @@ defmodule LernmitWeb.Router do
     plug Pow.Plug.RequireAuthenticated,
          error_handler: Pow.Phoenix.PlugErrorHandler
   end
-  
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -36,15 +36,19 @@ defmodule LernmitWeb.Router do
 
   scope "/" do
     pipe_through :browser
-    
-    pow_routes()
+
+    pow_session_routes()
     pow_assent_routes()
   end
 
   scope "/", LernmitWeb do
-    pipe_through [:browser, :protected]
+    pipe_through :browser
 
     get "/", PageController, :home
+  end
+
+  scope "/", Pow.Phoenix, as: "pow" do
+    pipe_through [:browser, :protected]
   end
 
   # Other scopes may use custom stacks.
