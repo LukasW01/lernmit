@@ -35,7 +35,7 @@ test:
   artifacts:
       when: always
       reports:
-        junit: test/skyshort-unit.xml
+        junit: test/*-unit.xml
 
 credo:
   stage: mix
