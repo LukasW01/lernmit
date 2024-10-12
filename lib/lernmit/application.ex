@@ -11,8 +11,7 @@ defmodule Lernmit.Application do
       LernmitWeb.Telemetry,
       Lernmit.Repo,
       {Ecto.Migrator,
-        repos: Application.fetch_env!(:lernmit, :ecto_repos),
-        skip: skip_migrations?()},
+       repos: Application.fetch_env!(:lernmit, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:lernmit, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Lernmit.PubSub},
       # Start the Finch HTTP client for sending emails

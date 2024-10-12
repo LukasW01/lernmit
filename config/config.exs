@@ -67,15 +67,15 @@ config :dart_sass,
 
 # Configure PowAssent (OAuth2 provider)
 config :lernmit, :pow_assent,
-       providers: [
-         Auth: [
-           client_id: System.get_env("OAUTH_CLIENT_ID"),
-           client_secret: System.get_env("OAUTH_CLIENT_SECRET"),
-           strategy: Lernmit.AuthProvider
-         ]
-       ]
+  providers: [
+    Auth: [
+      client_id: System.get_env("OAUTH_CLIENT_ID"),
+      client_secret: System.get_env("OAUTH_CLIENT_SECRET"),
+      strategy: Lernmit.AuthProvider
+    ]
+  ]
 
-  # Configures Elixir's Logger
+# Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]

@@ -19,11 +19,11 @@ defmodule Lernmit.AuthProvider do
   @impl true
   def normalize(_config, user) do
     {:ok,
-      %{
-        "sub" => user["sub"],
-        "name" => user["name"],
-        "nickname" => user["username"],
-        "email" => user["email"]
-      }}
+     %{
+       "sub" => user["sub"],
+       "name" => user["name"],
+       "nickname" => user["username"],
+       "email" => user["email"]
+     }}
   end
 end
