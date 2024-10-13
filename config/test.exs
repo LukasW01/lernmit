@@ -17,14 +17,6 @@ config :lernmit, LernmitWeb.Endpoint,
   secret_key_base: "B57Gpc/dDTfHuWCSnklT2gek5bg5dQBKwU3udSS5+PHbSSViI45orJaSFvtY0wRZ",
   server: false
 
-config :junit_formatter,
-  report_file: "unit.xml",
-  report_dir: "test/",
-  print_report_file: true,
-  prepend_project_name?: true,
-  include_filename?: true
-
-
 # In test we don't send emails
 config :lernmit, Lernmit.Mailer, adapter: Swoosh.Adapters.Test
 
@@ -40,3 +32,10 @@ config :phoenix, :plug_init_mode, :runtime
 # Enable helpful, but potentially expensive runtime checks
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
+
+config :junit_formatter,
+  report_file: "unit.xml",
+  report_dir: "test/",
+  print_report_file: true,
+  prepend_project_name?: true,
+  include_filename?: true
