@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href={~p"/images/logo.png"} />
   </head>
   <body class="flex flex-col h-full bg-gray-100 dark:bg-gray-900">
-    <._nav />
+    <._nav conn={@conn} />
     <%= @inner_content %>
   </body>
 </html>

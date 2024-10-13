@@ -65,6 +65,11 @@ config :dart_sass,
     cd: Path.expand("../assets", __DIR__)
   ]
 
+config :lernmit, :pow,
+  web_module: LernmitWeb,
+  user: Lernmit.Users.User,
+  repo: Lernmit.Repo
+
 # Configure PowAssent (OAuth2 provider)
 config :lernmit, :pow_assent,
   providers: [
@@ -83,10 +88,6 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :lernmit, :pow,
-  web_module: LernmitWeb,
-  user: Lernmit.Users.User,
-  repo: Lernmit.Repo
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

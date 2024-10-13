@@ -12,13 +12,13 @@ defmodule LernmitWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :api do
+    plug :accepts, ["json"]
+  end
+
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
-  end
-
-  pipeline :api do
-    plug :accepts, ["json"]
   end
 
   pipeline :skip_csrf_protection do
@@ -47,7 +47,7 @@ defmodule LernmitWeb.Router do
     get "/", PageController, :home
   end
 
-  scope "/", Pow.Phoenix, as: "pow" do
+  scope "/", LernmitWeb do
     pipe_through [:browser, :protected]
   end
 

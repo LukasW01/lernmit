@@ -46,3 +46,6 @@ npm-debug.log
 # IDE
 .idea
 *.iml
+
+# Test reports
+test/*.xml
