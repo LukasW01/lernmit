@@ -22,19 +22,14 @@ badges = [
     desc: "Awarded for creating your first set!"
   },
   %{
-    image: "badge_EarlyBird.svg",
-    title: "Early bird",
-    desc: "Awarded for an early morning study session!"
-  },
-  %{
-    image: "badge_NightOwl.svg",
-    title: "Night Owl",
-    desc: "Awarded for a late night study session!"
-  },
-  %{
     image: "badge_Overachiever.svg",
     title: "Overachiever",
     desc: "Awarded for getting your first high score!"
+  },
+  %{
+    image: "badge_EarlyBird.svg",
+    title: "Early bird",
+    desc: "Awarded for an early morning study session!"
   },
   %{
     image: "badge_Flashcards.svg",
@@ -42,12 +37,17 @@ badges = [
     desc: "Awarded for studying with Flashcards for the first time!"
   },
   %{
+    image: "badge_NightOwl.svg",
+    title: "Night Owl",
+    desc: "Awarded for a late night study session!"
+  },
+  %{
     image: "badge_Learner.svg",
     title: "Active learner",
     desc: "Awarded for actively learning!"
   },
   %{
-    image: "badge_ActvieTester.svg",
+    image: "badge_ActiveTester.svg",
     title: "Test acer",
     desc: "Awarded for actively testing your knowledge!"
   }

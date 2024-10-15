@@ -18,7 +18,7 @@ defmodule Lernmit.Achievements do
 
   """
   def list_achievement do
-    Repo.all(Achievement)
+    Repo.all(Achievement, order_by: [desc: :id])
   end
 
   @doc """

@@ -1,12 +1,11 @@
-defmodule Lernmit.Achievement.User do
+defmodule Lernmit.Achievements.Users.AchievementUsers do
   @moduledoc """
-  Achievement user schema.
-  This schema is used to link users to achievements.
+  AchievementUsers schema.
   """
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "achievement_user" do
+  schema "achievement_users" do
     field :achievement_id, :id
     field :user_id, :id
 
@@ -14,8 +13,8 @@ defmodule Lernmit.Achievement.User do
   end
 
   @doc false
-  def changeset(user, attrs) do
-    user
+  def changeset(achievement_users, attrs) do
+    achievement_users
     |> cast(attrs, [])
     |> validate_required([])
   end

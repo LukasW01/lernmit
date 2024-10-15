@@ -1,19 +1,75 @@
-<.header>
-  Listing Achievement
-</.header>
+<h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">Achievements</h1>
 
-<.table
-  id="achievement"
-  rows={@streams.achievement_collection}
-  row_click={fn {_id, achievement} -> JS.navigate(~p"/achievement/#{achievement}") end}
->
-  <:col :let={{_id, achievement}} label="Image">
-    <img src={~p"/images/achievement/#{achievement.image}"} alt={achievement.title} />
-  </:col>
-  <:col :let={{_id, achievement}} label="Title"><%= achievement.title %></:col>
-  <:col :let={{_id, achievement}} label="Desc"><%= achievement.desc %></:col>
-</.table>
+<h2 class="mb-4 text-gray-800 dark:text-white font-bold">Lernen</h2>
+<div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+  <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+    <%= if Enum.empty?(@achievements) do %>
+      <div class="my-6">
+        <p class="mx-2 text-black dark:text-white">No achievements found</p>
+      </div>
+    <% else %>
+      <%= for achievement <- @achievements do %>
+        <div class="my-6">
+          <%= if Enum.member?(Enum.map(@achievement_user, & &1.achievement_id), achievement.id) do %>
+            <img
+              src={"/images/achievement/#{achievement.image}"}
+              class="h-auto max-w-full rounded-lg mx-auto"
+            />
+            <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
+            <p class="mb-2 text-sm text-gray-500">
+              Earned <%= Calendar.strftime(achievement.inserted_at, "%d/%m/%Y") %>
+            </p>
+          <% else %>
+            <img
+              src={"/images/achievement/locked_#{achievement.image}"}
+              class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+            />
+            <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
+            <p class="mb-2 text-sm text-gray-500">Locked</p>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
+<h2 class="mt-8 mb-4 text-gray-800 dark:text-white font-bold">Serien</h2>
+<div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+  <h1 class="pl-8 py-4 text-gray-800 dark:text-white">Tägliche Lernserien</h1>
+  <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+    <%= for e <- [3, 5, 7, 10, 20, 30, 45, 60, 70, 80] do %>
+      <div class="relative">
+        <%= if @streak_daily  >= e do %>
+          <img
+            src="/images/streak/badge_Day.svg"
+            alt="Daily Streak"
+            class="h-auto max-w-full rounded-lg mx-auto"
+          />
+          <span
+            class="absolute font-bold text-xl"
+            style="top: 40%; transform: translate(-50%,-50%);"
+          >
+            <%= e %>
+          </span>
+        <% else %>
+          <img
+            src="/images/streak/locked_badge_Day.svg"
+            alt="Daily Streak (locked)"
+            class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+          />
+          <span
+            class="absolute font-bold text-xl text-slate-500"
+            style="top: 40%; transform: translate(-50%,-50%);"
+          >
+            <%= e %>
+          </span>
+        <% end %>
+        <p class="mt-2 text-black dark:text-white"><%= e %> Days</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<!--
 <.modal
   :if={@live_action in [:show]}
   id="achievement-modal"
@@ -29,3 +85,4 @@
     patch={~p"/achievement"}
   />
 </.modal>
+-->
