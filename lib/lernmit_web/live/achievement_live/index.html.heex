@@ -1,0 +1,29 @@
+<.header>
+  Listing Achievement
+</.header>
+
+<.table
+  id="achievement"
+  rows={@streams.achievement_collection}
+  row_click={fn {_id, achievement} -> JS.navigate(~p"/achievement/#{achievement}") end}
+>
+  <:col :let={{_id, achievement}} label="Image"><%= achievement.image %></:col>
+  <:col :let={{_id, achievement}} label="Title"><%= achievement.title %></:col>
+  <:col :let={{_id, achievement}} label="Desc"><%= achievement.desc %></:col>
+</.table>
+
+<.modal
+  :if={@live_action in [:show]}
+  id="achievement-modal"
+  show
+  on_cancel={JS.patch(~p"/achievement")}
+>
+  <.live_component
+    module={LernmitWeb.AchievementLive.FormComponent}
+    id={@achievement.id || :new}
+    title={@page_title}
+    action={@live_action}
+    achievement={@achievement}
+    patch={~p"/achievement"}
+  />
+</.modal>

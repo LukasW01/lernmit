@@ -1,0 +1,11 @@
+<.header>
+  Achievement <%= @achievement.id %>
+</.header>
+
+<.list>
+  <:item title="Image"><%= @achievement.image %></:item>
+  <:item title="Title"><%= @achievement.title %></:item>
+  <:item title="Desc"><%= @achievement.desc %></:item>
+</.list>
+
+<.back navigate={~p"/achievement"}>Back to achievement</.back>

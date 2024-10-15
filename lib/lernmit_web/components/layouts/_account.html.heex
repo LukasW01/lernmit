@@ -1,0 +1,78 @@
+<div class="relative">
+  <button
+    @click="account = !account"
+    class="flex items-center text-sm font-medium rounded-ful md:me-0"
+    type="button"
+  >
+    <span class="sr-only">Open user menu</span>
+    <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-slate-600">
+      <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    </span>
+  </button>
+  <div
+    x-cloak
+    x-show="account"
+    @click.outside="account = false"
+    x-transition:enter="transition ease-out duration-100"
+    x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100"
+    x-transition:leave="transition ease-in duration-75"
+    x-transition:leave-start="opacity-100 scale-100"
+    x-transition:leave-end="opacity-0 scale-95"
+    class="absolute right-0 z-10 mt-2 w-60 origin-top-right divide-y divide-gray-100 dark:divide-gray-400 rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+  >
+    <div class="px-4 py-3" role="none">
+      <p class="text-sm text-gray-500 dark:text-gray-400" role="none">
+        Signed in as
+      </p>
+      <p class="truncate font-medium text-gray-900 dark:text-gray-100" role="none">
+        <%= "#{Pow.Plug.current_user(@conn).email}"
+        |> String.split("@")
+        |> List.first()
+        |> String.split(".")
+        |> List.first()
+        |> String.capitalize() %>
+      </p>
+    </div>
+
+    <div class="py-1.5" role="none">
+      <.link
+        href={"#{System.get_env("OAUTH_BASE_URL")}/account"}
+        class="block w-full text-gray-700 dark:text-gray-300 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 flex justify-between items-center"
+        target="_blank"
+      >
+        <span>
+          Account
+        </span>
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="opacity-60 w-4 h-4"
+            stroke="currentColor"
+            aria-hidden="true"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+            />
+          </svg>
+        </span>
+      </.link>
+    </div>
+    <div class="py-1.5" role="none">
+      <.link
+        href={~p"/session"}
+        method="delete"
+        class="block w-full text-gray-700 dark:text-gray-300 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100"
+      >
+        Log Out
+      </.link>
+    </div>
+  </div>
+</div>

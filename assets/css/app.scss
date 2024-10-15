@@ -3,3 +3,10 @@
 @tailwind utilities;
 
 /* This file is for your main application CSS */
+
+/* 
+  Helps hide AlpineJS cloaking elements from the DOM
+  until its initialized.
+  @docs: https://alpinejs.dev/directives/cloak
+ */
+[x-cloak] { display: none !important; }

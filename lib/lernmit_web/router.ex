@@ -49,6 +49,9 @@ defmodule LernmitWeb.Router do
 
   scope "/", LernmitWeb do
     pipe_through [:browser, :protected]
+
+    live "/achievement", AchievementLive.Index, :index
+    live "/achievement/:id", AchievementLive.Show, :show
   end
 
   # Other scopes may use custom stacks.
