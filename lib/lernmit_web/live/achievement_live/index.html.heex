@@ -7,7 +7,9 @@
   rows={@streams.achievement_collection}
   row_click={fn {_id, achievement} -> JS.navigate(~p"/achievement/#{achievement}") end}
 >
-  <:col :let={{_id, achievement}} label="Image"><%= achievement.image %></:col>
+  <:col :let={{_id, achievement}} label="Image">
+    <img src={~p"/images/achievement/#{achievement.image}"} alt={achievement.title} />
+  </:col>
   <:col :let={{_id, achievement}} label="Title"><%= achievement.title %></:col>
   <:col :let={{_id, achievement}} label="Desc"><%= achievement.desc %></:col>
 </.table>
