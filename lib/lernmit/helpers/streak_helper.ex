@@ -2,7 +2,6 @@ defmodule Lernmit.StreakHelper do
   @moduledoc """
   Helper functions for calculating streaks.
   """
-  alias Lernmit.Streak
   alias Lernmit.Streaks
 
   @doc """
@@ -41,13 +40,14 @@ defmodule Lernmit.StreakHelper do
       Streaks.list_streaks(user_id)
       |> Enum.map(& &1.inserted_at)
       |> Enum.map(&DateTime.to_date/1)
-      # Avoid duplicates in the same week
       |> Enum.uniq_by(&Date.beginning_of_week(&1))
-      # Ensure the dates are sorted in order
       |> Enum.sort()
 
     if dates != [] do
-      ## TODO: Implement weekly streak calculation
+      dates
+      |> Enum.map(& &1.day)
+      |> Enum.uniq()
+      |> Enum.count()
     else
       0
     end

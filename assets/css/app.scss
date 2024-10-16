@@ -8,5 +8,26 @@
   Helps hide AlpineJS cloaking elements from the DOM
   until its initialized.
   @docs: https://alpinejs.dev/directives/cloak
- */
+*/
 [x-cloak] { display: none !important; }
+
+.flame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flame::after,
+.flame::before {
+  content: " ";
+  background-color: #d05700;
+  display: inline-block;
+  width: .75rem;
+  height: .75rem;
+  border-radius: 1rem;
+}
+
+.flame::after {
+  height: 1.25rem;
+  margin-top: .25rem;
+}

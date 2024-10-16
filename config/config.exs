@@ -60,7 +60,7 @@ config :tailwind,
 # Configure dart_sass
 config :dart_sass,
   version: "1.77.8",
-  default: [
+  lernmit: [
     args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
     cd: Path.expand("../assets", __DIR__)
   ]

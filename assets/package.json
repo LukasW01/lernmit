@@ -1,4 +1,6 @@
 {
+  "name": "lernmit",
+  "version": "0.1.0",
   "dependencies": {
     "alpinejs": "^3.14.1",
     "axios": "^1.7.7"

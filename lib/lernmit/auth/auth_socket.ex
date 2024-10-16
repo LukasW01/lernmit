@@ -1,8 +1,8 @@
-# TODO: Remove when upstream Pow can handle LiveView/socket auth
-defmodule LernmitWeb.Pow.SocketAuth do
+# Remove when upstream Pow can handle LiveView/socket auth
+defmodule LernmitWeb.Pow.AuthSocket do
   @moduledoc """
-  LiveView authentication assigns @current_user to the socket
-  @link https://github.com/pow-auth/pow/issues/706
+  Assigns @current_user to the socket for LiveView
+  @link: https://github.com/pow-auth/pow/issues/706
   """
   use Phoenix.LiveView
   use LernmitWeb, :verified_routes
@@ -15,7 +15,7 @@ defmodule LernmitWeb.Pow.SocketAuth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "You must be logged in to access this page.")
+        |> Phoenix.LiveView.put_flash(:error, "Could not assign current user")
         |> Phoenix.LiveView.redirect(to: ~p"/")
 
       {:halt, socket}

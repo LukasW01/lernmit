@@ -5,7 +5,9 @@ defmodule LernmitWeb.AchievementLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok,
+     socket
+     |> assign(:page_title, page_title(socket.assigns.live_action))}
   end
 
   @impl true
@@ -13,10 +15,9 @@ defmodule LernmitWeb.AchievementLive.Show do
   def handle_params(%{"id" => id}, _, socket) do
     {:noreply,
      socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:achievement, Achievements.get_achievement!(id))
      |> assign(:live_action, :show)}
   end
 
-  defp page_title(:show), do: "Show Achievement"
+  defp page_title(:show), do: "Detail Achievement"
 end

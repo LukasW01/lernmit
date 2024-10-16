@@ -1,6 +1,44 @@
 <h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">Achievements</h1>
 
-<h2 class="mb-4 text-gray-800 dark:text-white font-bold">Lernen</h2>
+<% recent_achievement =
+  @achievement_user
+  |> Enum.max_by(& &1.inserted_at)
+  |> Map.get(:achievement_id)
+  |> (&Enum.find(@achievements, fn achievement -> achievement.id == &1 end)).() %>
+
+<h2 class="mb-4 text-lg text-gray-800 dark:text-white font-bold">Recent activity</h2>
+<div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+  <div class="grid grid-cols-2 gap-4 items-start justify-start text-center">
+    <div class="flex flex-col my-6">
+      <%= if recent_achievement do %>
+        <p class="mx-2 text-black font-bold dark:text-white">Recently earned</p>
+        <p class="mx-2 text-black dark:text-white text-xs"><%= recent_achievement.title %></p>
+        <img
+          src={"/images/achievement/#{recent_achievement.image}"}
+          class="pt-4 h-auto max-w-full rounded-lg mx-auto"
+        />
+      <% else %>
+        <div class="my-6">
+          <p class="mx-2 text-black dark:text-white">No recent achievement found</p>
+        </div>
+      <% end %>
+    </div>
+    <div class="flex flex-col my-6">
+      <p class="mx-2 text-black font-bold dark:text-white">Current streak</p>
+      <p class="mx-2 text-black dark:text-white text-xs"><%= @streak_weekly %>-Week</p>
+      <div class="relative pt-4">
+        <span class="flame"></span>
+      </div>
+      <img
+        src="/images/streak/streak-flame.svg"
+        alt="Streak flame"
+        class="pt-2 h-auto max-w-full rounded-lg mx-auto"
+      />
+    </div>
+  </div>
+</div>
+
+<h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">Study</h2>
 <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
   <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
     <%= if Enum.empty?(@achievements) do %>
@@ -33,9 +71,9 @@
   </div>
 </div>
 
-<h2 class="mt-8 mb-4 text-gray-800 dark:text-white font-bold">Serien</h2>
+<h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">Streaks</h2>
 <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
-  <h1 class="pl-8 py-4 text-gray-800 dark:text-white">Tägliche Lernserien</h1>
+  <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white">Tägliche Lernserien</h1>
   <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
     <%= for e <- [3, 5, 7, 10, 20, 30, 45, 60, 70, 80] do %>
       <div class="relative">
@@ -64,7 +102,45 @@
             <%= e %>
           </span>
         <% end %>
-        <p class="mt-2 text-black dark:text-white"><%= e %> Days</p>
+        <p class="mt-2 text-black dark:text-white"><%= e %>-day streak</p>
+      </div>
+    <% end %>
+  </div>
+  <div class="relative py-8">
+    <div class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+      <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+    </div>
+  </div>
+  <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white">Wöchentliche Lernserien</h1>
+  <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+    <%= for e <- [3, 5, 7, 10, 20, 30, 45] do %>
+      <div class="relative">
+        <%= if @streak_weekly  >= e do %>
+          <img
+            src="/images/streak/badge_Week.svg"
+            alt="Weekly Streak"
+            class="h-auto max-w-full rounded-lg mx-auto"
+          />
+          <span
+            class="absolute font-bold text-xl"
+            style="top: 40%; transform: translate(-50%,-50%);"
+          >
+            <%= e %>
+          </span>
+        <% else %>
+          <img
+            src="/images/streak/locked_badge_Week.svg"
+            alt="Weekly Streak (locked)"
+            class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+          />
+          <span
+            class="absolute font-bold text-xl text-slate-500"
+            style="top: 40%; transform: translate(-50%,-50%);"
+          >
+            <%= e %>
+          </span>
+        <% end %>
+        <p class="mt-2 text-black dark:text-white"><%= e %>-week streak</p>
       </div>
     <% end %>
   </div>

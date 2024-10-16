@@ -84,12 +84,17 @@ defmodule Lernmit.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": [
         "tailwind.install --if-missing",
+        "sass.install --if-missing",
         "esbuild.install --if-missing"
       ],
-      "assets.build": ["tailwind lernmit", "esbuild lernmit"],
+      "assets.build": [
+        "sass lernmit",
+        "tailwind lernmit",
+        "esbuild lernmit"
+      ],
       "assets.deploy": [
         "esbuild lernmit --minify",
-        "sass default",
+        "sass lernmit",
         "tailwind lernmit --minify",
         "phx.digest"
       ]

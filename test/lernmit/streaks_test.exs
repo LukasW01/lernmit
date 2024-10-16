@@ -8,8 +8,6 @@ defmodule Lernmit.StreaksTest do
 
     import Lernmit.StreaksFixtures
 
-    @invalid_attrs %{}
-
     test "list_streaks/0 returns all streaks" do
       streak = streak_fixture()
       assert Streaks.list_streaks() == [streak]
@@ -23,14 +21,14 @@ defmodule Lernmit.StreaksTest do
     test "create_streak/1 with valid data creates a streak" do
       valid_attrs = %{}
 
-      assert {:ok, %Streak{} = streak} = Streaks.create_streak(valid_attrs)
+      assert {:ok, %Streak{} = _} = Streaks.create_streak(valid_attrs)
     end
 
     test "update_streak/2 with valid data updates the streak" do
       streak = streak_fixture()
       update_attrs = %{}
 
-      assert {:ok, %Streak{} = streak} = Streaks.update_streak(streak, update_attrs)
+      assert {:ok, %Streak{} = _} = Streaks.update_streak(streak, update_attrs)
     end
 
     test "delete_streak/1 deletes the streak" do
