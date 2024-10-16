@@ -52,7 +52,6 @@ defmodule LernmitWeb.Router do
 
     live_session :user_protected, on_mount: [LernmitWeb.Pow.AuthSocket] do
       live "/achievement", AchievementLive.Index, :index
-      live "/achievement/:id", AchievementLive.Show, :show
     end
   end
 

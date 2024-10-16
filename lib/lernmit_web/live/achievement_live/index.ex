@@ -20,11 +20,33 @@ defmodule LernmitWeb.AchievementLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :index, _) do
+  defp apply_action(socket, :index, _params) do
     socket
     |> assign(:achievements, Achievements.list_achievement())
     |> assign(:achievement_user, Users.list_achievement_users(socket.assigns.current_user.id))
-    |> assign(:streak_daily, StreakHelper.streak_daily(socket.assigns.current_user.id))
-    |> assign(:streak_weekly, StreakHelper.streak_weekly(socket.assigns.current_user.id))
+    |> assign(:streak, StreakHelper.streaks(socket.assigns.current_user.id))
+  end
+
+  @impl true
+  def handle_event("show", %{"id" => achievement_id}, socket) do
+    achievement =
+      Enum.find(socket.assigns.achievements, &(&1.id == String.to_integer(achievement_id)))
+
+    {:noreply,
+     socket
+     |> assign(:show, true)
+     |> assign(:selected_achievement, achievement)
+     |> assign(
+       :locked,
+       Enum.member?(
+         Enum.map(socket.assigns.achievement_user, & &1.achievement_id),
+         achievement.id
+       )
+     )}
+  end
+
+  @impl true
+  def handle_event("cancel", _, socket) do
+    {:noreply, assign(socket, :show, false)}
   end
 end

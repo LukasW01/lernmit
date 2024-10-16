@@ -79,7 +79,7 @@ defmodule LernmitWeb.CoreComponents do
                   class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
                   aria-label={gettext("close")}
                 >
-                  <.icon name="hero-x-mark-solid" class="h-5 w-5" />
+                  <.icon name="exit" class="h-5 w-5" />
                 </button>
               </div>
               <div id={"#{@id}-content"}>
@@ -598,6 +598,35 @@ defmodule LernmitWeb.CoreComponents do
   def icon(%{name: "hero-" <> _} = assigns) do
     ~H"""
     <span class={[@name, @class]} />
+    """
+  end
+
+  def icon(%{name: "exit" <> _} = assigns) do
+    ~H"""
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5em"
+      height="1.5em"
+      viewBox="0 0 20 20"
+      class="hidden dark:block"
+    >
+      <path
+        fill="white"
+        d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94z"
+      />
+    </svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.5em"
+      height="1.5em"
+      viewBox="0 0 20 20"
+      class="block dark:hidden"
+    >
+      <path
+        fill="black"
+        d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94z"
+      />
+    </svg>
     """
   end
 
