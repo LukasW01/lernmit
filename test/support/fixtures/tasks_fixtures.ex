@@ -12,11 +12,13 @@ defmodule Lernmit.TasksFixtures do
       attrs
       |> Enum.into(%{
         due_date: ~D[2024-10-17],
+        # https://www.urbandictionary.com/define.php?term=42
         points: 42,
-        status: "some status",
-        text: "some text",
-        title: "some title",
-        types: "some types"
+        status: "DONE",
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque.",
+        title: "Math exercise",
+        types: "EXERCISE"
       })
       |> Lernmit.Tasks.create_task()
 
