@@ -1,0 +1,46 @@
+<.header>
+  Listing Task
+  <:actions>
+    <.link patch={~p"/task/new"}>
+      <.button>New Task</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="task"
+  rows={@streams.task_collection}
+  row_click={fn {_id, task} -> JS.navigate(~p"/task/#{task}") end}
+>
+  <:col :let={{_id, task}} label="Title"><%= task.title %></:col>
+  <:col :let={{_id, task}} label="Text"><%= task.text %></:col>
+  <:col :let={{_id, task}} label="Status"><%= task.status %></:col>
+  <:col :let={{_id, task}} label="Types"><%= task.types %></:col>
+  <:col :let={{_id, task}} label="Due date"><%= task.due_date %></:col>
+  <:col :let={{_id, task}} label="Points"><%= task.points %></:col>
+  <:action :let={{_id, task}}>
+    <div class="sr-only">
+      <.link navigate={~p"/task/#{task}"}>Show</.link>
+    </div>
+    <.link patch={~p"/task/#{task}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, task}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/task")}>
+  <.live_component
+    module={LernmitWeb.TaskLive.FormComponent}
+    id={@task.id || :new}
+    title={@page_title}
+    action={@live_action}
+    task={@task}
+    patch={~p"/task"}
+  />
+</.modal>

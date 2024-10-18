@@ -10,7 +10,7 @@ defmodule LernmitWeb.AchievementLive.Index do
   def mount(_, _, socket) do
     {:ok,
      socket
-     |> assign(:page_title, "Achievement")
+     |> assign(:page_title, "Achievements")
      |> assign(:show, false)}
   end
 

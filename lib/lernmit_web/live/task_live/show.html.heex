@@ -1,0 +1,31 @@
+<.header>
+  Task <%= @task.id %>
+  <:subtitle>This is a task record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/task/#{@task}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit task</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @task.title %></:item>
+  <:item title="Text"><%= @task.text %></:item>
+  <:item title="Status"><%= @task.status %></:item>
+  <:item title="Types"><%= @task.types %></:item>
+  <:item title="Due date"><%= @task.due_date %></:item>
+  <:item title="Points"><%= @task.points %></:item>
+</.list>
+
+<.back navigate={~p"/task"}>Back to task</.back>
+
+<.modal :if={@live_action == :edit} id="task-modal" show on_cancel={JS.patch(~p"/task/#{@task}")}>
+  <.live_component
+    module={LernmitWeb.TaskLive.FormComponent}
+    id={@task.id}
+    title={@page_title}
+    action={@live_action}
+    task={@task}
+    patch={~p"/task/#{@task}"}
+  />
+</.modal>

@@ -17,18 +17,21 @@
               <nav class="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
                 <ul class="flex space-x-8 items-center">
                   <li>
-                    <.link href={~p"/"} class="hover:text-sky-500 dark:hover:text-sky-400">
+                    <.link patch={~p"/task"} class="hover:text-sky-500 dark:hover:text-sky-400">
                       Tasks
                     </.link>
                   </li>
                   <li>
-                    <.link href={~p"/"} class="hover:text-sky-500 dark:hover:text-sky-400">
+                    <.link
+                      patch={~p"/calendar"}
+                      class="hover:text-sky-500 dark:hover:text-sky-400"
+                    >
                       Calendar
                     </.link>
                   </li>
                   <li>
                     <.link
-                      href={~p"/achievement"}
+                      patch={~p"/achievement"}
                       class="hover:text-sky-500 dark:hover:text-sky-400"
                     >
                       Achievements
@@ -105,18 +108,24 @@
 
                       <ul class="space-y-6">
                         <li>
-                          <.link href={~p"/"} class="hover:text-sky-500 dark:hover:text-sky-400">
+                          <.link
+                            patch={~p"/task"}
+                            class="hover:text-sky-500 dark:hover:text-sky-400"
+                          >
                             Tasks
                           </.link>
                         </li>
                         <li>
-                          <.link href={~p"/"} class="hover:text-sky-500 dark:hover:text-sky-400">
+                          <.link
+                            patch={~p"/calendar"}
+                            class="hover:text-sky-500 dark:hover:text-sky-400"
+                          >
                             Calendar
                           </.link>
                         </li>
                         <li>
                           <.link
-                            href={~p"/achievement"}
+                            patch={~p"/achievement"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
                             Achievements
