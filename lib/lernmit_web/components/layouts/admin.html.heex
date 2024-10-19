@@ -1,0 +1,9 @@
+<Backpex.HTML.Layout.app_shell fluid={@fluid?}>
+  <:sidebar>
+    <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/achievement"}>
+      <.icon name="hero-book-open" class="h-5 w-5" /> Achievement
+    </Backpex.HTML.Layout.sidebar_item>
+  </:sidebar>
+  <Backpex.HTML.Layout.flash_messages flash={@flash} />
+  <%= @inner_content %>
+</Backpex.HTML.Layout.app_shell>

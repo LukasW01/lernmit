@@ -36,6 +36,7 @@ defmodule Lernmit.MixProject do
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
       {:ecto_sqlite3, ">= 0.0.0"},
+      {:postgrex, "~> 0.15"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
@@ -66,7 +67,9 @@ defmodule Lernmit.MixProject do
       {:torch, "~> 5.3"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:junit_formatter, "~> 3.4", only: [:test]}
+      {:junit_formatter, "~> 3.4", only: [:test]},
+      {:backpex, "~> 0.7.1"},
+      {:phoenix_pubsub, "~> 2.1"}
     ]
   end
 

@@ -3,7 +3,7 @@ defmodule Lernmit.Repo.Migrations.CreateAchievementUsers do
 
   def change do
     create table(:achievement_users) do
-      add :achievement_id, references(:achievements, on_delete: :nothing)
+      add :achievement_id, references(:achievement, on_delete: :nothing)
       add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)

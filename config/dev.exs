@@ -2,10 +2,11 @@ import Config
 
 # Configure your database
 config :lernmit, Lernmit.Repo,
-  database: Path.expand("../lernmit_dev.db", __DIR__),
-  pool_size: 5,
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true
+  database: System.get_env("DATABASE_NAME"),
+  username: System.get_env("DATABASE_USER"),
+  password: System.get_env("DATABASE_PASSWORD"),
+  hostname: System.get_env("DATABASE_HOST"),
+  port: System.get_env("DATABASE_PORT", "5432")
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

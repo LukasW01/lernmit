@@ -33,6 +33,7 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
 
+# Configure JUnit formatter
 config :junit_formatter,
   report_file: "unit.xml",
   report_dir: "test/",

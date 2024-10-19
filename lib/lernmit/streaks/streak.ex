@@ -5,7 +5,7 @@ defmodule Lernmit.Streaks.Streak do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "streaks" do
+  schema "streak" do
     field :user_id, :id
 
     timestamps(type: :utc_datetime)

@@ -19,4 +19,10 @@ defmodule Lernmit.Achievements.Achievement do
     |> cast(attrs, [:image, :title, :desc])
     |> validate_required([:image, :title, :desc])
   end
+
+  def admin_changeset(achievement, attrs, _metadata \\ []) do
+    achievement
+    |> cast(attrs, [:image, :title, :desc])
+    |> validate_required([:image, :title, :desc])
+  end
 end

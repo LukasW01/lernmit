@@ -21,16 +21,12 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
-  database_path =
-    System.get_env("DATABASE_PATH") ||
-      raise """
-      environment variable DATABASE_PATH is missing.
-      For example: /etc/lernmit/lernmit.db
-      """
-
   config :lernmit, Lernmit.Repo,
-    database: database_path,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "5")
+    database: System.get_env("DATABASE_NAME"),
+    username: System.get_env("DATABASE_USER"),
+    password: System.get_env("DATABASE_PASSWORD"),
+    hostname: System.get_env("DATABASE_HOST"),
+    port: System.get_env("DATABASE_PORT", "5432")
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -44,7 +40,7 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
+  host = System.get_env("HOSTNAME") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :lernmit, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")

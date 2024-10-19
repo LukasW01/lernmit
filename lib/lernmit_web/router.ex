@@ -3,6 +3,8 @@ defmodule LernmitWeb.Router do
   use Pow.Phoenix.Router
   use PowAssent.Phoenix.Router
 
+  import Backpex.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -60,6 +62,16 @@ defmodule LernmitWeb.Router do
       live "/task/:id/show/edit", TaskLive.Show, :edit
 
       live "/calendar", CalendarLive.Index, :index
+    end
+  end
+
+  scope "/admin", LernmitWeb do
+    pipe_through [:browser, :protected]
+
+    backpex_routes()
+
+    live_session :default, on_mount: Backpex.InitAssigns do
+      live_resources "/achievement", Live.AchievementLive
     end
   end
 

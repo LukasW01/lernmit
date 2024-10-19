@@ -51,7 +51,7 @@ defmodule Lernmit.Achievements do
   """
   def create_achievement(attrs \\ %{}) do
     %Achievement{}
-    |> Achievement.changeset(attrs)
+    |> Achievement.admin_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -69,7 +69,7 @@ defmodule Lernmit.Achievements do
   """
   def update_achievement(%Achievement{} = achievement, attrs) do
     achievement
-    |> Achievement.changeset(attrs)
+    |> Achievement.admin_changeset(attrs)
     |> Repo.update()
   end
 
@@ -99,6 +99,6 @@ defmodule Lernmit.Achievements do
 
   """
   def change_achievement(%Achievement{} = achievement, attrs \\ %{}) do
-    Achievement.changeset(achievement, attrs)
+    Achievement.admin_changeset(achievement, attrs)
   end
 end

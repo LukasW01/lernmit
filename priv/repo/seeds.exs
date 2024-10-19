@@ -55,6 +55,6 @@ badges = [
 
 Enum.each(badges, fn badge ->
   %Achievement{}
-  |> Achievement.changeset(badge)
+  |> Achievement.admin_changeset(badge)
   |> Repo.insert!()
 end)
