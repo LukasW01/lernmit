@@ -22,6 +22,47 @@ defmodule Lernmit.Tasks do
   end
 
   @doc """
+  Returns the list of tasks for a given user.
+
+  ## Examples
+
+      iex> list_task(123)
+      [%Task{}, ...]
+
+      iex> list_task(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def list_task(user_id) do
+    Repo.all(from t in Task, where: t.user_id == ^user_id)
+  end
+
+  @doc """
+  Returns the list of tasks for a given user.
+
+  ## Examples
+
+      iex> list_task_range(123, ~D[2024-10-17], ~D[2024-10-18])
+      [%Task{}, ...]
+
+      iex> list_task_range(456, ~D[2024-10-17], ~D[2024-10-18])
+      ** (Ecto.NoResultsError)
+
+  """
+  def list_task_range(user_id, start_date, end_date) do
+    {:ok, start_date_naive} = NaiveDateTime.from_iso8601("#{start_date} 00:00:00")
+    {:ok, end_date_naive} = NaiveDateTime.from_iso8601("#{end_date} 23:59:59")
+
+    Repo.all(
+      from t in Task,
+        where:
+          t.user_id == ^user_id and
+            t.due_date >= ^start_date_naive and
+            t.due_date <= ^end_date_naive
+    )
+  end
+
+  @doc """
   Gets a single task.
 
   Raises `Ecto.NoResultsError` if the Task does not exist.

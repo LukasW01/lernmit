@@ -3,6 +3,7 @@ defmodule LernmitWeb.AchievementLive.Index do
 
   alias Lernmit.Achievements
   alias Lernmit.Achievements.Users
+
   alias Lernmit.StreakHelper
 
   @impl true

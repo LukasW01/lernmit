@@ -56,7 +56,6 @@
               class="-mr-1 h-5 w-5 text-gray-400 dark:text-gray-300"
               viewBox="0 0 20 20"
               fill="currentColor"
-              aria-hidden="true"
             >
               <path
                 fill-rule="evenodd"
@@ -68,12 +67,10 @@
           <div
             x-show="open_big"
             x-transition
+            x-cloak
             @click.outside="open_big = false"
             class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none"
             role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-            tabindex="-1"
           >
             <div class="py-1" role="none">
               <.link
@@ -110,7 +107,7 @@
           @click="open_small = !open_small"
           type="button"
           class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-200"
-          id="menu-0-button"
+          id="menu-button"
         >
           <span class="sr-only">Open menu</span>
           <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -120,12 +117,10 @@
         <div
           x-show="open_small"
           x-transition
+          x-cloak
           @click.outside="open_small = false"
           class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none"
           role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="menu-0-button"
-          tabindex="-1"
         >
           <div class="py-1" role="none">
             <.link
