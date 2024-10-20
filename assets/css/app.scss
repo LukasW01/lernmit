@@ -31,3 +31,17 @@
   height: 1.25rem;
   margin-top: .25rem;
 }
+
+@media (prefers-color-scheme: dark) {
+  .tile {
+    --tw-bg-opacity: 1;
+    background-color: #141b2d;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .tile {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255, 255, 255);
+  }
+}

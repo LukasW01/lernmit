@@ -23,7 +23,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
         <.input field={@form[:text]} type="text" label="Text" />
         <.input field={@form[:status]} type="text" label="Status" />
         <.input field={@form[:types]} type="text" label="Types" />
-        <.input field={@form[:due_date]} type="date" label="Due date" />
+        <.input field={@form[:due_date]} type="datetime-local" label="Due date" />
         <.input field={@form[:points]} type="number" label="Points" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Task</.button>

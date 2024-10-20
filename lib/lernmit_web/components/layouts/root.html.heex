@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,12 +9,17 @@
     <% else %>
       <.live_title>Lern Mit</.live_title>
     <% end %>
-    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    <link phx-track-static rel="stylesheet" href={"/assets/app.css?#{System.os_time(:second)}"} />
+    <script
+      defer
+      phx-track-static
+      type="text/javascript"
+      src={"/assets/app.js?#{System.os_time(:second)}"}
+    >
     </script>
     <link rel="icon" type="image/x-icon" href={~p"/images/logo.png"} />
   </head>
-  <body class="flex flex-col h-full bg-gray-100 dark:bg-gray-900">
+  <body>
     <._nav conn={@conn} />
     <%= @inner_content %>
   </body>

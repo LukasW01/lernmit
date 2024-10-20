@@ -61,7 +61,8 @@ defmodule LernmitWeb.Router do
       live "/task/:id", TaskLive.Show, :show
       live "/task/:id/show/edit", TaskLive.Show, :edit
 
-      live "/calendar", CalendarLive.Index, :index
+      live "/calendar/month", CalendarLive.Month, :index
+      live "/calendar/week", CalendarLive.Week, :index
     end
   end
 

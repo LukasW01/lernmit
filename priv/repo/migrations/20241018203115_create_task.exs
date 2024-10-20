@@ -7,7 +7,7 @@ defmodule Lernmit.Repo.Migrations.CreateTask do
       add :text, :string
       add :status, :string
       add :types, :string
-      add :due_date, :date
+      add :due_date, :naive_datetime
       add :points, :integer
       add :user_id, references(:users, on_delete: :nothing)
 

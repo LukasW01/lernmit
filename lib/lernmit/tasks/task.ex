@@ -10,7 +10,7 @@ defmodule Lernmit.Tasks.Task do
     field :title, :string
     field :text, :string
     field :types, :string
-    field :due_date, :date
+    field :due_date, :naive_datetime
     field :points, :integer
     field :user_id, :id
 

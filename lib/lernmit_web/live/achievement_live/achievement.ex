@@ -24,11 +24,13 @@ defmodule LernmitWeb.Live.AchievementLive do
       },
       title: %{
         module: Backpex.Fields.Text,
-        label: "Title"
+        label: "Title",
+        searchable: true
       },
       desc: %{
         module: Backpex.Fields.Text,
-        label: "Description"
+        label: "Description",
+        searchable: true
       }
     ]
   end
