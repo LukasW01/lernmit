@@ -26,7 +26,7 @@ defmodule LernmitWeb.LernmitComponents do
               <%= Calendar.strftime(task.due_date, "%B %d") %>
             </time>
             <.link patch={~p"/task/#{task.id}"}>
-              <p class="mt-2 flex-auto font-semibold text-gray-900 dark:text-white sm:mt-0">
+              <p class="mt-2 flex-auto font-semibold text-gray-900 dark:text-white sm:mt-0 hover:text-sky-500 dark:hover:text-sky-400">
                 <%= task.title %>
               </p>
             </.link>

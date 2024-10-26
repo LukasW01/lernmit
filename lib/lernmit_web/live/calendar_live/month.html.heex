@@ -25,7 +25,7 @@
         </button>
         <button
           phx-click="today"
-          class="hidden pt-1.5 border-y border-gray-300 dark:border-gray-700 px-3.5 text-sm font-semibold text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:relative md:block"
+          class="hidden md:flex items-center justify-center pt-1.5 pb-1.5 border-y border-gray-300 dark:border-gray-700 px-3.5 text-sm font-semibold text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:relative"
         >
           Today
         </button>
@@ -177,9 +177,18 @@
         <%= Enum.chunk_every(month_days(@month_in_view), 7) |> Enum.map(fn days -> %>
           <%= for day <- days do %>
             <div class={"#{day_class(day, @month_in_view)} px-3 py-2 h-28"}>
-              <time datetime={Calendar.strftime(day, "%Y-%m-%d")}>
-                <%= Calendar.strftime(day, "%d") %>
-              </time>
+              <%= if day == Date.utc_today() do %>
+                <time
+                  datetime={Calendar.strftime(day, "%Y-%m-%d")}
+                  class="items-center justify-center font-semibold inline-flex h-8 w-8 rounded-full bg-indigo-600 font-semibold text-white"
+                >
+                  <%= Calendar.strftime(day, "%d") %>
+                </time>
+              <% else %>
+                <time datetime={Calendar.strftime(day, "%Y-%m-%d")}>
+                  <%= Calendar.strftime(day, "%d") %>
+                </time>
+              <% end %>
               <ol class="mt-2">
                 <%= for task <- @calendar do %>
                   <%= if NaiveDateTime.to_date(task.due_date) == day do %>

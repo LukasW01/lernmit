@@ -25,6 +25,7 @@
           <img
             src={"/images/achievement/#{recent_achievement.image}"}
             class="pt-4 h-auto max-w-full rounded-lg mx-auto"
+            loading="lazy"
           />
         </div>
       </button>
@@ -34,6 +35,7 @@
         <img
           src="/images/achievement/locked_badge_Overachiever.svg"
           class="pt-4 h-auto max-w-full rounded-lg mx-auto opacity-50"
+          loading="lazy"
         />
       </div>
     <% end %>
@@ -68,7 +70,11 @@
         >
           <div class="my-6">
             <%= if Enum.member?(Enum.map(@achievement_user, & &1.achievement_id), achievement.id) do %>
-              <img src={"/images/achievement/#{achievement.image}"} class="mx-auto" />
+              <img
+                src={"/images/achievement/#{achievement.image}"}
+                class="mx-auto"
+                loading="lazy"
+              />
               <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
               <p class="mb-2 text-sm text-gray-500">
                 Earned <%= Calendar.strftime(achievement.inserted_at, "%d/%m/%Y") %>
@@ -77,6 +83,7 @@
               <img
                 src={"/images/achievement/locked_#{achievement.image}"}
                 class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+                loading="lazy"
               />
               <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
               <p class="mb-2 text-sm text-gray-500">Locked</p>
@@ -99,9 +106,10 @@
             src="/images/streak/badge_Day.svg"
             alt="Daily Streak"
             class="h-auto max-w-full rounded-lg mx-auto"
+            loading="lazy"
           />
           <span
-            class="absolute font-bold text-xl"
+            class="absolute font-bold text-xl text-gray-950"
             style="top: 40%; transform: translate(-50%,-50%);"
           >
             <%= e %>
@@ -111,6 +119,7 @@
             src="/images/streak/locked_badge_Day.svg"
             alt="Daily Streak (locked)"
             class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+            loading="lazy"
           />
           <span
             class="absolute font-bold text-xl text-slate-500"
@@ -137,9 +146,10 @@
             src="/images/streak/badge_Week.svg"
             alt="Weekly Streak"
             class="h-auto max-w-full rounded-lg mx-auto"
+            loading="lazy"
           />
           <span
-            class="absolute font-bold text-xl"
+            class="absolute font-bold text-xl text-gray-950"
             style="top: 40%; transform: translate(-50%,-50%);"
           >
             <%= e %>
@@ -149,6 +159,7 @@
             src="/images/streak/locked_badge_Week.svg"
             alt="Weekly Streak (locked)"
             class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+            loading="lazy"
           />
           <span
             class="absolute font-bold text-xl text-slate-500"

@@ -11,8 +11,8 @@ defmodule Lernmit.CalendarHelper do
     calendar_end_time = 20 * 60
     fractions_per_minute = 350.0 / (calendar_end_time - calendar_start_time)
 
-    event_start_minutes = due_date.hour * 60 + due_date.minute - 80
-    event_end_minutes = due_date.hour * 60 + due_date.minute - 20
+    event_start_minutes = due_date.hour * 60 + due_date.minute - 75
+    event_end_minutes = due_date.hour * 60 + due_date.minute - 15
 
     grid_row_start = round((event_start_minutes - calendar_start_time) * fractions_per_minute) + 1
     grid_row_span = round((event_end_minutes - event_start_minutes) * fractions_per_minute)
