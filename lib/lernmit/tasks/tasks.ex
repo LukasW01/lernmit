@@ -5,8 +5,9 @@ defmodule Lernmit.Tasks do
 
   import Ecto.Query, warn: false
   alias Lernmit.Repo
-
+  alias Lernmit.Users.User
   alias Lernmit.Tasks.Task
+  alias Lernmit.Auth.Policy
 
   @doc """
   Returns the list of task.
@@ -17,24 +18,10 @@ defmodule Lernmit.Tasks do
       [%Task{}, ...]
 
   """
-  def list_task do
-    Repo.all(Task)
-  end
-
-  @doc """
-  Returns the list of tasks for a given user.
-
-  ## Examples
-
-      iex> list_task(123)
-      [%Task{}, ...]
-
-      iex> list_task(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def list_task(user_id) do
-    Repo.all(from t in Task, where: t.user_id == ^user_id)
+  def list_task(%User{} = current_user) do
+    with :ok <- Policy.authorize(:task_read, current_user) do
+      {:ok, Repo.all(from t in Task, where: t.user_id == ^current_user.id)}
+    end
   end
 
   @doc """
@@ -49,17 +36,18 @@ defmodule Lernmit.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def list_task_range(user_id, start_date, end_date) do
-    {:ok, start_date_naive} = NaiveDateTime.from_iso8601("#{start_date} 00:00:00")
-    {:ok, end_date_naive} = NaiveDateTime.from_iso8601("#{end_date} 23:59:59")
-
-    Repo.all(
-      from t in Task,
-        where:
-          t.user_id == ^user_id and
-            t.due_date >= ^start_date_naive and
-            t.due_date <= ^end_date_naive
-    )
+  def list_task_range(%User{} = current_user, start_date, end_date) do
+    with :ok <- Policy.authorize(:task_read, current_user),
+         {:ok, start_date_n} <- NaiveDateTime.from_iso8601("#{start_date} 00:00:00"),
+         {:ok, end_date_n} <- NaiveDateTime.from_iso8601("#{end_date} 23:59:59") do
+      Repo.all(
+        from t in Task,
+          where:
+            t.user_id == ^current_user.id and
+              t.due_date >= ^start_date_n and
+              t.due_date <= ^end_date_n
+      )
+    end
   end
 
   @doc """
@@ -76,7 +64,14 @@ defmodule Lernmit.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(%User{} = current_user, id) do
+    with :ok <- Policy.authorize(:task_read, current_user) do
+      case Repo.get_by(Task, id: id, user_id: current_user.id) do
+        nil -> {:error, :not_found}
+        task -> {:ok, task}
+      end
+    end
+  end
 
   @doc """
   Creates a task.
@@ -90,10 +85,12 @@ defmodule Lernmit.Tasks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_task(attrs \\ %{}) do
-    %Task{}
-    |> Task.changeset(attrs)
-    |> Repo.insert()
+  def create_task(current_user, attrs \\ %{}) do
+    with :ok <- Policy.authorize(:task_create, current_user) do
+      %Task{}
+      |> Task.changeset(attrs)
+      |> Repo.insert()
+    end
   end
 
   @doc """
@@ -108,10 +105,12 @@ defmodule Lernmit.Tasks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_task(%Task{} = task, attrs) do
-    task
-    |> Task.changeset(attrs)
-    |> Repo.update()
+  def update_task(%User{} = current_user, %Task{} = task, attrs) do
+    with :ok <- Policy.authorize(:task_update, current_user) do
+      task
+      |> Task.changeset(attrs)
+      |> Repo.update()
+    end
   end
 
   @doc """
@@ -126,8 +125,10 @@ defmodule Lernmit.Tasks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_task(%Task{} = task) do
-    Repo.delete(task)
+  def delete_task(%User{} = current_user, %Task{} = task) do
+    with :ok <- Policy.authorize(:task_delete, current_user) do
+      Repo.delete(task)
+    end
   end
 
   @doc """

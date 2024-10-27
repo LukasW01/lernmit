@@ -19,7 +19,7 @@ defmodule LernmitWeb.CalendarLive.Month do
     |> assign(
       :calendar,
       Tasks.list_task_range(
-        socket.assigns.current_user.id,
+        socket.assigns.current_user,
         Date.beginning_of_month(Date.utc_today()),
         Date.end_of_month(Date.utc_today())
       )
@@ -54,7 +54,7 @@ defmodule LernmitWeb.CalendarLive.Month do
      |> assign(
        :calendar,
        Tasks.list_task_range(
-         socket.assigns.current_user.id,
+         socket.assigns.current_user,
          Date.beginning_of_month(Date.utc_today()),
          Date.end_of_month(Date.utc_today())
        )
@@ -82,7 +82,7 @@ defmodule LernmitWeb.CalendarLive.Month do
     |> assign(
       :calendar,
       Tasks.list_task_range(
-        socket.assigns.current_user.id,
+        socket.assigns.current_user,
         Date.beginning_of_month(Date.add(boundary, direction)),
         Date.end_of_month(Date.add(boundary, direction))
       )

@@ -28,21 +28,7 @@
         Signed in as
       </p>
       <p class="truncate font-medium text-gray-900 dark:text-gray-100" role="none">
-        <!-- 
-          Get the current user assigned to the conn.
-
-          The config is fetched from the conn
-          @docs: https://github.com/pow-auth/pow/blob/main/lib/pow/plug.ex
-        -->
-        <%= "#{Pow.Plug.current_user(@conn).email}"
-        # demo.user@example.com -> demo
-        |> String.split("@")
-        |> List.first()
-        # demo.user -> demo 
-        |> String.split([".", "_", "-", " "])
-        |> List.first()
-        # Demo
-        |> String.capitalize() %>
+        <%= "#{Pow.Plug.current_user(@conn).name}" %>
       </p>
     </div>
 

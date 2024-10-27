@@ -54,7 +54,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
   end
 
   defp save_task(socket, :edit, task_params) do
-    case Tasks.update_task(socket.assigns.task, task_params) do
+    case Tasks.update_task(socket.assigns.current_user, socket.assigns.task, task_params) do
       {:ok, task} ->
         notify_parent({:saved, task})
 
@@ -69,7 +69,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
   end
 
   defp save_task(socket, :new, task_params) do
-    case Tasks.create_task(task_params) do
+    case Tasks.create_task(socket.assigns.current_user, task_params) do
       {:ok, task} ->
         notify_parent({:saved, task})
 

@@ -2,6 +2,7 @@ defmodule LernmitWeb.TaskLive.Show do
   use LernmitWeb, :live_view
 
   alias Lernmit.Tasks
+  alias Lernmit.Auth.Policy
 
   @impl true
   def mount(_params, _session, socket) do
@@ -10,10 +11,19 @@ defmodule LernmitWeb.TaskLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:task, Tasks.get_task!(id))}
+    case Tasks.get_task!(socket.assigns.current_user, id) do
+      {:ok, task} ->
+        {:noreply,
+         socket
+         |> assign(:page_title, page_title(socket.assigns.live_action))
+         |> assign(:task, task)}
+
+      {:error, :not_found} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Task not found")
+         |> push_navigate(to: "/task")}
+    end
   end
 
   defp page_title(:show), do: "Show Task"

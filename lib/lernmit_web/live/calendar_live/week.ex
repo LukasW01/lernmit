@@ -6,6 +6,7 @@ defmodule LernmitWeb.CalendarLive.Week do
 
   import Lernmit.Util.Path
   import LernmitWeb.LernmitComponents
+  import LernmitWeb.Gettext
 
   @impl true
   def mount(_params, _session, socket) do
@@ -17,10 +18,11 @@ defmodule LernmitWeb.CalendarLive.Week do
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:week_in_view, Date.utc_today())
+    |> assign(:current_user, socket.assigns.current_user)
     |> assign(
       :calendar,
       Tasks.list_task_range(
-        socket.assigns.current_user.id,
+        socket.assigns.current_user,
         Date.beginning_of_week(Date.utc_today()),
         Date.end_of_week(Date.utc_today())
       )
@@ -55,7 +57,7 @@ defmodule LernmitWeb.CalendarLive.Week do
      |> assign(
        :calendar,
        Tasks.list_task_range(
-         socket.assigns.current_user.id,
+         socket.assigns.current_user,
          Date.beginning_of_week(Date.utc_today()),
          Date.end_of_week(Date.utc_today())
        )
@@ -83,7 +85,7 @@ defmodule LernmitWeb.CalendarLive.Week do
     |> assign(
       :calendar,
       Tasks.list_task_range(
-        socket.assigns.current_user.id,
+        socket.assigns.current_user,
         Date.beginning_of_week(Date.add(boundary, direction)),
         Date.end_of_week(Date.add(boundary, direction))
       )

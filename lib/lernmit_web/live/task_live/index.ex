@@ -3,10 +3,17 @@ defmodule LernmitWeb.TaskLive.Index do
 
   alias Lernmit.Tasks
   alias Lernmit.Tasks.Task
+  alias Lernmit.Auth.Policy
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :task_collection, Tasks.list_task())}
+    case Tasks.list_task(socket.assigns.current_user) do
+      {:ok, tasks} ->
+        {:ok,
+         socket
+         |> stream(:task_collection, tasks)
+         |> assign(:current_user, socket.assigns.current_user)}
+    end
   end
 
   @impl true
@@ -15,9 +22,17 @@ defmodule LernmitWeb.TaskLive.Index do
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Task")
-    |> assign(:task, Tasks.get_task!(id))
+    case Tasks.get_task!(socket.assigns.current_user, id) do
+      {:ok, task} ->
+        socket
+        |> assign(:page_title, "Edit Task")
+        |> assign(:task, task)
+        |> assign(:current_user, socket.assigns.current_user)
+      {:error, :not_found} ->
+        socket
+        |> put_flash(:error, "Task not found")
+        |> push_navigate(to: "/task")
+    end
   end
 
   defp apply_action(socket, :new, _params) do
@@ -39,9 +54,17 @@ defmodule LernmitWeb.TaskLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    task = Tasks.get_task!(id)
-    {:ok, _} = Tasks.delete_task(task)
+    case Tasks.get_task!(socket.assigns.current_user, id) do
+      {:ok, task} ->
+        Tasks.delete_task(socket.assigns.current_user, task)
 
-    {:noreply, stream_delete(socket, :task_collection, task)}
+        {:noreply, stream_delete(socket, :task_collection, task)}
+
+      {:error, :not_found} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Task not found")
+         |> push_navigate(to: "/task")}
+    end
   end
 end

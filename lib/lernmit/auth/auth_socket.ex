@@ -1,5 +1,5 @@
 # Remove when upstream Pow can handle LiveView/socket auth
-defmodule LernmitWeb.Pow.AuthSocket do
+defmodule Lernmit.Pow.AuthSocket do
   @moduledoc """
   Assigns @current_user to the socket for LiveView
   @link: https://github.com/pow-auth/pow/issues/706

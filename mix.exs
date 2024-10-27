@@ -69,7 +69,8 @@ defmodule Lernmit.MixProject do
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:junit_formatter, "~> 3.4", only: [:test]},
       {:backpex, "~> 0.7.1"},
-      {:phoenix_pubsub, "~> 2.1"}
+      {:phoenix_pubsub, "~> 2.1"},
+      {:let_me, "~> 1.2.4"}
     ]
   end
 

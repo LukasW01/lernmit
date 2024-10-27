@@ -3,7 +3,11 @@
   <:subtitle>This is a task record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/task/#{@task}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit task</.button>
+      <%= if Policy.authorize?(:task_update, @current_user) do %>
+        <.button>Edit task</.button>
+      <% else %>
+        <.button disabled>Edit task</.button>
+      <% end %>
     </.link>
   </:actions>
 </.header>

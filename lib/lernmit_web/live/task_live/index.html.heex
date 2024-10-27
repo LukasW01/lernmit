@@ -1,9 +1,11 @@
 <.header>
   Listing Task
   <:actions>
-    <.link patch={~p"/task/new"}>
-      <.button>New Task</.button>
-    </.link>
+    <%= if Policy.authorize(:task_create, @current_user) == :ok do %>
+      <.link patch={~p"/task/new"}>
+        <.button>New Task</.button>
+      </.link>
+    <% end %>
   </:actions>
 </.header>
 
@@ -22,15 +24,19 @@
     <div class="sr-only">
       <.link navigate={~p"/task/#{task}"}>Show</.link>
     </div>
-    <.link patch={~p"/task/#{task}/edit"}>Edit</.link>
+    <%= if Policy.authorize(:task_update, @current_user) == :ok do %>
+      <.link patch={~p"/task/#{task}/edit"}>Edit</.link>
+    <% end %>
   </:action>
   <:action :let={{id, task}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
+    <%= if Policy.authorize(:task_delete, @current_user) == :ok do %>
+      <.link
+        phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    <% end %>
   </:action>
 </.table>
 
