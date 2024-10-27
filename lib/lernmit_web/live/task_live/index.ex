@@ -28,6 +28,7 @@ defmodule LernmitWeb.TaskLive.Index do
         |> assign(:page_title, "Edit Task")
         |> assign(:task, task)
         |> assign(:current_user, socket.assigns.current_user)
+
       {:error, :not_found} ->
         socket
         |> put_flash(:error, "Task not found")

@@ -3,10 +3,11 @@ defmodule LernmitWeb.CalendarLive.Week do
 
   alias Lernmit.Tasks
   alias Lernmit.CalendarHelper
+  alias Lernmit.Auth.Policy
 
+  import LernmitWeb.Gettext
   import Lernmit.Util.Path
   import LernmitWeb.LernmitComponents
-  import LernmitWeb.Gettext
 
   @impl true
   def mount(_params, _session, socket) do
@@ -19,6 +20,7 @@ defmodule LernmitWeb.CalendarLive.Week do
     socket
     |> assign(:week_in_view, Date.utc_today())
     |> assign(:current_user, socket.assigns.current_user)
+    |> assign(:locale, socket.assigns.current_user.locale)
     |> assign(
       :calendar,
       Tasks.list_task_range(

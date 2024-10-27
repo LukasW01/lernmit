@@ -52,18 +52,16 @@ defmodule LernmitWeb.Router do
   scope "/", LernmitWeb do
     pipe_through [:browser, :protected]
 
-    live_session :user_protected, on_mount: [Lernmit.Pow.AuthSocket, Lernmit.Locale] do
-      live "/achievement", AchievementLive.Index, :index
+    live "/achievement", AchievementLive.Index, :index
 
-      live "/task", TaskLive.Index, :index
-      live "/task/new", TaskLive.Index, :new
-      live "/task/:id/edit", TaskLive.Index, :edit
-      live "/task/:id", TaskLive.Show, :show
-      live "/task/:id/show/edit", TaskLive.Show, :edit
+    live "/task", TaskLive.Index, :index
+    live "/task/new", TaskLive.Index, :new
+    live "/task/:id/edit", TaskLive.Index, :edit
+    live "/task/:id", TaskLive.Show, :show
+    live "/task/:id/show/edit", TaskLive.Show, :edit
 
-      live "/calendar/month", CalendarLive.Month, :index
-      live "/calendar/week", CalendarLive.Week, :index
-    end
+    live "/calendar/month", CalendarLive.Month, :index
+    live "/calendar/week", CalendarLive.Week, :index
   end
 
   scope "/admin", LernmitWeb do

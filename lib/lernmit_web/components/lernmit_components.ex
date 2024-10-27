@@ -13,11 +13,15 @@ defmodule LernmitWeb.LernmitComponents do
   def events(assigns) do
     ~H"""
     <section class="mt-12">
-      <h2 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">Upcoming events</h2>
+      <h2 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+        <%= gettext("upcoming_exams") %>
+      </h2>
       <ol class="mt-2 divide-y divide-gray-200 dark:divide-gray-700 text-sm leading-6 text-gray-500 dark:text-gray-400">
         <%= if Enum.empty?(@calendar) do %>
           <li class="py-4 sm:flex">
-            <p class="mt-2 flex-auto sm:mt-0">Nothing on your schedule.</p>
+            <p class="mt-2 flex-auto sm:mt-0">
+              <%= gettext("empty_schedule") %>
+            </p>
           </li>
         <% end %>
         <%= for task <- @calendar do %>

@@ -54,6 +54,8 @@ defmodule LernmitWeb do
       use Phoenix.LiveView,
         layout: {LernmitWeb.Layouts, :app}
 
+      on_mount Lernmit.OnMount
+
       unquote(html_helpers())
     end
   end

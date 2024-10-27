@@ -1,7 +1,10 @@
 # Remove when upstream Pow can handle LiveView/socket auth
-defmodule Lernmit.Pow.AuthSocket do
+defmodule Lernmit.OnMount do
   @moduledoc """
-  Assigns @current_user to the socket for LiveView
+  on_mount/4 actions when a LiveView is mounted:
+  - Assigns @current_user to the socket for LiveView
+  - Sets the locale (de, en)
+   
   @link: https://github.com/pow-auth/pow/issues/706
   """
   use Phoenix.LiveView
@@ -11,12 +14,14 @@ defmodule Lernmit.Pow.AuthSocket do
     socket = mount_current_user(socket, session)
 
     if socket.assigns.current_user do
+      mound_locale(socket, socket.assigns.current_user.locale)
+
       {:cont, socket}
     else
       socket =
         socket
         |> Phoenix.LiveView.put_flash(:error, "Could not assign current user")
-        |> Phoenix.LiveView.redirect(to: ~p"/")
+        |> Phoenix.LiveView.redirect(to: ~p"/session/new")
 
       {:halt, socket}
     end
@@ -39,5 +44,9 @@ defmodule Lernmit.Pow.AuthSocket do
 
       user
     end)
+  end
+
+  defp mound_locale(socket, locale) do
+    Gettext.put_locale(LernmitWeb.Gettext, locale || "de")
   end
 end

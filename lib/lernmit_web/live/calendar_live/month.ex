@@ -2,6 +2,7 @@ defmodule LernmitWeb.CalendarLive.Month do
   use LernmitWeb, :live_view
 
   alias Lernmit.Tasks
+  alias Lernmit.Auth.Policy
 
   import Lernmit.Util.Path
   import LernmitWeb.LernmitComponents

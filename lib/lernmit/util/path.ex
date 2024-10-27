@@ -1,6 +1,6 @@
 defmodule Lernmit.Util.Path do
   @moduledoc """
-  Helper functions for working with paths.
+  Util functions for URL handling
   """
 
   @doc """

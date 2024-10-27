@@ -4,7 +4,7 @@
     class="flex items-center text-sm font-medium rounded-ful md:me-0"
     type="button"
   >
-    <span class="sr-only">Open user menu</span>
+    <span class="sr-only"><%= gettext("open_menu") %></span>
     <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-slate-600">
       <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
         <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -15,17 +15,12 @@
     x-cloak
     x-show="account"
     @click.outside="account = false"
-    x-transition:enter="transition ease-out duration-100"
-    x-transition:enter-start="opacity-0 scale-95"
-    x-transition:enter-end="opacity-100 scale-100"
-    x-transition:leave="transition ease-in duration-75"
-    x-transition:leave-start="opacity-100 scale-100"
-    x-transition:leave-end="opacity-0 scale-95"
+    x-transition
     class="absolute right-0 z-10 mt-2 w-60 origin-top-right divide-y divide-gray-100 dark:divide-gray-400 rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
   >
     <div class="px-4 py-3" role="none">
       <p class="text-sm text-gray-500 dark:text-gray-400" role="none">
-        Signed in as
+        <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("signed_in") end)  %>
       </p>
       <p class="truncate font-medium text-gray-900 dark:text-gray-100" role="none">
         <%= "#{Pow.Plug.current_user(@conn).name}" %>
@@ -39,7 +34,7 @@
         target="_blank"
       >
         <span>
-          Account
+          <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("account") end)  %>
         </span>
         <span>
           <svg
@@ -66,7 +61,7 @@
         method="delete"
         class="block w-full text-gray-700 dark:text-gray-300 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100"
       >
-        Log Out
+      <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("log_out") end)  %>
       </.link>
     </div>
   </div>

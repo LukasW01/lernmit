@@ -46,13 +46,187 @@ msgstr ""
 msgid "We can't find the internet"
 msgstr ""
 
-#: lib/lernmit_web/live/calendar_live/week.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "calendar"
-msgstr ""
-
 #: lib/lernmit_web/components/core_components.ex:80
 #: lib/lernmit_web/components/core_components.ex:134
 #, elixir-autogen, elixir-format
 msgid "close"
 msgstr ""
+
+#: lib/lernmit_web/components/layouts/_nav.html.heex:29
+#: lib/lernmit_web/components/layouts/_nav.html.heex:123
+#: lib/lernmit_web/live/calendar_live/month.html.heex:2
+#: lib/lernmit_web/live/calendar_live/week.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "calendar"
+msgstr "Kalender"
+
+#: lib/lernmit_web/live/calendar_live/month.html.heex:32
+#: lib/lernmit_web/live/calendar_live/month.html.heex:153
+#: lib/lernmit_web/live/calendar_live/week.html.heex:34
+#: lib/lernmit_web/live/calendar_live/week.html.heex:155
+#, elixir-autogen, elixir-format
+msgid "today"
+msgstr "Heute"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:47
+#: lib/lernmit_web/live/calendar_live/month.html.heex:58
+#: lib/lernmit_web/live/calendar_live/month.html.heex:92
+#: lib/lernmit_web/live/calendar_live/month.html.heex:169
+#: lib/lernmit_web/live/calendar_live/week.html.heex:9
+#: lib/lernmit_web/live/calendar_live/week.html.heex:60
+#: lib/lernmit_web/live/calendar_live/week.html.heex:94
+#: lib/lernmit_web/live/calendar_live/week.html.heex:171
+#, elixir-autogen, elixir-format
+msgid "week"
+msgstr "Woche"
+
+#: lib/lernmit_web/live/calendar_live/month.html.heex:85
+#: lib/lernmit_web/live/calendar_live/month.html.heex:162
+#: lib/lernmit_web/live/calendar_live/week.html.heex:87
+#: lib/lernmit_web/live/calendar_live/week.html.heex:164
+#, elixir-autogen, elixir-format
+msgid "month"
+msgstr "Monat"
+
+#: lib/lernmit_web/live/calendar_live/month.html.heex:112
+#: lib/lernmit_web/live/calendar_live/week.html.heex:114
+#, elixir-autogen, elixir-format
+msgid "exam"
+msgstr "Prüfung"
+
+#: lib/lernmit_web/live/calendar_live/week.html.heex:41
+#, elixir-autogen, elixir-format
+msgid "next_week"
+msgstr "Nächste Woche"
+
+#: lib/lernmit_web/live/calendar_live/week.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "previous_week"
+msgstr "Vorherige Woche"
+
+#: lib/lernmit_web/live/calendar_live/month.html.heex:143
+#: lib/lernmit_web/live/calendar_live/week.html.heex:145
+#, elixir-autogen, elixir-format
+msgid "add_exam"
+msgstr "Prüfung erstellen"
+
+#: lib/lernmit_web/components/lernmit_components.ex:23
+#, elixir-autogen, elixir-format
+msgid "empty_schedule"
+msgstr "Nichts im Kalender"
+
+#: lib/lernmit_web/components/lernmit_components.ex:17
+#, elixir-autogen, elixir-format
+msgid "upcoming_exams"
+msgstr "Anstehende Prüfungen"
+
+#: lib/lernmit_web/live/calendar_live/month.html.heex:39
+#, elixir-autogen, elixir-format
+msgid "next_month"
+msgstr "Nächster Monat"
+
+#: lib/lernmit_web/live/calendar_live/month.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "previous_month"
+msgstr "Vorheriger Monat"
+
+#: lib/lernmit_web/components/layouts/_account.html.heex:7
+#: lib/lernmit_web/live/calendar_live/month.html.heex:123
+#: lib/lernmit_web/live/calendar_live/week.html.heex:125
+#, elixir-autogen, elixir-format
+msgid "open_menu"
+msgstr "Menü öffnen"
+
+#: lib/lernmit_web/components/layouts/_nav.html.heex:37
+#: lib/lernmit_web/components/layouts/_nav.html.heex:131
+#: lib/lernmit_web/live/achievement_live/index.html.heex:1
+#, elixir-autogen, elixir-format
+msgid "achievements"
+msgstr "Erfolge"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:104
+#, elixir-autogen, elixir-format
+msgid "daily_streak"
+msgstr "Tägliche Lernserien"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:102
+#, elixir-autogen, elixir-format
+msgid "streak"
+msgstr "Lernserien"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:135
+#, elixir-autogen, elixir-format, fuzzy
+msgid "streak_days"
+msgstr " Tage"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:175
+#, elixir-autogen, elixir-format, fuzzy
+msgid "streak_weeks"
+msgstr " Wochen"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:84
+#, elixir-autogen, elixir-format
+msgid "earned"
+msgstr "Erworben am"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:93
+#, elixir-autogen, elixir-format
+msgid "locked"
+msgstr "gesperrt"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:34
+#: lib/lernmit_web/live/achievement_live/index.html.heex:66
+#, elixir-autogen, elixir-format, fuzzy
+msgid "no_achievements"
+msgstr "Noch keine Erfolge gesammelt"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "recent_activity"
+msgstr "Letzte Aktivität"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:61
+#, elixir-autogen, elixir-format
+msgid "study"
+msgstr "Lernerfolge"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:144
+#, elixir-autogen, elixir-format, fuzzy
+msgid "weekly_streak"
+msgstr "Tägliche Lernserien"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:43
+#, elixir-autogen, elixir-format
+msgid "current_streak"
+msgstr "Laufende Serie"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "no_progress"
+msgstr "Noch keine Lernserie"
+
+#: lib/lernmit_web/live/achievement_live/index.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "recently_earned"
+msgstr "Kürzlich erworben"
+
+#: lib/lernmit_web/components/layouts/_nav.html.heex:21
+#: lib/lernmit_web/components/layouts/_nav.html.heex:115
+#, elixir-autogen, elixir-format
+msgid "tasks"
+msgstr "Aufgaben"
+
+#: lib/lernmit_web/components/layouts/_account.html.heex:42
+#, elixir-autogen, elixir-format
+msgid "account"
+msgstr "Account"
+
+#: lib/lernmit_web/components/layouts/_account.html.heex:69
+#, elixir-autogen, elixir-format
+msgid "log_out"
+msgstr "Abmelden"
+
+#: lib/lernmit_web/components/layouts/_account.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "signed_in"
+msgstr "Benutzer"

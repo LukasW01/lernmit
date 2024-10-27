@@ -1,4 +1,7 @@
 defmodule Lernmit.Auth.Policy.Checks do
+  @moduledoc """
+  Validates the User and Role
+  """
   alias Lernmit.Users.User
 
   @doc """

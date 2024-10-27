@@ -1,6 +1,7 @@
-defmodule Lernmit.AuthProvider do
+defmodule Lernmit.Auth.Provider do
   @moduledoc """
-  Defines the authentication provider and is responsible for handling authentication with the OAuth2 provider.
+  Defines the authentication with Keycloak and is responsible 
+  normalizing the client scopes.
   """
   use Assent.Strategy.OAuth2.Base
 

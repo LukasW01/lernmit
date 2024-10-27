@@ -1,5 +1,5 @@
 <div
-  class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75"
+  class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06]"
   x-data="{ account: false }"
 >
   <div class="max-w-8xl mx-auto">
@@ -18,7 +18,7 @@
                 <ul class="flex space-x-8 items-center">
                   <li>
                     <.link patch={~p"/task"} class="hover:text-sky-500 dark:hover:text-sky-400">
-                      Tasks
+                    <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("tasks") end)  %>
                     </.link>
                   </li>
                   <li>
@@ -26,16 +26,16 @@
                       patch={~p"/calendar/month"}
                       class="hover:text-sky-500 dark:hover:text-sky-400"
                     >
-                      Calendar
-                    </.link>
+                    <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("calendar") end)  %>
+                   </.link>
                   </li>
                   <li>
                     <.link
                       patch={~p"/achievement"}
                       class="hover:text-sky-500 dark:hover:text-sky-400"
                     >
-                      Achievements
-                    </.link>
+                    <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("achievements") end)  %>
+                  </.link>
                   </li>
                   <li>
                     <._account conn={@conn} />
@@ -112,15 +112,15 @@
                             patch={~p"/task"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
-                            Tasks
-                          </.link>
+                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("tasks") end)  %>
+                        </.link>
                         </li>
                         <li>
                           <.link
                             patch={~p"/calendar/week"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
-                            Calendar
+                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("calendar") end)  %>
                           </.link>
                         </li>
                         <li>
@@ -128,7 +128,7 @@
                             patch={~p"/achievement"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
-                            Achievements
+                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("achievements") end)  %>
                           </.link>
                         </li>
                       </ul>
