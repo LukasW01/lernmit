@@ -6,11 +6,9 @@ defmodule Lernmit.Courses.Course do
   import Ecto.Changeset
 
   schema "course" do
-    field :student_id, :id
     field :teacher_id, :id
-    field :class_id, :id
-    field :subject_id, :id
-    field :task_id, :id
+    field :class, :string
+    field :subject, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -18,7 +16,13 @@ defmodule Lernmit.Courses.Course do
   @doc false
   def changeset(course, attrs) do
     course
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:name, :teacher_id, :class, :subject])
+    |> validate_required([:name, :teacher_id, :class, :subject])
+  end
+
+  def admin_changeset(course, attrs, _metadata \\ []) do
+    course
+    |> cast(attrs, [:name, :teacher_id, :class, :subject])
+    |> validate_required([:name, :teacher_id, :class, :subject])
   end
 end

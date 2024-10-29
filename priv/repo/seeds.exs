@@ -53,8 +53,8 @@ badges = [
   }
 ]
 
-Enum.each(badges, fn badge ->
+Enum.each(badges, fn b ->
   %Achievement{}
-  |> Achievement.admin_changeset(badge)
+  |> Achievement.changeset(b)
   |> Repo.insert!()
 end)

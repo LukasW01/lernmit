@@ -20,7 +20,9 @@
   >
     <div class="px-4 py-3" role="none">
       <p class="text-sm text-gray-500 dark:text-gray-400" role="none">
-        <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("signed_in") end)  %>
+        <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+          gettext("signed_in")
+        end) %>
       </p>
       <p class="truncate font-medium text-gray-900 dark:text-gray-100" role="none">
         <%= "#{Pow.Plug.current_user(@conn).name}" %>
@@ -34,7 +36,9 @@
         target="_blank"
       >
         <span>
-          <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("account") end)  %>
+          <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+            gettext("account")
+          end) %>
         </span>
         <span>
           <svg
@@ -61,7 +65,7 @@
         method="delete"
         class="block w-full text-gray-700 dark:text-gray-300 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100"
       >
-      <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("log_out") end)  %>
+        <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn -> gettext("log_out") end) %>
       </.link>
     </div>
   </div>

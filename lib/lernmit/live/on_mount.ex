@@ -14,7 +14,7 @@ defmodule Lernmit.OnMount do
     socket = mount_current_user(socket, session)
 
     if socket.assigns.current_user do
-      mound_locale(socket, socket.assigns.current_user.locale)
+      mound_locale(socket.assigns.current_user.locale)
 
       {:cont, socket}
     else
@@ -46,7 +46,7 @@ defmodule Lernmit.OnMount do
     end)
   end
 
-  defp mound_locale(socket, locale) do
+  defp mound_locale(locale) do
     Gettext.put_locale(LernmitWeb.Gettext, locale || "de")
   end
 end

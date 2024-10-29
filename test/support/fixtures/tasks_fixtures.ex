@@ -18,7 +18,8 @@ defmodule Lernmit.TasksFixtures do
         text:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque.",
         title: "Math exercise",
-        types: "EXERCISE"
+        types: "EXERCISE",
+        course_id: 1
       })
       |> Lernmit.Tasks.create_task()
 

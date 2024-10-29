@@ -1,6 +1,10 @@
-<h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold"><%= gettext("achievements") %></h1>
+<h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">
+  <%= gettext("achievements") %>
+</h1>
 
-<h2 class="mb-4 text-lg text-gray-800 dark:text-white font-bold"><%= gettext("recent_activity") %></h2>
+<h2 class="mb-4 text-lg text-gray-800 dark:text-white font-bold">
+  <%= gettext("recent_activity") %>
+</h2>
 <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
   <% recent_achievement =
     @achievement_user
@@ -20,7 +24,9 @@
         phx-value-id={recent_achievement.id}
       >
         <div class="flex flex-col my-6">
-          <p class="mx-2 text-black font-bold dark:text-white"><%= gettext("recently_earned") %></p>
+          <p class="mx-2 text-black font-bold dark:text-white">
+            <%= gettext("recently_earned") %>
+          </p>
           <p class="mx-2 text-black dark:text-white text-xs"><%= recent_achievement.title %></p>
           <img
             src={"/images/achievement/#{recent_achievement.image}"}
@@ -44,14 +50,16 @@
       <%= if @streak.weekly == 0 do %>
         <p class="mx-2 text-black dark:text-white text-xs"><%= gettext("no_progress") %></p>
       <% else %>
-        <p class="mx-2 text-black dark:text-white text-xs"><%= @streak.weekly %>-<%= gettext("week") %></p>
+        <p class="mx-2 text-black dark:text-white text-xs">
+          <%= @streak.weekly %>-<%= gettext("week") %>
+        </p>
         <div class="relative pt-4">
-            <span class="flame"></span>
+          <span class="flame"></span>
         </div>
         <img
-            src="/images/streak/streak-flame.svg"
-            alt="Streak flame"
-            class="pt-2 h-auto max-w-full rounded-lg mx-auto"
+          src="/images/streak/streak-flame.svg"
+          alt="Streak flame"
+          class="pt-2 h-auto max-w-full rounded-lg mx-auto"
         />
       <% end %>
     </div>
@@ -81,7 +89,10 @@
               />
               <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
               <p class="mb-2 text-sm text-gray-500">
-              <%= gettext("earned") %> <%= Calendar.strftime(achievement.inserted_at, "%d/%m/%Y") %>
+                <%= gettext("earned") %> <%= Calendar.strftime(
+                  achievement.inserted_at,
+                  "%d/%m/%Y"
+                ) %>
               </p>
             <% else %>
               <img
@@ -99,7 +110,9 @@
   </div>
 </div>
 
-<h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold"><%= gettext("streak") %></h2>
+<h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">
+  <%= gettext("streak") %>
+</h2>
 <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
   <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white"><%= gettext("daily_streak") %></h1>
   <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">

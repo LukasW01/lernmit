@@ -1,7 +1,16 @@
 <Backpex.HTML.Layout.app_shell fluid={@fluid?}>
   <:sidebar>
+    <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/"}>
+      <.icon name="hero-book-open" class="h-5 w-5" /> User
+    </Backpex.HTML.Layout.sidebar_item>
     <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/achievement"}>
-      <.icon name="hero-book-open" class="h-5 w-5" /> Achievement
+      <.icon name="hero-book-open" class="h-5 w-5" /> Erfolge
+    </Backpex.HTML.Layout.sidebar_item>
+    <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/participant"}>
+      <.icon name="hero-book-open" class="h-5 w-5" /> Teilnehmer
+    </Backpex.HTML.Layout.sidebar_item>
+    <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/course"}>
+      <.icon name="hero-book-open" class="h-5 w-5" /> Kurs
     </Backpex.HTML.Layout.sidebar_item>
   </:sidebar>
   <Backpex.HTML.Layout.flash_messages flash={@flash} />

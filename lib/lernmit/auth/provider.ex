@@ -24,8 +24,8 @@ defmodule Lernmit.Auth.Provider do
        "sub" => user["sub"],
        "name" => user["name"],
        "email" => user["email"],
-       "role" => List.first(user["group"]),
-       "locale" => user["locale"]
+       "locale" => user["locale"],
+       "role" => List.first(user["group"])
      }}
   end
 end

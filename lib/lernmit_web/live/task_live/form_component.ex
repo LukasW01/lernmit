@@ -2,6 +2,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
   use LernmitWeb, :live_component
 
   alias Lernmit.Tasks
+  alias Lernmit.Courses
 
   @impl true
   def render(assigns) do
@@ -25,6 +26,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
         <.input field={@form[:types]} type="text" label="Types" />
         <.input field={@form[:due_date]} type="datetime-local" label="Due date" />
         <.input field={@form[:points]} type="number" label="Points" />
+        <.input field={@form[:course_id]} type="select" label="Course" options={@courses} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Task</.button>
         </:actions>
@@ -33,11 +35,20 @@ defmodule LernmitWeb.TaskLive.FormComponent do
     """
   end
 
+  def mount(_params, %{"current_user" => current_user} = _session, socket) do
+    {:ok,
+     socket
+     |> assign(:current_user, current_user)
+     |> assign(:title, "New Task")}
+  end
+
   @impl true
-  def update(%{task: task} = assigns, socket) do
+  def update(%{task: task, current_user: current_user} = assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:current_user, current_user)
+     |> assign(:courses, Enum.map(Courses.list_course_distinct(current_user), &{&1.name, &1.id}))
      |> assign_new(:form, fn ->
        to_form(Tasks.change_task(task))
      end)}

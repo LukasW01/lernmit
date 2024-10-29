@@ -6,6 +6,7 @@ defmodule Lernmit.Courses do
   import Ecto.Query, warn: false
   alias Lernmit.Repo
 
+  alias Lernmit.Users.User
   alias Lernmit.Courses.Course
 
   @doc """
@@ -19,6 +20,24 @@ defmodule Lernmit.Courses do
   """
   def list_course do
     Repo.all(Course)
+  end
+
+  @doc """
+  Returns the list of distinct courses.
+    
+  ## Examples
+
+      iex> list_course_distinct()
+      ["class (subject)", ...]
+
+  """
+  def list_course_distinct(%User{} = _current_user) do
+    Repo.all(
+      from c in Course,
+        select: %{class: c.class, subject: c.subject},
+        distinct: [c.class, c.subject]
+    )
+    |> Enum.map(fn %{class: class, subject: subject} -> "#{class} (#{subject})" end)
   end
 
   @doc """

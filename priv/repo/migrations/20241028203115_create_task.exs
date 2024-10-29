@@ -9,11 +9,9 @@ defmodule Lernmit.Repo.Migrations.CreateTask do
       add :types, :string
       add :due_date, :naive_datetime
       add :points, :integer
-      add :user_id, references(:users, on_delete: :nothing)
+      add :course_id, references(:course, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end
-
-    create index(:task, [:user_id])
   end
 end

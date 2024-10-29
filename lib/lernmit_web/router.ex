@@ -71,6 +71,9 @@ defmodule LernmitWeb.Router do
 
     live_session :default, on_mount: Backpex.InitAssigns do
       live_resources "/achievement", Live.AchievementLive
+      live_resources "/participant", Live.ParticipantLive
+      live_resources "/course", Live.CourseLive
+      live_resources "/", Live.UserLive
     end
   end
 

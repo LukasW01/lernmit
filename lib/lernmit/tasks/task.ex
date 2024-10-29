@@ -12,7 +12,7 @@ defmodule Lernmit.Tasks.Task do
     field :types, :string
     field :due_date, :naive_datetime
     field :points, :integer
-    field :user_id, :id
+    field :course_id, :id
 
     timestamps(type: :utc_datetime)
   end
@@ -20,7 +20,7 @@ defmodule Lernmit.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :text, :status, :types, :due_date, :points])
-    |> validate_required([:title, :text, :status, :types, :due_date, :points])
+    |> cast(attrs, [:title, :text, :status, :types, :due_date, :points, :course_id])
+    |> validate_required([:title, :text, :status, :types, :due_date, :points, :course_id])
   end
 end

@@ -11,11 +11,9 @@ defmodule Lernmit.CoursesFixtures do
     {:ok, course} =
       attrs
       |> Enum.into(%{
-        student_id: 1,
-        teacher_id: 1,
-        class_id: 1,
-        subject_id: 1,
-        task_id: 1
+        class: "Klasse 8",
+        subject: "English",
+        teacher_id: 1
       })
       |> Lernmit.Courses.create_course()
 

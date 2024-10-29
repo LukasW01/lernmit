@@ -7,6 +7,8 @@ defmodule Lernmit.Tasks do
   alias Lernmit.Repo
   alias Lernmit.Users.User
   alias Lernmit.Tasks.Task
+  alias Lernmit.Courses.Course
+  alias Lernmit.Participants.Participant
   alias Lernmit.Auth.Policy
 
   @doc """
@@ -20,7 +22,16 @@ defmodule Lernmit.Tasks do
   """
   def list_task(%User{} = current_user) do
     with :ok <- Policy.authorize(:task_read, current_user) do
-      {:ok, Repo.all(from t in Task, where: t.user_id == ^current_user.id)}
+      {:ok,
+       Repo.all(
+         from t in Task,
+           join: c in Course,
+           on: c.id == t.course_id,
+           join: p in Participant,
+           on: p.course_id == c.id,
+           where: p.student_id == ^current_user.id or c.teacher_id == ^current_user.id,
+           order_by: [asc: t.due_date]
+       )}
     end
   end
 
@@ -42,10 +53,14 @@ defmodule Lernmit.Tasks do
          {:ok, end_date_n} <- NaiveDateTime.from_iso8601("#{end_date} 23:59:59") do
       Repo.all(
         from t in Task,
+          join: c in Course,
+          on: c.id == t.course_id,
+          join: p in Participant,
+          on: p.course_id == c.id,
           where:
-            t.user_id == ^current_user.id and
-              t.due_date >= ^start_date_n and
-              t.due_date <= ^end_date_n
+            (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
+              fragment("? BETWEEN ? AND ?", t.due_date, ^start_date_n, ^end_date_n),
+          order_by: [asc: t.due_date]
       )
     end
   end
@@ -66,7 +81,16 @@ defmodule Lernmit.Tasks do
   """
   def get_task!(%User{} = current_user, id) do
     with :ok <- Policy.authorize(:task_read, current_user) do
-      case Repo.get_by(Task, id: id, user_id: current_user.id) do
+      case Repo.one(
+             from t in Task,
+               join: c in Course,
+               on: c.id == t.course_id,
+               join: p in Participant,
+               on: p.course_id == c.id,
+               where:
+                 (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
+                   t.id == ^id
+           ) do
         nil -> {:error, :not_found}
         task -> {:ok, task}
       end

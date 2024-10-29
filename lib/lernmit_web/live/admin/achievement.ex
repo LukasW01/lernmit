@@ -10,10 +10,10 @@ defmodule LernmitWeb.Live.AchievementLive do
     event_prefix: "achievement_"
 
   @impl Backpex.LiveResource
-  def singular_name, do: "Achievement"
+  def singular_name, do: "Erfolge"
 
   @impl Backpex.LiveResource
-  def plural_name, do: "Achievements"
+  def plural_name, do: "Erfolge"
 
   @impl Backpex.LiveResource
   def fields do

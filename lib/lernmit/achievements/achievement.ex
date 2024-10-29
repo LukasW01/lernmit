@@ -18,11 +18,13 @@ defmodule Lernmit.Achievements.Achievement do
     achievement
     |> cast(attrs, [:image, :title, :desc])
     |> validate_required([:image, :title, :desc])
+    |> unique_constraint([:image, :title, :desc])
   end
 
   def admin_changeset(achievement, attrs, _metadata \\ []) do
     achievement
     |> cast(attrs, [:image, :title, :desc])
     |> validate_required([:image, :title, :desc])
+    |> unique_constraint([:image, :title, :desc])
   end
 end
