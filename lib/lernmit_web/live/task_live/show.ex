@@ -3,6 +3,8 @@ defmodule LernmitWeb.TaskLive.Show do
 
   alias Lernmit.Tasks
   alias Lernmit.Auth.Policy
+  alias Lernmit.Util.Message
+  alias Lernmit.Util.S3
 
   @impl true
   def mount(_params, _session, socket) do
@@ -15,13 +17,13 @@ defmodule LernmitWeb.TaskLive.Show do
       {:ok, task} ->
         {:noreply,
          socket
-         |> assign(:page_title, page_title(socket.assigns.live_action))
-         |> assign(:task, task)}
+         |> assign(task: task)
+         |> assign(:page_title, page_title(socket.assigns.live_action))}
 
-      {:error, :not_found} ->
+      {:error, error} ->
         {:noreply,
          socket
-         |> put_flash(:error, "Task not found")
+         |> put_flash(:error, Message.error(error))
          |> push_navigate(to: "/task")}
     end
   end

@@ -10,7 +10,6 @@ defmodule LernmitWeb.TaskLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage task records in your database.</:subtitle>
       </.header>
 
       <.simple_form
@@ -21,14 +20,28 @@ defmodule LernmitWeb.TaskLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:text]} type="text" label="Text" />
-        <.input field={@form[:status]} type="text" label="Status" />
-        <.input field={@form[:types]} type="text" label="Types" />
+        <.input field={@form[:text]} type="textarea" label="Text" />
+        <.input
+          field={@form[:types]}
+          type="select"
+          label="Types"
+          options={[{"Exam", "EXAM"}, {"Exercise", "EXERCISE"}]}
+          phx-change="exam_selected"
+          phx-value-types={@exam}
+        />
         <.input field={@form[:due_date]} type="datetime-local" label="Due date" />
-        <.input field={@form[:points]} type="number" label="Points" />
+        <.input :if={@exam} field={@form[:points]} type="number" label="Points" />
         <.input field={@form[:course_id]} type="select" label="Course" options={@courses} />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Task</.button>
+          <div class="ml-auto mt-6 flex items-center justify-end gap-x-6">
+            <.simple_button
+              phx-click={JS.navigate(~p"/task")}
+              class="text-sm/6 font-semibold text-gray-900"
+            >
+              Cancel
+            </.simple_button>
+            <.button phx-disable-with="Saving...">Save</.button>
+          </div>
         </:actions>
       </.simple_form>
     </div>
@@ -47,8 +60,14 @@ defmodule LernmitWeb.TaskLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:current_user, current_user)
-     |> assign(:courses, Enum.map(Courses.list_course_distinct(current_user), &{&1.name, &1.id}))
+     |> assign(:exam, task_types(task.types))
+     |> assign(
+       :courses,
+       Enum.map(
+         Courses.list_course_distinct(current_user),
+         &{"#{&1.class} (#{&1.subject})", &1.id}
+       )
+     )
      |> assign_new(:form, fn ->
        to_form(Tasks.change_task(task))
      end)}
@@ -62,6 +81,10 @@ defmodule LernmitWeb.TaskLive.FormComponent do
 
   def handle_event("save", %{"task" => task_params}, socket) do
     save_task(socket, socket.assigns.action, task_params)
+  end
+
+  def handle_event("exam_selected", %{"task" => %{"types" => types}}, socket) do
+    {:noreply, assign(socket, exam: task_types(types))}
   end
 
   defp save_task(socket, :edit, task_params) do
@@ -91,6 +114,14 @@ defmodule LernmitWeb.TaskLive.FormComponent do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
+    end
+  end
+
+  defp task_types(task) do
+    case task do
+      "EXAM" -> true
+      "EXERCISE" -> false
+      _ -> false
     end
   end
 

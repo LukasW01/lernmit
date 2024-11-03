@@ -4,8 +4,6 @@
     <.link patch={~p"/task/#{@task}/show/edit"} phx-click={JS.push_focus()}>
       <%= if Policy.authorize?(:task_update, @current_user) do %>
         <.button>Edit task</.button>
-      <% else %>
-        <.button disabled>Edit task</.button>
       <% end %>
     </.link>
   </:actions>

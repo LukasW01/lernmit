@@ -16,13 +16,13 @@ defmodule Lernmit.Courses.Course do
   @doc false
   def changeset(course, attrs) do
     course
-    |> cast(attrs, [:name, :teacher_id, :class, :subject])
-    |> validate_required([:name, :teacher_id, :class, :subject])
+    |> cast(attrs, [:teacher_id, :class, :subject])
+    |> validate_required([:teacher_id, :class, :subject])
   end
 
   def admin_changeset(course, attrs, _metadata \\ []) do
     course
-    |> cast(attrs, [:name, :teacher_id, :class, :subject])
-    |> validate_required([:name, :teacher_id, :class, :subject])
+    |> cast(attrs, [:teacher_id, :class, :subject])
+    |> validate_required([:teacher_id, :class, :subject])
   end
 end

@@ -18,11 +18,6 @@ defmodule LernmitWeb.Live.CourseLive do
   @impl Backpex.LiveResource
   def fields do
     [
-      name: %{
-        module: Backpex.Fields.Text,
-        label: "Name",
-        searchable: true
-      },
       teacher_id: %{
         module: Backpex.Fields.Number,
         label: "Lehrer",

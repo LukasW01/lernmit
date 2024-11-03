@@ -4,7 +4,7 @@ defmodule Lernmit.Repo.Migrations.CreateTask do
   def change do
     create table(:task) do
       add :title, :string
-      add :text, :string
+      add :text, :text
       add :status, :string
       add :types, :string
       add :due_date, :naive_datetime

@@ -80,6 +80,14 @@ config :lernmit, :pow_assent,
     ]
   ]
 
+config :lernmit,
+  access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
+  secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
+  bucket: System.get_env("S3_BUCKET"),
+  region: System.get_env("AWS_REGION"),
+  url: System.get_env("S3_URL"),
+  host: System.get_env("S3_ALIAS_HOST")
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

@@ -1,26 +1,63 @@
 <.header>
   Tasks
-  <:actions>
-    <%= if Policy.authorize(:task_create, @current_user) == :ok do %>
-      <.link patch={~p"/task/new"}>
-        <.button>New Task</.button>
-      </.link>
-    <% end %>
-  </:actions>
 </.header>
+
+<div class="mx-auto flex flex-wrap items-center gap-6 sm:flex-nowrap">
+  <div class="flex w-full text-sm font-semibold sm:w-auto">
+    <nav class="block ">
+      <ul class="flex rounded-full px-3 text-sm bg-white/90 dark:bg-gray-700 font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:text-zinc-200 dark:ring-white/10">
+        <li>
+          <.simple_button
+            phx-click="sort"
+            phx-value-sort="upcoming"
+            class={"relative block px-3 py-2 transition #{sort_class(@socket, "UPCOMING")}"}
+            role="tab"
+          >
+            Upcoming
+          </.simple_button>
+        </li>
+        <li>
+          <.simple_button
+            phx-click="sort"
+            phx-value-sort="past_due"
+            class={"relative block px-3 py-2 transition #{sort_class(@socket, "PAST_DUE")}"}
+            role="tab"
+          >
+            Past due
+          </.simple_button>
+        </li>
+        <li>
+          <.simple_button
+            phx-click="sort"
+            phx-value-sort="completed"
+            class={"relative block px-3 py-2 transition #{sort_class(@socket, "COMPLETED")}"}
+            role="tab"
+          >
+            Completed
+          </.simple_button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <%= if Policy.authorize(:task_create, @current_user) == :ok do %>
+    <.link patch={~p"/task/new"} class="ml-auto">
+      <.button>New Task</.button>
+    </.link>
+  <% end %>
+</div>
 
 <.table
   id="task"
-  rows={@streams.task_collection}
-  row_click={fn {_id, task} -> JS.navigate(~p"/task/#{task}") end}
+  rows={@task_collection}
+  row_click={fn task -> JS.navigate(~p"/task/#{task.id}") end}
 >
-  <:col :let={{_id, task}} label="Title"><%= task.title %></:col>
-  <:col :let={{_id, task}} label="Text"><%= task.text %></:col>
-  <:col :let={{_id, task}} label="Status"><%= task.status %></:col>
-  <:col :let={{_id, task}} label="Types"><%= task.types %></:col>
-  <:col :let={{_id, task}} label="Due date"><%= task.due_date %></:col>
-  <:col :let={{_id, task}} label="Points"><%= task.points %></:col>
-  <:action :let={{_id, task}}>
+  <:col :let={task} label="Title"><%= task.title %></:col>
+  <:col :let={task} label="Text"><%= String.slice(task.text, 0..100) %></:col>
+  <:col :let={task} label="Status"><%= task.status %></:col>
+  <:col :let={task} label="Types"><%= task.types %></:col>
+  <:col :let={task} label="Due date"><%= task.due_date %></:col>
+  <:col :let={task} label="Points"><%= task.points %></:col>
+  <:action :let={task}>
     <div class="sr-only">
       <.link navigate={~p"/task/#{task}"}>Show</.link>
     </div>
@@ -28,10 +65,10 @@
       <.link patch={~p"/task/#{task}/edit"}>Edit</.link>
     <% end %>
   </:action>
-  <:action :let={{id, task}}>
+  <:action :let={task}>
     <%= if Policy.authorize(:task_delete, @current_user) == :ok do %>
       <.link
-        phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")}
+        phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{task.id}")}
         data-confirm="Are you sure?"
       >
         Delete
