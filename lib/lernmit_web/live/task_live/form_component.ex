@@ -121,7 +121,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
     case task do
       "EXAM" -> true
       "EXERCISE" -> false
-      _ -> false
+      _ -> true
     end
   end
 

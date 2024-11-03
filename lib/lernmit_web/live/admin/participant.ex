@@ -9,8 +9,6 @@ defmodule LernmitWeb.Live.ParticipantLive do
     topic: "participant",
     event_prefix: "participant_"
 
-  alias Lernmit.Courses
-
   @impl Backpex.LiveResource
   def singular_name, do: "Teilnehmer"
 

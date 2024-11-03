@@ -10,7 +10,7 @@
           <.simple_button
             phx-click="sort"
             phx-value-sort="upcoming"
-            class={"relative block px-3 py-2 transition #{sort_class(@socket, "UPCOMING")}"}
+            class={"relative block px-3 py-2 transition #{sort_class(@sort, "upcoming")}"}
             role="tab"
           >
             Upcoming
@@ -20,7 +20,7 @@
           <.simple_button
             phx-click="sort"
             phx-value-sort="past_due"
-            class={"relative block px-3 py-2 transition #{sort_class(@socket, "PAST_DUE")}"}
+            class={"relative block px-3 py-2 transition #{sort_class(@sort, "past_due")}"}
             role="tab"
           >
             Past due
@@ -30,7 +30,7 @@
           <.simple_button
             phx-click="sort"
             phx-value-sort="completed"
-            class={"relative block px-3 py-2 transition #{sort_class(@socket, "COMPLETED")}"}
+            class={"relative block px-3 py-2 transition #{sort_class(@sort, "completed")}"}
             role="tab"
           >
             Completed
@@ -53,8 +53,7 @@
 >
   <:col :let={task} label="Title"><%= task.title %></:col>
   <:col :let={task} label="Text"><%= String.slice(task.text, 0..100) %></:col>
-  <:col :let={task} label="Status"><%= task.status %></:col>
-  <:col :let={task} label="Types"><%= task.types %></:col>
+  <:col :let={task} label="Types"><%= String.capitalize(task.types) %></:col>
   <:col :let={task} label="Due date"><%= task.due_date %></:col>
   <:col :let={task} label="Points"><%= task.points %></:col>
   <:action :let={task}>

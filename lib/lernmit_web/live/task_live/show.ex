@@ -4,7 +4,6 @@ defmodule LernmitWeb.TaskLive.Show do
   alias Lernmit.Tasks
   alias Lernmit.Auth.Policy
   alias Lernmit.Util.Message
-  alias Lernmit.Util.S3
 
   @impl true
   def mount(_params, _session, socket) do

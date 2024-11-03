@@ -21,7 +21,7 @@ defmodule LernmitWeb.TaskLive.Index do
         {:ok,
          socket
          |> put_flash(:error, Message.error(error))
-         |> stream(:task_collection, [])}
+         |> assign(:task_collection, [])}
     end
   end
 
@@ -58,7 +58,10 @@ defmodule LernmitWeb.TaskLive.Index do
 
   @impl true
   def handle_info({LernmitWeb.TaskLive.FormComponent, {:saved, task}}, socket) do
-    {:noreply, stream_insert(socket, :task_collection, task)}
+    {:noreply,
+     assign(socket,
+       task_collection: [task | Enum.reject(socket.assigns.task_collection, &(&1.id == task.id))]
+     )}
   end
 
   @impl true
@@ -106,8 +109,8 @@ defmodule LernmitWeb.TaskLive.Index do
     end
   end
 
-  def sort_class(socket, option) do
-    if @sort == option do
+  def sort_class(filter, option) do
+    if filter == option do
       "text-sky-500 dark:text-sky-400"
     else
       "text-black dark:text-white"

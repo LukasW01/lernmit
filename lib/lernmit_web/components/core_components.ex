@@ -361,14 +361,14 @@ defmodule LernmitWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div class="border-b border-gray-900/10 sm:divide-y sm:divide-gray-900/10 sm:border-t pb-4">
+    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:divide-y sm:divide-gray-900/10 dark:sm:divide-gray-700 sm:border-t pb-4">
       <div class="pt-2.5 pb-2">
         <.label for={@id}><%= @label %></.label>
       </div>
       <select
         id={@id}
         name={@name}
-        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+        class="block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-500 sm:text-sm/6"
         multiple={@multiple}
         {@rest}
       >
@@ -382,7 +382,7 @@ defmodule LernmitWeb.CoreComponents do
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div class="border-b border-gray-900/10 sm:divide-y sm:divide-gray-900/10 sm:border-t pb-4">
+    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:divide-y sm:divide-gray-900/10 dark:sm:divide-gray-700 sm:border-t pb-4">
       <div class="pt-3 pb-2">
         <.label for={@id}><%= @label %></.label>
       </div>
@@ -390,9 +390,11 @@ defmodule LernmitWeb.CoreComponents do
         id={@id}
         name={@name}
         class={[
-          "block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6",
-          @errors == [] && "border-zinc-300 focus:border-zinc-400",
-          @errors != [] && "border-rose-400 focus:border-rose-400"
+          "block w-full rounded-md border-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm/6",
+          @errors == [] &&
+            "border-zinc-300 dark:border-gray-600 focus:border-zinc-400 dark:focus:border-gray-500",
+          @errors != [] &&
+            "border-rose-400 dark:border-rose-500 focus:border-rose-400 dark:focus:border-rose-500"
         ]}
         {@rest}
       ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
@@ -404,7 +406,7 @@ defmodule LernmitWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div class="border-b border-gray-900/10 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:border-t sm:pb-0">
       <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
         <.label for={@id}><%= @label %></.label>
         <div class="mt-2 sm:col-span-2 sm:mt-0">
@@ -414,7 +416,7 @@ defmodule LernmitWeb.CoreComponents do
             id={@id}
             value={Phoenix.HTML.Form.normalize_value(@type, @value)}
             class={[
-              "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xl sm:text-sm/6"
+              "block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xl sm:text-sm/6"
             ]}
             {@rest}
           />
@@ -446,7 +448,7 @@ defmodule LernmitWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600">
+    <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600 dark:text-rose-500">
       <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
       <%= render_slot(@inner_block) %>
     </p>

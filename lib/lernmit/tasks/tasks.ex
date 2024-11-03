@@ -59,9 +59,68 @@ defmodule Lernmit.Tasks do
           on: p.course_id == c.id,
           where:
             (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
-              fragment("? BETWEEN ? AND ?", t.due_date, ^start_date_n, ^end_date_n),
+              fragment("? BETWEEN ? AND ?", t.due_date, ^start_date_n, ^end_date_n) and
+              t.types == "EXAM",
           order_by: [asc: t.due_date]
       )
+    end
+  end
+
+  @doc """
+  Returns the list of tasks based on the provided filter.
+    
+  ## Examples
+
+      iex> filter_task(123, "TODO")
+      [%Task{}, ...]
+
+      iex> filter_task(456, "TODO")
+      ** (Ecto.NoResultsError)
+
+  """
+  def filter_task(%User{} = current_user, filter) do
+    with :ok <- Policy.authorize(:task_read, current_user) do
+      {:ok,
+       Repo.all(
+         from t in Task,
+           join: c in Course,
+           on: c.id == t.course_id,
+           join: p in Participant,
+           on: p.course_id == c.id,
+           where:
+             (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
+               t.status == ^filter,
+           order_by: [asc: t.due_date]
+       )}
+    end
+  end
+
+  @doc """
+  Returns the list of overdue tasks.
+    
+  ## Examples
+
+      iex> overdue_task(123)
+      [%Task{}, ...]
+
+      iex> overdue_task(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def overdue_task(%User{} = current_user) do
+    with :ok <- Policy.authorize(:task_read, current_user) do
+      {:ok,
+       Repo.all(
+         from t in Task,
+           join: c in Course,
+           on: c.id == t.course_id,
+           join: p in Participant,
+           on: p.course_id == c.id,
+           where:
+             (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
+               t.due_date < ^NaiveDateTime.utc_now(),
+           order_by: [asc: t.due_date]
+       )}
     end
   end
 

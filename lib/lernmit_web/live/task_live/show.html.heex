@@ -1,5 +1,5 @@
 <.header>
-  Task <%= @task.title %>
+  <%= @task.title %>
   <:actions>
     <.link patch={~p"/task/#{@task}/show/edit"} phx-click={JS.push_focus()}>
       <%= if Policy.authorize?(:task_update, @current_user) do %>
@@ -10,12 +10,10 @@
 </.header>
 
 <.list>
-  <:item title="Title"><%= @task.title %></:item>
   <:item title="Text"><%= @task.text %></:item>
-  <:item title="Status"><%= @task.status %></:item>
-  <:item title="Types"><%= @task.types %></:item>
-  <:item title="Due date"><%= @task.due_date %></:item>
-  <:item title="Points"><%= @task.points %></:item>
+  <:item title="Types"><%= String.capitalize(@task.types) %></:item>
+  <:item title="Due date"><%= Calendar.strftime(@task.due_date, "%y.%m.%d %H:%M:%S") %></:item>
+  <:item :if={@task.points} title="Points"><%= @task.points %></:item>
 </.list>
 
 <.back navigate={~p"/task"}>Back to task</.back>

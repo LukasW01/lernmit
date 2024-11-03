@@ -5,7 +5,6 @@ defmodule Lernmit.Users.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
   use PowAssent.Ecto.Schema
-  alias Lernmit.Participants.Participant
   import Ecto.Changeset
 
   schema "users" do
