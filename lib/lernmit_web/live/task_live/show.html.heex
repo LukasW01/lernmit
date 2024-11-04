@@ -1,31 +1,38 @@
-<.header>
-  <%= @task.title %>
-  <:actions>
-    <.link patch={~p"/task/#{@task}/show/edit"} phx-click={JS.push_focus()}>
-      <%= if Policy.authorize?(:task_update, @current_user) do %>
-        <.button>Edit task</.button>
-      <% end %>
-    </.link>
-  </:actions>
-</.header>
+<div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+  <.header>
+    <%= @task.title %>
+    <:actions>
+      <.link patch={~p"/task/#{@task}/show/edit"} phx-click={JS.push_focus()}>
+        <%= if Policy.authorize?(:task_update, @current_user) do %>
+          <.button>Edit task</.button>
+        <% end %>
+      </.link>
+    </:actions>
+  </.header>
 
-<.list>
-  <:item title="Text"><%= @task.text %></:item>
-  <:item title="Types"><%= String.capitalize(@task.types) %></:item>
-  <:item title="Due date"><%= Calendar.strftime(@task.due_date, "%y.%m.%d %H:%M:%S") %></:item>
-  <:item :if={@task.points} title="Points"><%= @task.points %></:item>
-</.list>
+  <.list>
+    <:item title="Text"><%= @task.text %></:item>
+    <:item title="Types"><%= String.capitalize(@task.types) %></:item>
+    <:item title="Due date"><%= Calendar.strftime(@task.due_date, "%y.%m.%d %H:%M:%S") %></:item>
+    <:item :if={@task.points} title="Points"><%= @task.points %></:item>
+  </.list>
 
-<.back navigate={~p"/task"}>Back to task</.back>
+  <.back navigate={~p"/task"}>Back to task</.back>
 
-<.modal :if={@live_action == :edit} id="task-modal" show on_cancel={JS.patch(~p"/task/#{@task}")}>
-  <.live_component
-    module={LernmitWeb.TaskLive.FormComponent}
-    id={@task.id}
-    title={@page_title}
-    action={@live_action}
-    task={@task}
-    current_user={@current_user}
-    patch={~p"/task/#{@task}"}
-  />
-</.modal>
+  <.modal
+    :if={@live_action == :edit}
+    id="task-modal"
+    show
+    on_cancel={JS.patch(~p"/task/#{@task}")}
+  >
+    <.live_component
+      module={LernmitWeb.TaskLive.FormComponent}
+      id={@task.id}
+      title={@page_title}
+      action={@live_action}
+      task={@task}
+      current_user={@current_user}
+      patch={~p"/task/#{@task}"}
+    />
+  </.modal>
+</div>

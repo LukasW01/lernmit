@@ -1,83 +1,161 @@
-<h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">
-  <%= gettext("calendar") %>
-</h1>
+<div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+  <h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">
+    <%= gettext("calendar") %>
+  </h1>
 
-<div class="flex h-full flex-col calendar">
-  <header class="w-full flex items-center justify-between rounded-t-md border-b bg-slate-200 dark:bg-gray-800 border-gray-200 dark:border-gray-700 px-6 py-4 lg:flex-none">
-    <h1 class="text-base font-semibold leading-6 dark:text-white flex items-center">
-      <time datetime={Calendar.strftime(@week_in_view, "%Y-%m")}>
-        <%= gettext("week") %> <%= @week_in_view
-        |> Timex.Protocol.iso_week()
-        |> then(fn {year, week_number} -> "#{week_number} (#{year})" end) %>
-      </time>
-    </h1>
-    <div class="flex items-center">
-      <div class="relative flex items-center rounded-md bg-white dark:bg-gray-800 shadow-sm md:items-stretch">
-        <button
-          phx-click="previous-week"
-          class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 dark:border-gray-700 pr-1 text-gray-900 dark:text-gray-200 hover:text-indigo-800 dark:hover:text-indigo-200 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50 dark:md:hover:bg-gray-700"
-        >
-          <span class="sr-only"><%= gettext("previous_week") %></span>
-          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path
-              fill-rule="evenodd"
-              d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-              clip-rule="evenodd"
-            >
-            </path>
-          </svg>
-        </button>
-        <button
-          phx-click="today"
-          class="hidden md:flex items-center justify-center pt-1.5 pb-1.5 border-y border-gray-300 dark:border-gray-700 px-3.5 text-sm font-semibold text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:relative"
-        >
-          <%= gettext("today") %>
-        </button>
-        <span class="relative -mx-px h-5 w-px bg-gray-300 dark:bg-gray-700 md:hidden"></span>
-        <button
-          phx-click="next-week"
-          class="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 dark:border-gray-700 pl-1 text-gray-900 dark:text-gray-200 hover:text-indigo-800 dark:hover:text-indigo-200 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50 dark:md:hover:bg-gray-700"
-        >
-          <span class="sr-only"><%= gettext("next_week") %></span>
-          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path
-              fill-rule="evenodd"
-              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-              clip-rule="evenodd"
-            >
-            </path>
-          </svg>
-        </button>
-      </div>
-      <div class="hidden md:ml-4 md:flex md:items-center">
-        <div class="relative" x-data="{ open_big: false }">
+  <div class="flex h-full flex-col calendar">
+    <header class="w-full flex items-center justify-between rounded-t-md border-b bg-slate-200 dark:bg-gray-800 border-gray-200 dark:border-gray-700 px-6 py-4 lg:flex-none">
+      <h1 class="text-base font-semibold leading-6 dark:text-white flex items-center">
+        <time datetime={Calendar.strftime(@week_in_view, "%Y-%m")}>
+          <%= gettext("week") %> <%= @week_in_view
+          |> Timex.Protocol.iso_week()
+          |> then(fn {year, week_number} -> "#{week_number} (#{year})" end) %>
+        </time>
+      </h1>
+      <div class="flex items-center">
+        <div class="relative flex items-center rounded-md bg-white dark:bg-gray-800 shadow-sm md:items-stretch">
           <button
-            @click="open_big = !open_big"
-            type="button"
-            class="flex items-center gap-x-1.5 rounded-md bg-white dark:bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
-            id="menu-button"
+            phx-click="previous-week"
+            class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 dark:border-gray-700 pr-1 text-gray-900 dark:text-gray-200 hover:text-indigo-800 dark:hover:text-indigo-200 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50 dark:md:hover:bg-gray-700"
           >
-            <span class="pr-1"><%= gettext("week") %></span>
-            <svg
-              class="-mr-1 h-5 w-5 text-gray-400 dark:text-gray-300"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
+            <span class="sr-only"><%= gettext("previous_week") %></span>
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path
                 fill-rule="evenodd"
-                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
                 clip-rule="evenodd"
-              />
+              >
+              </path>
+            </svg>
+          </button>
+          <button
+            phx-click="today"
+            class="hidden md:flex items-center justify-center pt-1.5 pb-1.5 border-y border-gray-300 dark:border-gray-700 px-3.5 text-sm font-semibold text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:relative"
+          >
+            <%= gettext("today") %>
+          </button>
+          <span class="relative -mx-px h-5 w-px bg-gray-300 dark:bg-gray-700 md:hidden"></span>
+          <button
+            phx-click="next-week"
+            class="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 dark:border-gray-700 pl-1 text-gray-900 dark:text-gray-200 hover:text-indigo-800 dark:hover:text-indigo-200 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50 dark:md:hover:bg-gray-700"
+          >
+            <span class="sr-only"><%= gettext("next_week") %></span>
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                clip-rule="evenodd"
+              >
+              </path>
+            </svg>
+          </button>
+        </div>
+        <div class="hidden md:ml-4 md:flex md:items-center">
+          <div class="relative" x-data="{ open_big: false }">
+            <button
+              @click="open_big = !open_big"
+              type="button"
+              class="flex items-center gap-x-1.5 rounded-md bg-white dark:bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+              id="menu-button"
+            >
+              <span class="pr-1"><%= gettext("week") %></span>
+              <svg
+                class="-mr-1 h-5 w-5 text-gray-400 dark:text-gray-300"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <div
+              x-show="open_big"
+              x-transition
+              x-cloak
+              @click.outside="open_big = false"
+              class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none"
+              role="menu"
+            >
+              <div class="py-1" role="none">
+                <.link
+                  patch={~p"/calendar/month"}
+                  class={"block px-4 py-2 text-sm #{path_class(@socket, "Month")}"}
+                  role="menuitem"
+                >
+                  <%= gettext("month") %>
+                </.link>
+                <.link
+                  patch={~p"/calendar/week"}
+                  class={"block px-4 py-2 text-sm #{path_class(@socket, "Week")}"}
+                  role="menuitem"
+                >
+                  <%= gettext("week") %>
+                </.link>
+              </div>
+            </div>
+          </div>
+          <%= if Policy.authorize(:task_create, @current_user) == :ok do %>
+            <div class="ml-6 h-6 w-px bg-gray-300 dark:bg-gray-700"></div>
+            <.link
+              patch={~p"/task/new"}
+              class="flex ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            >
+              <svg
+                class="-ml-1.5 h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z">
+                </path>
+              </svg>
+              <%= gettext("exam") %>
+            </.link>
+          <% end %>
+        </div>
+        <div class="relative ml-6 md:hidden" x-data="{ open_small: false }">
+          <button
+            @click="open_small = !open_small"
+            type="button"
+            class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-200"
+            id="menu-button"
+          >
+            <span class="sr-only"><%= gettext("open_menu") %></span>
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
             </svg>
           </button>
           <div
-            x-show="open_big"
+            x-show="open_small"
             x-transition
             x-cloak
-            @click.outside="open_big = false"
-            class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none"
+            @click.outside="open_small = false"
+            class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none"
             role="menu"
           >
+            <%= if Policy.authorize(:task_create, @current_user) == :ok do %>
+              <div class="py-1" role="none">
+                <.link
+                  patch={~p"/task/new"}
+                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"
+                  role="menuitem"
+                >
+                  <%= gettext("add_exam") %>
+                </.link>
+              </div>
+            <% end %>
+            <div class="py-1" role="none">
+              <button
+                phx-click="today"
+                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"
+                role="menuitem"
+              >
+                <%= gettext("today") %>
+              </button>
+            </div>
             <div class="py-1" role="none">
               <.link
                 patch={~p"/calendar/month"}
@@ -96,173 +174,97 @@
             </div>
           </div>
         </div>
-        <%= if Policy.authorize(:task_create, @current_user) == :ok do %>
-          <div class="ml-6 h-6 w-px bg-gray-300 dark:bg-gray-700"></div>
-          <.link
-            patch={~p"/task/new"}
-            class="flex ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-          >
-            <svg
-              class="-ml-1.5 h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z">
-              </path>
-            </svg>
-            <%= gettext("exam") %>
-          </.link>
-        <% end %>
       </div>
-      <div class="relative ml-6 md:hidden" x-data="{ open_small: false }">
-        <button
-          @click="open_small = !open_small"
-          type="button"
-          class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-200"
-          id="menu-button"
-        >
-          <span class="sr-only"><%= gettext("open_menu") %></span>
-          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
-          </svg>
-        </button>
-        <div
-          x-show="open_small"
-          x-transition
-          x-cloak
-          @click.outside="open_small = false"
-          class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-opacity-25 focus:outline-none"
-          role="menu"
-        >
-          <%= if Policy.authorize(:task_create, @current_user) == :ok do %>
-            <div class="py-1" role="none">
-              <.link
-                patch={~p"/task/new"}
-                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"
-                role="menuitem"
-              >
-                <%= gettext("add_exam") %>
-              </.link>
-            </div>
-          <% end %>
-          <div class="py-1" role="none">
-            <button
-              phx-click="today"
-              class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300"
-              role="menuitem"
-            >
-              <%= gettext("today") %>
-            </button>
-          </div>
-          <div class="py-1" role="none">
-            <.link
-              patch={~p"/calendar/month"}
-              class={"block px-4 py-2 text-sm #{path_class(@socket, "Month")}"}
-              role="menuitem"
-            >
-              <%= gettext("month") %>
-            </.link>
-            <.link
-              patch={~p"/calendar/week"}
-              class={"block px-4 py-2 text-sm #{path_class(@socket, "Week")}"}
-              role="menuitem"
-            >
-              <%= gettext("week") %>
-            </.link>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <div class="isolate flex flex-auto flex-col overflow-auto rounded-b-md bg-white dark:bg-gray-900">
-    <div
-      style="width: 165%"
-      class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full"
-    >
-      <div class="sticky top-0 z-30 flex-none bg-white dark:bg-gray-800 shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
-        <div class="grid grid-cols-7 text-sm leading-6 text-gray-500 dark:text-gray-600 sm:hidden">
-          <%= for day <- week_days(@week_in_view) do %>
-            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-              <%= Calendar.strftime(day, "%a") %>
-              <span class={"mt-1 flex h-8 w-8 items-center justify-center font-semibold #{today_class(day)}"}>
-                <%= Calendar.strftime(day, "%d") %>
-              </span>
-            </button>
-          <% end %>
-        </div>
-        <div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 dark:divide-gray-700 border-r border-gray-100 dark:border-gray-700 text-sm leading-6 text-gray-500 dark:text-gray-300 sm:grid">
-          <div class="col-end-1 w-14"></div>
-          <%= for day <- week_days(@week_in_view) do %>
-            <div class="flex items-center justify-center py-3">
-              <span>
+    </header>
+    <div class="isolate flex flex-auto flex-col overflow-auto rounded-b-md bg-white dark:bg-gray-900">
+      <div
+        style="width: 165%"
+        class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full"
+      >
+        <div class="sticky top-0 z-30 flex-none bg-white dark:bg-gray-800 shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
+          <div class="grid grid-cols-7 text-sm leading-6 text-gray-500 dark:text-gray-600 sm:hidden">
+            <%= for day <- week_days(@week_in_view) do %>
+              <button type="button" class="flex flex-col items-center pb-3 pt-2">
                 <%= Calendar.strftime(day, "%a") %>
-                <span class={"items-center justify-center font-semibold #{today_class(day)}"}>
+                <span class={"mt-1 flex h-8 w-8 items-center justify-center font-semibold #{today_class(day)}"}>
                   <%= Calendar.strftime(day, "%d") %>
                 </span>
-              </span>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="flex flex-auto">
-        <div class="sticky left-0 z-10 w-14 flex-none tile ring-1 ring-gray-100 dark:ring-gray-700">
-        </div>
-        <div class="grid flex-auto grid-cols-1 grid-rows-1 tile">
-          <!-- Horizontal lines -->
-          <div
-            class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 dark:divide-gray-700"
-            style="grid-template-rows: repeat(15, minmax(3.5rem, 1fr))"
-          >
-            <div class="row-end-1 h-7"></div>
-            <%= for hour <- 6..20 do %>
-              <div>
-                <div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400 dark:text-gray-500">
-                  <%= hour %>:00
-                </div>
+              </button>
+            <% end %>
+          </div>
+          <div class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 dark:divide-gray-700 border-r border-gray-100 dark:border-gray-700 text-sm leading-6 text-gray-500 dark:text-gray-300 sm:grid">
+            <div class="col-end-1 w-14"></div>
+            <%= for day <- week_days(@week_in_view) do %>
+              <div class="flex items-center justify-center py-3">
+                <span>
+                  <%= Calendar.strftime(day, "%a") %>
+                  <span class={"items-center justify-center font-semibold #{today_class(day)}"}>
+                    <%= Calendar.strftime(day, "%d") %>
+                  </span>
+                </span>
               </div>
             <% end %>
           </div>
-          <!-- Vertical lines -->
-          <div class="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 dark:divide-gray-700 sm:grid sm:grid-cols-7">
-            <%= for col <- 1..7 do %>
-              <div class={"col-start-#{col} row-span-full"}></div>
-            <% end %>
-            <div class="col-start-8 row-span-full w-8"></div>
+        </div>
+        <div class="flex flex-auto">
+          <div class="sticky left-0 z-10 w-14 flex-none tile ring-1 ring-gray-100 dark:ring-gray-700">
           </div>
-          <div class="sm:col-start-1 sm:col-start-2 sm:col-start-3 sm:col-start-4 sm:col-start-5 sm:col-start-6 sm:col-start-7">
-          </div>
-          <!-- Events -->
-          <%= for task <- @calendar do %>
-            <% {grid_row_start, grid_row_span} = CalendarHelper.event_position(task.due_date) %>
-            <ol
-              class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
-              style="grid-template-rows: 2rem repeat(300, minmax(0, 1fr)) auto"
+          <div class="grid flex-auto grid-cols-1 grid-rows-1 tile">
+            <!-- Horizontal lines -->
+            <div
+              class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100 dark:divide-gray-700"
+              style="grid-template-rows: repeat(15, minmax(3.5rem, 1fr))"
             >
-              <li
-                class={"relative mt-px flex sm:col-start-#{Date.day_of_week(task.due_date)}"}
-                style={"grid-row: #{grid_row_start} / span #{grid_row_span}"}
+              <div class="row-end-1 h-7"></div>
+              <%= for hour <- 6..20 do %>
+                <div>
+                  <div class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400 dark:text-gray-500">
+                    <%= hour %>:00
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <!-- Vertical lines -->
+            <div class="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 dark:divide-gray-700 sm:grid sm:grid-cols-7">
+              <%= for col <- 1..7 do %>
+                <div class={"col-start-#{col} row-span-full"}></div>
+              <% end %>
+              <div class="col-start-8 row-span-full w-8"></div>
+            </div>
+            <div class="sm:col-start-1 sm:col-start-2 sm:col-start-3 sm:col-start-4 sm:col-start-5 sm:col-start-6 sm:col-start-7">
+            </div>
+            <!-- Events -->
+            <%= for task <- @calendar do %>
+              <% {grid_row_start, grid_row_span} = CalendarHelper.event_position(task.due_date) %>
+              <ol
+                class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
+                style="grid-template-rows: 2rem repeat(300, minmax(0, 1fr)) auto"
               >
-                <.link
-                  patch={~p"/task/#{task.id}"}
-                  class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 dark:bg-pink-900 p-2 text-xs leading-5 hover:bg-pink-100 dark:hover:bg-pink-800"
+                <li
+                  class={"relative mt-px flex sm:col-start-#{Date.day_of_week(task.due_date)}"}
+                  style={"grid-row: #{grid_row_start} / span #{grid_row_span}"}
                 >
-                  <p class="order-1 font-semibold text-pink-700 dark:text-pink-300">
-                    <%= task.title %>
-                  </p>
-                  <p class="text-pink-500 group-hover:text-pink-700 dark:text-pink-400 dark:group-hover:text-pink-300">
-                    <time datetime={Calendar.strftime(task.due_date, "%Y-%m-%d")}>
-                      <%= Calendar.strftime(task.due_date, "%I:%M %p") %>
-                    </time>
-                  </p>
-                </.link>
-              </li>
-            </ol>
-          <% end %>
+                  <.link
+                    patch={~p"/task/#{task.id}"}
+                    class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 dark:bg-pink-900 p-2 text-xs leading-5 hover:bg-pink-100 dark:hover:bg-pink-800"
+                  >
+                    <p class="order-1 font-semibold text-pink-700 dark:text-pink-300">
+                      <%= task.title %>
+                    </p>
+                    <p class="text-pink-500 group-hover:text-pink-700 dark:text-pink-400 dark:group-hover:text-pink-300">
+                      <time datetime={Calendar.strftime(task.due_date, "%Y-%m-%d")}>
+                        <%= Calendar.strftime(task.due_date, "%I:%M %p") %>
+                      </time>
+                    </p>
+                  </.link>
+                </li>
+              </ol>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<.events calendar={@calendar} />
+  <.events calendar={@calendar} />
+</div>

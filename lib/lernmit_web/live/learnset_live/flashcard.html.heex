@@ -1,0 +1,178 @@
+<div class="flex justify-between items-center p-2 bg-gray-200 dark:bg-gray-700 overflow-hidden">
+  <svg class="w-7 h-7 ml-3 flex-shrink-0" aria-label="mode flashcards" role="img">
+    <use href="#study-flashcards">
+      <symbol
+        fill="none"
+        viewBox="0 0 32 32"
+        id="study-flashcards"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M7.727 12.825c0-1.56 1.247-2.825 2.784-2.825h16.705C28.753 10 30 11.265 30 12.825v12.35C30 26.735 28.753 28 27.216 28H10.51c-1.537 0-2.784-1.265-2.784-2.825v-12.35Z"
+          fill="#7583FF"
+        >
+        </path>
+        <path
+          d="M2 6.825C2 5.265 3.254 4 4.8 4h16.8c1.546 0 2.8 1.265 2.8 2.825v12.35c0 1.56-1.253 2.825-2.8 2.825H4.8C3.254 22 2 20.735 2 19.175V6.825Z"
+          fill="#4255FF"
+        >
+        </path>
+      </symbol>
+    </use>
+  </svg>
+  <div class="flex flex-col items-center space-y-1">
+    <span class="text-sm text-gray-700 dark:text-white">
+      <%= @index + 1 %> / <%= @length %>
+    </span>
+    <span class="text-lg font-semibold text-gray-700 dark:text-white">
+      <%= @learnset.title %>
+    </span>
+  </div>
+  <button @click="history.back()" class="p-1 flex-shrink-0">
+    <svg
+      class="w-7 h-7 mr-3 text-gray-700 dark:text-white"
+      aria-label="Back to learnsets"
+      role="img"
+    >
+      <use xlink:href="#close-x">
+        <symbol
+          viewBox="0 0 24 24"
+          id="close-x"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+        >
+          <path
+            stroke="currentColor"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M19.645 4.367a1.209 1.209 0 0 0-1.711 0L12 10.222 6.066 4.355a1.208 1.208 0 0 0-1.711 0 1.208 1.208 0 0 0 0 1.711L10.222 12l-5.867 5.934a1.209 1.209 0 0 0 0 1.711 1.209 1.209 0 0 0 1.711 0L12 13.778l5.934 5.867a1.209 1.209 0 0 0 1.711 0 1.209 1.209 0 0 0 0-1.711L13.778 12l5.867-5.934a1.216 1.216 0 0 0 0-1.699Z"
+          >
+          </path>
+        </symbol>
+      </use>
+    </svg>
+  </button>
+</div>
+
+<div class="overflow-hidden shadow-lg">
+  <div class="h-1 bg-indigo-600 transition-all duration-250" style={"width: #{@percentage}%"}>
+  </div>
+</div>
+
+<div x-data="{ flipped: false }" @keydown.space.prevent="flipped = !flipped" class="pt-8">
+  <div>
+    <div @click="flipped = !flipped" class="flex justify-center items-center">
+      <div
+        class="relative w-[70rem] h-[35rem] transition-transform duration-300 transform preserve-3d shadow-lg"
+        x-bind:class="{ 'rotate-x-180': flipped }"
+      >
+        <div class="absolute rounded-md w-full h-full bg-white dark:bg-gray-800 flex items-center justify-center backface-hidden">
+          <div class="text-center">
+            <h2 class="text-4xl font-bold text-gray-900 dark:text-white">
+              <%= @current_card.term %>
+            </h2>
+          </div>
+        </div>
+        <div class="absolute rounded-md w-full h-full bg-white dark:bg-gray-800 flex items-center justify-center backface-hidden rotate-x-180">
+          <div class="text-center">
+            <h2 class="text-4xl font-bold text-gray-900 dark:text-white">
+              <%= @current_card.definition %>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-4 space-x-3">
+    <button
+      phx-click="prev-card"
+      type="button"
+      class="rounded-full bg-slate-200 dark:bg-gray-700 p-3 text-white shadow-sm hover:bg-slate-200 dark:hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+    >
+      <span class="sr-only">Previous</span>
+      <svg
+        class="w-5 h-5 rtl:rotate-180 text-slate-600 dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 6 10"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 1 1 5l4 4"
+        />
+      </svg>
+    </button>
+    <button
+      phx-click="next-card"
+      type="button"
+      class="rounded-full bg-slate-200 dark:bg-gray-700 p-3 text-white shadow-sm hover:bg-grey-600 dark:hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+    >
+      <span class="sr-only">Next</span>
+      <svg
+        class="w-5 h-5 rtl:rotate-180 text-slate-600 dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 6 10"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m1 9 4-4-4-4"
+        />
+      </svg>
+    </button>
+
+    <div class="flex justify-end">
+      <button
+        type="button"
+        class="rounded-full bg-slate-200 dark:bg-gray-700 p-3 text-white shadow-sm hover:bg-grey-600 dark:hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+      >
+        <span class="sr-only">Shuffle</span>
+        <svg class="w-5 h-5 text-slate-600 dark:text-white" aria-label="Shuffle" role="img">
+          <use xlink:href="#shuffle">
+            <symbol
+              viewBox="0 0 24 24"
+              id="shuffle"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+            >
+              <path
+                stroke="currentColor"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="m10.137 8.816-5.16-5.029a1.171 1.171 0 0 0-1.628 0 1.1 1.1 0 0 0 0 1.587l5.149 5.017 1.64-1.575Zm5.495-4.86 1.374 1.339-13.668 13.32a1.1 1.1 0 0 0 0 1.586c.45.439 1.177.439 1.627 0l13.68-13.309 1.374 1.34c.358.348.981.1.981-.406V3.563A.564.564 0 0 0 20.423 3h-4.375c-.52 0-.774.607-.416.956Zm-.6 9.63-1.628 1.586 3.613 3.522-1.385 1.35c-.358.348-.104.956.416.956h4.375a.564.564 0 0 0 .577-.563v-4.263c0-.506-.623-.754-.981-.394l-1.374 1.339-3.613-3.533Z"
+              >
+              </path>
+            </symbol>
+          </use>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <style>
+    .rotate-x-180 {
+        transform: rotateX(180deg);
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden;
+    }
+
+    .preserve-3d {
+        transform-style: preserve-3d;
+    }
+
+    .rtl .rotate-180 {
+        transform: rotate(180deg);
+    }
+  </style>
+</div>

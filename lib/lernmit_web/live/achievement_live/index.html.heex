@@ -1,214 +1,222 @@
-<h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">
-  <%= gettext("achievements") %>
-</h1>
+<div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+  <h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">
+    <%= gettext("achievements") %>
+  </h1>
 
-<h2 class="mb-4 text-lg text-gray-800 dark:text-white font-bold">
-  <%= gettext("recent_activity") %>
-</h2>
-<div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
-  <% recent_achievement =
-    @achievement_user
-    |> Enum.max_by(& &1.inserted_at, fn -> nil end)
-    |> case do
-      nil ->
-        nil
+  <h2 class="mb-4 text-lg text-gray-800 dark:text-white font-bold">
+    <%= gettext("recent_activity") %>
+  </h2>
+  <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+    <% recent_achievement =
+      @achievement_user
+      |> Enum.max_by(& &1.inserted_at, fn -> nil end)
+      |> case do
+        nil ->
+          nil
 
-      %{achievement_id: achievement_id} ->
-        Enum.find(@achievements, &(&1.id == achievement_id))
-    end %>
-  <div class="grid grid-cols-2 gap-4 items-start justify-start text-center">
-    <%= if recent_achievement do %>
-      <button
-        class="h-auto max-w-full rounded-lg mx-auto"
-        phx-click="show"
-        phx-value-id={recent_achievement.id}
-      >
-        <div class="flex flex-col my-6">
-          <p class="mx-2 text-black font-bold dark:text-white">
-            <%= gettext("recently_earned") %>
-          </p>
-          <p class="mx-2 text-black dark:text-white text-xs"><%= recent_achievement.title %></p>
-          <img
-            src={"/images/achievement/#{recent_achievement.image}"}
-            class="pt-4 h-auto max-w-full rounded-lg mx-auto"
-            loading="lazy"
-          />
-        </div>
-      </button>
-    <% else %>
-      <div class="flex flex-col my-6">
-        <p class="mx-2 text-black dark:text-white"><%= gettext("no_achievements") %></p>
-        <img
-          src="/images/achievement/locked_badge_Overachiever.svg"
-          class="pt-4 h-auto max-w-full rounded-lg mx-auto opacity-50"
-          loading="lazy"
-        />
-      </div>
-    <% end %>
-    <div class="flex flex-col my-6">
-      <p class="mx-2 text-black font-bold dark:text-white"><%= gettext("current_streak") %></p>
-      <%= if @streak.weekly == 0 do %>
-        <p class="mx-2 text-black dark:text-white text-xs"><%= gettext("no_progress") %></p>
-      <% else %>
-        <p class="mx-2 text-black dark:text-white text-xs">
-          <%= @streak.weekly %>-<%= gettext("week") %>
-        </p>
-        <div class="relative pt-4">
-          <span class="flame"></span>
-        </div>
-        <img
-          src="/images/streak/streak-flame.svg"
-          alt="Streak flame"
-          class="pt-2 h-auto max-w-full rounded-lg mx-auto"
-        />
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold"><%= gettext("study") %></h2>
-<div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
-  <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
-    <%= if Enum.empty?(@achievements) do %>
-      <div class="my-6">
-        <p class="mx-2 text-black dark:text-white"><%= gettext("no_achievements") %></p>
-      </div>
-    <% else %>
-      <%= for achievement <- @achievements do %>
+        %{achievement_id: achievement_id} ->
+          Enum.find(@achievements, &(&1.id == achievement_id))
+      end %>
+    <div class="grid grid-cols-2 gap-4 items-start justify-start text-center">
+      <%= if recent_achievement do %>
         <button
           class="h-auto max-w-full rounded-lg mx-auto"
           phx-click="show"
-          phx-value-id={achievement.id}
+          phx-value-id={recent_achievement.id}
         >
-          <div class="my-6">
-            <%= if Enum.member?(Enum.map(@achievement_user, & &1.achievement_id), achievement.id) do %>
-              <img
-                src={"/images/achievement/#{achievement.image}"}
-                class="mx-auto"
-                loading="lazy"
-              />
-              <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
-              <p class="mb-2 text-sm text-gray-500">
-                <%= gettext("earned") %> <%= Calendar.strftime(
-                  achievement.inserted_at,
-                  "%d/%m/%Y"
-                ) %>
-              </p>
-            <% else %>
-              <img
-                src={"/images/achievement/locked_#{achievement.image}"}
-                class="h-auto max-w-full rounded-lg mx-auto opacity-50"
-                loading="lazy"
-              />
-              <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
-              <p class="mb-2 text-sm text-gray-500"><%= gettext("locked") %></p>
-            <% end %>
+          <div class="flex flex-col my-6">
+            <p class="mx-2 text-black font-bold dark:text-white">
+              <%= gettext("recently_earned") %>
+            </p>
+            <p class="mx-2 text-black dark:text-white text-xs"><%= recent_achievement.title %></p>
+            <img
+              src={"/images/achievement/#{recent_achievement.image}"}
+              class="pt-4 h-auto max-w-full rounded-lg mx-auto"
+              loading="lazy"
+            />
           </div>
         </button>
+      <% else %>
+        <div class="flex flex-col my-6">
+          <p class="mx-2 text-black dark:text-white"><%= gettext("no_achievements") %></p>
+          <img
+            src="/images/achievement/locked_badge_Overachiever.svg"
+            class="pt-4 h-auto max-w-full rounded-lg mx-auto opacity-50"
+            loading="lazy"
+          />
+        </div>
       <% end %>
-    <% end %>
-  </div>
-</div>
-
-<h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">
-  <%= gettext("streak") %>
-</h2>
-<div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
-  <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white"><%= gettext("daily_streak") %></h1>
-  <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
-    <%= for e <- [3, 5, 7, 10, 20, 30, 45, 60, 70, 80] do %>
-      <div class="relative">
-        <%= if @streak.daily >= e do %>
-          <img
-            src="/images/streak/badge_Day.svg"
-            alt="Daily Streak"
-            class="h-auto max-w-full rounded-lg mx-auto"
-            loading="lazy"
-          />
-          <span
-            class="absolute font-bold text-xl text-gray-950"
-            style="top: 40%; transform: translate(-50%,-50%);"
-          >
-            <%= e %>
-          </span>
+      <div class="flex flex-col my-6">
+        <p class="mx-2 text-black font-bold dark:text-white"><%= gettext("current_streak") %></p>
+        <%= if @streak.weekly == 0 do %>
+          <p class="mx-2 text-black dark:text-white text-xs"><%= gettext("no_progress") %></p>
         <% else %>
+          <p class="mx-2 text-black dark:text-white text-xs">
+            <%= @streak.weekly %>-<%= gettext("week") %>
+          </p>
+          <div class="relative pt-4">
+            <span class="flame"></span>
+          </div>
           <img
-            src="/images/streak/locked_badge_Day.svg"
-            alt="Daily Streak (locked)"
-            class="h-auto max-w-full rounded-lg mx-auto opacity-50"
-            loading="lazy"
+            src="/images/streak/streak-flame.svg"
+            alt="Streak flame"
+            class="pt-2 h-auto max-w-full rounded-lg mx-auto"
           />
-          <span
-            class="absolute font-bold text-xl text-slate-500"
-            style="top: 40%; transform: translate(-50%,-50%);"
-          >
-            <%= e %>
-          </span>
         <% end %>
-        <p class="mt-2 text-black dark:text-white"><%= e %><%= gettext("streak_days") %></p>
       </div>
-    <% end %>
-  </div>
-  <div class="relative py-8">
-    <div class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-      <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
     </div>
   </div>
-  <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white"><%= gettext("weekly_streak") %></h1>
-  <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
-    <%= for e <- [3, 5, 7, 10, 20, 30, 45] do %>
-      <div class="relative">
-        <%= if @streak.weekly >= e do %>
-          <img
-            src="/images/streak/badge_Week.svg"
-            alt="Weekly Streak"
-            class="h-auto max-w-full rounded-lg mx-auto"
-            loading="lazy"
-          />
-          <span
-            class="absolute font-bold text-xl text-gray-950"
-            style="top: 40%; transform: translate(-50%,-50%);"
-          >
-            <%= e %>
-          </span>
-        <% else %>
-          <img
-            src="/images/streak/locked_badge_Week.svg"
-            alt="Weekly Streak (locked)"
-            class="h-auto max-w-full rounded-lg mx-auto opacity-50"
-            loading="lazy"
-          />
-          <span
-            class="absolute font-bold text-xl text-slate-500"
-            style="top: 40%; transform: translate(-50%,-50%);"
-          >
-            <%= e %>
-          </span>
-        <% end %>
-        <p class="mt-2 text-black dark:text-white"><%= e %><%= gettext("streak_weeks") %></p>
-      </div>
-    <% end %>
-  </div>
-</div>
 
-<.modal :if={@show == true} id="achievement" show on_cancel={JS.push("cancel")}>
-  <div class="text-center">
-    <h2 class="mx-2 text-xl text-black font-bold dark:text-white">
-      <%= @selected_achievement.title %>
-    </h2>
-    <%= if @locked do %>
-      <img
-        src={"/images/achievement/#{@selected_achievement.image}"}
-        alt={@selected_achievement.title}
-        class="pt-4 h-52 max-w-full rounded-lg mx-auto"
-      />
-    <% else %>
-      <img
-        src={"/images/achievement/locked_#{@selected_achievement.image}"}
-        alt={@selected_achievement.title}
-        class="pt-4 h-52 max-w-full rounded-lg mx-auto"
-      />
-    <% end %>
-    <p class="mx-2 text-sm text-black dark:text-white"><%= @selected_achievement.desc %></p>
+  <h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">
+    <%= gettext("study") %>
+  </h2>
+  <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+      <%= if Enum.empty?(@achievements) do %>
+        <div class="my-6">
+          <p class="mx-2 text-black dark:text-white"><%= gettext("no_achievements") %></p>
+        </div>
+      <% else %>
+        <%= for achievement <- @achievements do %>
+          <button
+            class="h-auto max-w-full rounded-lg mx-auto"
+            phx-click="show"
+            phx-value-id={achievement.id}
+          >
+            <div class="my-6">
+              <%= if Enum.member?(Enum.map(@achievement_user, & &1.achievement_id), achievement.id) do %>
+                <img
+                  src={"/images/achievement/#{achievement.image}"}
+                  class="mx-auto"
+                  loading="lazy"
+                />
+                <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
+                <p class="mb-2 text-sm text-gray-500">
+                  <%= gettext("earned") %> <%= Calendar.strftime(
+                    achievement.inserted_at,
+                    "%d/%m/%Y"
+                  ) %>
+                </p>
+              <% else %>
+                <img
+                  src={"/images/achievement/locked_#{achievement.image}"}
+                  class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+                  loading="lazy"
+                />
+                <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
+                <p class="mb-2 text-sm text-gray-500"><%= gettext("locked") %></p>
+              <% end %>
+            </div>
+          </button>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-</.modal>
+
+  <h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">
+    <%= gettext("streak") %>
+  </h2>
+  <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
+    <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white">
+      <%= gettext("daily_streak") %>
+    </h1>
+    <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+      <%= for e <- [3, 5, 7, 10, 20, 30, 45, 60, 70, 80] do %>
+        <div class="relative">
+          <%= if @streak.daily >= e do %>
+            <img
+              src="/images/streak/badge_Day.svg"
+              alt="Daily Streak"
+              class="h-auto max-w-full rounded-lg mx-auto"
+              loading="lazy"
+            />
+            <span
+              class="absolute font-bold text-xl text-gray-950"
+              style="top: 40%; transform: translate(-50%,-50%);"
+            >
+              <%= e %>
+            </span>
+          <% else %>
+            <img
+              src="/images/streak/locked_badge_Day.svg"
+              alt="Daily Streak (locked)"
+              class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+              loading="lazy"
+            />
+            <span
+              class="absolute font-bold text-xl text-slate-500"
+              style="top: 40%; transform: translate(-50%,-50%);"
+            >
+              <%= e %>
+            </span>
+          <% end %>
+          <p class="mt-2 text-black dark:text-white"><%= e %><%= gettext("streak_days") %></p>
+        </div>
+      <% end %>
+    </div>
+    <div class="relative py-8">
+      <div class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+        <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+      </div>
+    </div>
+    <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white">
+      <%= gettext("weekly_streak") %>
+    </h1>
+    <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
+      <%= for e <- [3, 5, 7, 10, 20, 30, 45] do %>
+        <div class="relative">
+          <%= if @streak.weekly >= e do %>
+            <img
+              src="/images/streak/badge_Week.svg"
+              alt="Weekly Streak"
+              class="h-auto max-w-full rounded-lg mx-auto"
+              loading="lazy"
+            />
+            <span
+              class="absolute font-bold text-xl text-gray-950"
+              style="top: 40%; transform: translate(-50%,-50%);"
+            >
+              <%= e %>
+            </span>
+          <% else %>
+            <img
+              src="/images/streak/locked_badge_Week.svg"
+              alt="Weekly Streak (locked)"
+              class="h-auto max-w-full rounded-lg mx-auto opacity-50"
+              loading="lazy"
+            />
+            <span
+              class="absolute font-bold text-xl text-slate-500"
+              style="top: 40%; transform: translate(-50%,-50%);"
+            >
+              <%= e %>
+            </span>
+          <% end %>
+          <p class="mt-2 text-black dark:text-white"><%= e %><%= gettext("streak_weeks") %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <.modal :if={@show == true} id="achievement" show on_cancel={JS.push("cancel")}>
+    <div class="text-center">
+      <h2 class="mx-2 text-xl text-black font-bold dark:text-white">
+        <%= @selected_achievement.title %>
+      </h2>
+      <%= if @locked do %>
+        <img
+          src={"/images/achievement/#{@selected_achievement.image}"}
+          alt={@selected_achievement.title}
+          class="pt-4 h-52 max-w-full rounded-lg mx-auto"
+        />
+      <% else %>
+        <img
+          src={"/images/achievement/locked_#{@selected_achievement.image}"}
+          alt={@selected_achievement.title}
+          class="pt-4 h-52 max-w-full rounded-lg mx-auto"
+        />
+      <% end %>
+      <p class="mx-2 text-sm text-black dark:text-white"><%= @selected_achievement.desc %></p>
+    </div>
+  </.modal>
+</div>

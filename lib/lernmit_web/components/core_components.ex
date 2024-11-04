@@ -406,23 +406,21 @@ defmodule LernmitWeb.CoreComponents do
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:border-t sm:pb-0">
-      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:divide-y sm:divide-gray-900/10 dark:sm:divide-gray-700 sm:border-t pb-4">
+      <div class="pt-2.5 pb-2">
         <.label for={@id}><%= @label %></.label>
-        <div class="mt-2 sm:col-span-2 sm:mt-0">
-          <input
-            type={@type}
-            name={@name}
-            id={@id}
-            value={Phoenix.HTML.Form.normalize_value(@type, @value)}
-            class={[
-              "block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:max-w-xl sm:text-sm/6"
-            ]}
-            {@rest}
-          />
-          <.error :for={msg <- @errors}><%= msg %></.error>
-        </div>
       </div>
+      <input
+        type={@type}
+        name={@name}
+        id={@id}
+        value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+        class={[
+          "block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400"
+        ]}
+        {@rest}
+      />
+      <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
   end

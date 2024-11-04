@@ -1,0 +1,49 @@
+<div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+  <.header>
+    Learnsets
+    <:actions>
+      <.link patch={~p"/learnset/new"}>
+        <.button>New Learnset</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.table
+    id="learnset"
+    rows={@streams.learnset_collection}
+    row_click={fn {_id, learnset} -> JS.navigate(~p"/learnset/#{learnset}") end}
+  >
+    <:col :let={{_id, learnset}} label="Title"><%= learnset.title %></:col>
+    <:col :let={{_id, learnset}} label="Desc"><%= learnset.desc %></:col>
+    <:action :let={{_id, learnset}}>
+      <div class="sr-only">
+        <.link navigate={~p"/learnset/#{learnset}"}>Show</.link>
+      </div>
+      <.link patch={~p"/learnset/#{learnset}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={{id, learnset}}>
+      <.link
+        phx-click={JS.push("delete", value: %{id: learnset.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </:action>
+  </.table>
+
+  <.modal
+    :if={@live_action in [:new, :edit]}
+    id="learnset-modal"
+    show
+    on_cancel={JS.patch(~p"/learnset")}
+  >
+    <.live_component
+      module={LernmitWeb.LearnsetLive.FormComponent}
+      id={@learnset.id || :new}
+      title={@page_title}
+      action={@live_action}
+      learnset={@learnset}
+      patch={~p"/learnset"}
+    />
+  </.modal>
+</div>

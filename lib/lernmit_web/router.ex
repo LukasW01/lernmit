@@ -60,6 +60,14 @@ defmodule LernmitWeb.Router do
     live "/task/:id", TaskLive.Show, :show
     live "/task/:id/show/edit", TaskLive.Show, :edit
 
+    live "/learnset", LearnsetLive.Index, :index
+    live "/learnset/new", LearnsetLive.Index, :new
+    live "/learnset/:id/edit", LearnsetLive.Index, :edit
+    live "/learnset/:id", LearnsetLive.Show, :show
+    live "/learnset/:id/flashcard", LearnsetLive.Flashcard, :show
+    live "/learnset/:id/multiple_choice", LearnsetLive.MultipleChoice, :show
+    live "/learnset/:id/show/edit", LearnsetLive.Show, :edit
+
     live "/calendar/month", CalendarLive.Month, :index
     live "/calendar/week", CalendarLive.Week, :index
   end
