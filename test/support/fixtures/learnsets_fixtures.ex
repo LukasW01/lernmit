@@ -11,8 +11,8 @@ defmodule Lernmit.LearnsetsFixtures do
     {:ok, learnset} =
       attrs
       |> Enum.into(%{
-        desc: "some desc",
-        title: "some title"
+        desc: "desc",
+        title: "title"
       })
       |> Lernmit.Learnsets.create_learnset()
 

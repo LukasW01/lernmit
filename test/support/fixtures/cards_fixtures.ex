@@ -11,8 +11,8 @@ defmodule Lernmit.CardsFixtures do
     {:ok, card} =
       attrs
       |> Enum.into(%{
-        defintion: "some defintion",
-        term: "some term"
+        defintion: "defintion",
+        term: "term"
       })
       |> Lernmit.Cards.create_card()
 
