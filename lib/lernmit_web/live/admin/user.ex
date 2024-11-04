@@ -1,13 +1,17 @@
 defmodule LernmitWeb.Live.UserLive do
   use Backpex.LiveResource,
+    adapter_config: [
+      repo: Lernmit.Repo,
+      schema: Lernmit.Users.User,
+      update_changeset: &Lernmit.Users.User.admin_changeset/3,
+      create_changeset: &Lernmit.Users.User.admin_changeset/3
+    ],
     layout: {LernmitWeb.Layouts, :admin},
-    schema: Lernmit.Users.User,
-    repo: Lernmit.Repo,
-    update_changeset: &Lernmit.Users.User.admin_changeset/3,
-    create_changeset: &Lernmit.Users.User.admin_changeset/3,
-    pubsub: Lernmit.PubSub,
-    topic: "user",
-    event_prefix: "user_"
+    pubsub: [
+      name: Lernmit.PubSub,
+      topic: "user",
+      event_prefix: "user_"
+    ]
 
   @impl Backpex.LiveResource
   def singular_name, do: "User"

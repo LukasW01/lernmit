@@ -1,13 +1,17 @@
 defmodule LernmitWeb.Live.ParticipantLive do
   use Backpex.LiveResource,
+    adapter_config: [
+      repo: Lernmit.Repo,
+      schema: Lernmit.Participants.Participant,
+      update_changeset: &Lernmit.Participants.Participant.admin_changeset/3,
+      create_changeset: &Lernmit.Participants.Participant.admin_changeset/3
+    ],
     layout: {LernmitWeb.Layouts, :admin},
-    schema: Lernmit.Participants.Participant,
-    repo: Lernmit.Repo,
-    update_changeset: &Lernmit.Participants.Participant.admin_changeset/3,
-    create_changeset: &Lernmit.Participants.Participant.admin_changeset/3,
-    pubsub: Lernmit.PubSub,
-    topic: "participant",
-    event_prefix: "participant_"
+    pubsub: [
+      name: Lernmit.PubSub,
+      topic: "participant",
+      event_prefix: "participant_"
+    ]
 
   @impl Backpex.LiveResource
   def singular_name, do: "Teilnehmer"

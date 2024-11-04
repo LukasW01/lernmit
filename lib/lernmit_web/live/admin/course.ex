@@ -1,13 +1,17 @@
 defmodule LernmitWeb.Live.CourseLive do
   use Backpex.LiveResource,
+    adapter_config: [
+      repo: Lernmit.Repo,
+      schema: Lernmit.Courses.Course,
+      update_changeset: &Lernmit.Courses.Course.admin_changeset/3,
+      create_changeset: &Lernmit.Courses.Course.admin_changeset/3
+    ],
     layout: {LernmitWeb.Layouts, :admin},
-    schema: Lernmit.Courses.Course,
-    repo: Lernmit.Repo,
-    update_changeset: &Lernmit.Courses.Course.admin_changeset/3,
-    create_changeset: &Lernmit.Courses.Course.admin_changeset/3,
-    pubsub: Lernmit.PubSub,
-    topic: "course",
-    event_prefix: "course_"
+    pubsub: [
+      name: Lernmit.PubSub,
+      topic: "course",
+      event_prefix: "course_"
+    ]
 
   @impl Backpex.LiveResource
   def singular_name, do: "Kurs"

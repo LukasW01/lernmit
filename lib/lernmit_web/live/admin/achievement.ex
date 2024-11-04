@@ -1,13 +1,17 @@
 defmodule LernmitWeb.Live.AchievementLive do
   use Backpex.LiveResource,
+    adapter_config: [
+      repo: Lernmit.Repo,
+      schema: Lernmit.Achievements.Achievement,
+      update_changeset: &Lernmit.Achievements.Achievement.admin_changeset/3,
+      create_changeset: &Lernmit.Achievements.Achievement.admin_changeset/3
+    ],
     layout: {LernmitWeb.Layouts, :admin},
-    schema: Lernmit.Achievements.Achievement,
-    repo: Lernmit.Repo,
-    update_changeset: &Lernmit.Achievements.Achievement.admin_changeset/3,
-    create_changeset: &Lernmit.Achievements.Achievement.admin_changeset/3,
-    pubsub: Lernmit.PubSub,
-    topic: "achievement",
-    event_prefix: "achievement_"
+    pubsub: [
+      name: Lernmit.PubSub,
+      topic: "achievement",
+      event_prefix: "achievement_"
+    ]
 
   @impl Backpex.LiveResource
   def singular_name, do: "Erfolge"
