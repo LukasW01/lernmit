@@ -3,6 +3,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
 
   alias Lernmit.Tasks
   alias Lernmit.Courses
+  alias Lernmit.Auth.Policy
 
   @impl true
   def render(assigns) do
@@ -57,20 +58,27 @@ defmodule LernmitWeb.TaskLive.FormComponent do
 
   @impl true
   def update(%{task: task, current_user: current_user} = assigns, socket) do
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:exam, task_types(task.types))
-     |> assign(
-       :courses,
-       Enum.map(
-         Courses.list_course_distinct(current_user),
-         &{"#{&1.class} (#{&1.subject})", &1.id}
-       )
-     )
-     |> assign_new(:form, fn ->
-       to_form(Tasks.change_task(task))
-     end)}
+    if Policy.authorize(:task_create, current_user) == :ok and task.user_id == current_user.id do
+      {:ok, apply_action(socket, assigns, task)}
+    else
+      {:error, :unauthorized}
+    end
+  end
+
+  defp apply_action(socket, assigns, task) do
+    socket
+    |> assign(assigns)
+    |> assign(:exam, task_types(task.types))
+    |> assign(
+      :courses,
+      Enum.map(
+        Courses.list_course_distinct(socket.assigns.current_user),
+        &{"#{&1.class} (#{&1.subject})", &1.id}
+      )
+    )
+    |> assign_new(:form, fn ->
+      to_form(Tasks.change_task(task))
+    end)
   end
 
   @impl true

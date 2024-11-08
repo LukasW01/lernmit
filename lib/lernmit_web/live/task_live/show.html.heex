@@ -17,8 +17,6 @@
     <:item :if={@task.points} title="Points"><%= @task.points %></:item>
   </.list>
 
-  <.back navigate={~p"/task"}>Back to task</.back>
-
   <.modal
     :if={@live_action == :edit}
     id="task-modal"

@@ -9,7 +9,10 @@ defmodule LernmitWeb.LearnsetLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :learnset_collection, Learnsets.list_learnset())}
+    {:ok,
+     socket
+     |> stream(:learnset_collection, Learnsets.list_learnset())
+     |> assign(:current_user, socket.assigns.current_user)}
   end
 
   @impl true

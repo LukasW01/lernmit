@@ -19,15 +19,21 @@
       <div class="sr-only">
         <.link navigate={~p"/learnset/#{learnset}"}>Show</.link>
       </div>
-      <.link patch={~p"/learnset/#{learnset}/edit"}>Edit</.link>
+      <%= if learnset.user_id == @current_user.id do %>
+        <.link patch={~p"/learnset/#{learnset}/edit"}>
+          Edit
+        </.link>
+      <% end %>
     </:action>
     <:action :let={{id, learnset}}>
-      <.link
-        phx-click={JS.push("delete", value: %{id: learnset.id}) |> hide("##{id}")}
-        data-confirm="Are you sure?"
-      >
-        Delete
-      </.link>
+      <%= if learnset.user_id == @current_user.id do %>
+        <.link
+          phx-click={JS.push("delete", value: %{id: learnset.id}) |> hide("##{id}")}
+          data-confirm="Are you sure?"
+        >
+          Delete
+        </.link>
+      <% end %>
     </:action>
   </.table>
 
@@ -43,6 +49,7 @@
       title={@page_title}
       action={@live_action}
       learnset={@learnset}
+      current_user={@current_user}
       patch={~p"/learnset"}
     />
   </.modal>

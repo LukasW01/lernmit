@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/lernmit_web/components/core_components.ex:486
+#: lib/lernmit_web/components/core_components.ex:519
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -52,60 +52,60 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/lernmit_web/components/layouts/_nav.html.heex:29
-#: lib/lernmit_web/components/layouts/_nav.html.heex:123
-#: lib/lernmit_web/live/calendar_live/month.html.heex:2
-#: lib/lernmit_web/live/calendar_live/week.html.heex:2
+#: lib/lernmit_web/components/layouts/_nav.html.heex:32
+#: lib/lernmit_web/components/layouts/_nav.html.heex:142
+#: lib/lernmit_web/live/calendar_live/month.html.heex:3
+#: lib/lernmit_web/live/calendar_live/week.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "calendar"
 msgstr "Calendar"
 
-#: lib/lernmit_web/live/calendar_live/month.html.heex:32
-#: lib/lernmit_web/live/calendar_live/month.html.heex:153
-#: lib/lernmit_web/live/calendar_live/week.html.heex:34
-#: lib/lernmit_web/live/calendar_live/week.html.heex:155
+#: lib/lernmit_web/live/calendar_live/month.html.heex:33
+#: lib/lernmit_web/live/calendar_live/month.html.heex:154
+#: lib/lernmit_web/live/calendar_live/week.html.heex:35
+#: lib/lernmit_web/live/calendar_live/week.html.heex:156
 #, elixir-autogen, elixir-format
 msgid "today"
 msgstr "Today"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:47
-#: lib/lernmit_web/live/calendar_live/month.html.heex:58
-#: lib/lernmit_web/live/calendar_live/month.html.heex:92
-#: lib/lernmit_web/live/calendar_live/month.html.heex:169
-#: lib/lernmit_web/live/calendar_live/week.html.heex:9
-#: lib/lernmit_web/live/calendar_live/week.html.heex:60
-#: lib/lernmit_web/live/calendar_live/week.html.heex:94
-#: lib/lernmit_web/live/calendar_live/week.html.heex:171
+#: lib/lernmit_web/live/achievement_live/index.html.heex:55
+#: lib/lernmit_web/live/calendar_live/month.html.heex:93
+#: lib/lernmit_web/live/calendar_live/month.html.heex:170
+#: lib/lernmit_web/live/calendar_live/week.html.heex:10
+#: lib/lernmit_web/live/calendar_live/week.html.heex:61
+#: lib/lernmit_web/live/calendar_live/week.html.heex:95
+#: lib/lernmit_web/live/calendar_live/week.html.heex:172
 #, elixir-autogen, elixir-format
 msgid "week"
 msgstr "Week"
 
-#: lib/lernmit_web/live/calendar_live/month.html.heex:85
-#: lib/lernmit_web/live/calendar_live/month.html.heex:162
-#: lib/lernmit_web/live/calendar_live/week.html.heex:87
-#: lib/lernmit_web/live/calendar_live/week.html.heex:164
+#: lib/lernmit_web/live/calendar_live/month.html.heex:59
+#: lib/lernmit_web/live/calendar_live/month.html.heex:86
+#: lib/lernmit_web/live/calendar_live/month.html.heex:163
+#: lib/lernmit_web/live/calendar_live/week.html.heex:88
+#: lib/lernmit_web/live/calendar_live/week.html.heex:165
 #, elixir-autogen, elixir-format
 msgid "month"
 msgstr "Month"
 
-#: lib/lernmit_web/live/calendar_live/month.html.heex:112
-#: lib/lernmit_web/live/calendar_live/week.html.heex:114
+#: lib/lernmit_web/live/calendar_live/month.html.heex:113
+#: lib/lernmit_web/live/calendar_live/week.html.heex:115
 #, elixir-autogen, elixir-format
 msgid "exam"
 msgstr "Exam"
 
-#: lib/lernmit_web/live/calendar_live/week.html.heex:41
+#: lib/lernmit_web/live/calendar_live/week.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "next_week"
 msgstr "Next week"
 
-#: lib/lernmit_web/live/calendar_live/week.html.heex:20
+#: lib/lernmit_web/live/calendar_live/week.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "previous_week"
 msgstr "Previous week"
 
-#: lib/lernmit_web/live/calendar_live/month.html.heex:143
-#: lib/lernmit_web/live/calendar_live/week.html.heex:145
+#: lib/lernmit_web/live/calendar_live/month.html.heex:144
+#: lib/lernmit_web/live/calendar_live/week.html.heex:146
 #, elixir-autogen, elixir-format
 msgid "add_exam"
 msgstr "Add exam"
@@ -120,113 +120,129 @@ msgstr "Nothing on your schedule"
 msgid "upcoming_exams"
 msgstr "Upcoming events"
 
-#: lib/lernmit_web/live/calendar_live/month.html.heex:39
+#: lib/lernmit_web/live/calendar_live/month.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "next_month"
 msgstr "Next month"
 
-#: lib/lernmit_web/live/calendar_live/month.html.heex:18
+#: lib/lernmit_web/live/calendar_live/month.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "previous_month"
 msgstr "Previous month"
 
 #: lib/lernmit_web/components/layouts/_account.html.heex:7
-#: lib/lernmit_web/live/calendar_live/month.html.heex:123
-#: lib/lernmit_web/live/calendar_live/week.html.heex:125
+#: lib/lernmit_web/live/calendar_live/month.html.heex:124
+#: lib/lernmit_web/live/calendar_live/week.html.heex:126
 #, elixir-autogen, elixir-format
 msgid "open_menu"
 msgstr "Open menu"
 
-#: lib/lernmit_web/components/layouts/_nav.html.heex:37
-#: lib/lernmit_web/components/layouts/_nav.html.heex:131
-#: lib/lernmit_web/live/achievement_live/index.html.heex:1
+#: lib/lernmit_web/components/layouts/_nav.html.heex:42
+#: lib/lernmit_web/components/layouts/_nav.html.heex:152
+#: lib/lernmit_web/live/achievement_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "achievements"
 msgstr "Achievements"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:104
+#: lib/lernmit_web/live/achievement_live/index.html.heex:121
 #, elixir-autogen, elixir-format
 msgid "daily_streak"
 msgstr "Daily streaks"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:102
+#: lib/lernmit_web/live/achievement_live/index.html.heex:117
 #, elixir-autogen, elixir-format
 msgid "streak"
 msgstr "Streaks"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:135
+#: lib/lernmit_web/live/achievement_live/index.html.heex:153
 #, elixir-autogen, elixir-format, fuzzy
 msgid "streak_days"
 msgstr "-day streak"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:175
+#: lib/lernmit_web/live/achievement_live/index.html.heex:195
 #, elixir-autogen, elixir-format, fuzzy
 msgid "streak_weeks"
 msgstr "-week streak"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:84
+#: lib/lernmit_web/live/achievement_live/index.html.heex:95
 #, elixir-autogen, elixir-format
 msgid "earned"
 msgstr "Earned"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:93
+#: lib/lernmit_web/live/achievement_live/index.html.heex:107
 #, elixir-autogen, elixir-format
 msgid "locked"
 msgstr "Locked"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:34
-#: lib/lernmit_web/live/achievement_live/index.html.heex:66
+#: lib/lernmit_web/live/achievement_live/index.html.heex:41
+#: lib/lernmit_web/live/achievement_live/index.html.heex:77
 #, elixir-autogen, elixir-format, fuzzy
 msgid "no_achievements"
 msgstr "No achievement collected yet"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:3
+#: lib/lernmit_web/live/achievement_live/index.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "recent_activity"
 msgstr "Recent activity"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:61
+#: lib/lernmit_web/live/achievement_live/index.html.heex:71
 #, elixir-autogen, elixir-format
 msgid "study"
 msgstr "Study"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:144
+#: lib/lernmit_web/live/achievement_live/index.html.heex:163
 #, elixir-autogen, elixir-format, fuzzy
 msgid "weekly_streak"
 msgstr "Daily streaks"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:43
+#: lib/lernmit_web/live/achievement_live/index.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "current_streak"
 msgstr "Current streak"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:45
+#: lib/lernmit_web/live/achievement_live/index.html.heex:52
 #, elixir-autogen, elixir-format
 msgid "no_progress"
 msgstr "No progress yet"
 
-#: lib/lernmit_web/live/achievement_live/index.html.heex:23
+#: lib/lernmit_web/live/achievement_live/index.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "recently_earned"
 msgstr "Recently earned"
 
-#: lib/lernmit_web/components/layouts/_nav.html.heex:21
-#: lib/lernmit_web/components/layouts/_nav.html.heex:115
+#: lib/lernmit_web/components/layouts/_nav.html.heex:22
+#: lib/lernmit_web/components/layouts/_nav.html.heex:132
 #, elixir-autogen, elixir-format
 msgid "tasks"
 msgstr "Tasks"
 
-#: lib/lernmit_web/components/layouts/_account.html.heex:42
+#: lib/lernmit_web/components/layouts/_account.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "account"
 msgstr "Account"
 
-#: lib/lernmit_web/components/layouts/_account.html.heex:69
+#: lib/lernmit_web/components/layouts/_account.html.heex:68
 #, elixir-autogen, elixir-format
 msgid "log_out"
 msgstr "Log Out"
 
-#: lib/lernmit_web/components/layouts/_account.html.heex:28
+#: lib/lernmit_web/components/layouts/_account.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "signed_in"
 msgstr "User"
+
+#: lib/lernmit/util/message.ex:13
+#, elixir-autogen, elixir-format
+msgid "Unauthorized"
+msgstr "Unauthorized"
+
+#: lib/lernmit_web/components/layouts/_nav.html.heex:52
+#: lib/lernmit_web/components/layouts/_nav.html.heex:162
+#, elixir-autogen, elixir-format
+msgid "learnsets"
+msgstr "Learnsets"
+
+#: lib/lernmit/util/message.ex:14
+#, elixir-autogen, elixir-format
+msgid "Item not found"
+msgstr "Item not found"

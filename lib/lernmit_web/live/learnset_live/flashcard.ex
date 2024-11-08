@@ -2,9 +2,7 @@ defmodule LernmitWeb.LearnsetLive.Flashcard do
   use LernmitWeb, :live_view
 
   alias Lernmit.Learnsets
-  alias Lernmit.Learnsets.Learnset
   alias Lernmit.Cards
-  import LernmitWeb.LernmitComponents
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
@@ -18,7 +16,7 @@ defmodule LernmitWeb.LearnsetLive.Flashcard do
      |> assign(:length, length(cards))
      |> assign(:learnset, Learnsets.get_learnset!(id))
      |> assign(:percentage, 0)
-     |> assign(:nav, true)}
+     |> assign(:nav, :fullscreen)}
   end
 
   @impl true
@@ -39,6 +37,16 @@ defmodule LernmitWeb.LearnsetLive.Flashcard do
      |> assign(:index, socket.assigns.index - 1)}
   end
 
+  @impl true
+  def handle_event("randomize", _, socket) do
+    with shuffled_cards <- shuffle_cards(socket.assigns) do
+      {:noreply,
+       socket
+       |> assign(:cards, shuffled_cards)
+       |> assign(:current_card, Enum.at(shuffled_cards, socket.assigns.index))}
+    end
+  end
+
   defp shift_card(assigns, shift) do
     case Enum.find_index(assigns.cards, &(&1.id == assigns.current_card.id)) do
       index when index + shift >= 0 and index + shift < length(assigns.cards) ->
@@ -53,5 +61,13 @@ defmodule LernmitWeb.LearnsetLive.Flashcard do
     case Enum.find_index(assigns.cards, &(&1.id == assigns.current_card.id)) do
       index -> (index + 1) / length(assigns.cards) * 100
     end
+  end
+
+  defp shuffle_cards(%{cards: cards, current_card: current_card}) do
+    {viewed, unviewed} =
+      cards
+      |> Enum.split_while(&(&1.id != current_card.id))
+
+    viewed ++ Enum.shuffle(unviewed)
   end
 end

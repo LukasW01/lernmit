@@ -35,6 +35,16 @@
                   </li>
                   <li>
                     <.link
+                      patch={~p"/learnset"}
+                      class="hover:text-sky-500 dark:hover:text-sky-400"
+                    >
+                      <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                        gettext("learnsets")
+                      end) %>
+                    </.link>
+                  </li>
+                  <li>
+                    <.link
                       patch={~p"/achievement"}
                       class="hover:text-sky-500 dark:hover:text-sky-400"
                     >
@@ -130,6 +140,16 @@
                           >
                             <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                               gettext("calendar")
+                            end) %>
+                          </.link>
+                        </li>
+                        <li>
+                          <.link
+                            patch={~p"/learnset"}
+                            class="hover:text-sky-500 dark:hover:text-sky-400"
+                          >
+                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                              gettext("learnsets")
                             end) %>
                           </.link>
                         </li>

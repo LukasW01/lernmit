@@ -1,20 +1,76 @@
 <div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
   <.header>
     <%= @learnset.title %>
-    <:actions>
-      <.link patch={~p"/learnset/#{@learnset}/show/edit"} phx-click={JS.push_focus()}>
-        <.button>Edit learnset</.button>
-      </.link>
-    </:actions>
+    <:subtitle>
+      <%= @learnset.desc %>
+    </:subtitle>
   </.header>
 
-  <.list>
-    <:item title="Desc"><%= @learnset.desc %></:item>
-  </.list>
-
-  <.button phx-click="flashcard">Flashcard</.button>
-
-  <.back navigate={~p"/learnset"}>Back to learnset</.back>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <.link
+      href={~p"/learnset/#{@learnset.id}/flashcard"}
+      phx-click={JS.push_focus()}
+      class="bg-gray-800 text-white p-6 rounded-lg text-center"
+    >
+      <svg class="w-7 h-7 ml-3 flex-shrink-0" aria-label="mode flashcards" role="img">
+        <use href="#study-flashcards">
+          <symbol
+            fill="none"
+            viewBox="0 0 32 32"
+            id="study-flashcards"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.727 12.825c0-1.56 1.247-2.825 2.784-2.825h16.705C28.753 10 30 11.265 30 12.825v12.35C30 26.735 28.753 28 27.216 28H10.51c-1.537 0-2.784-1.265-2.784-2.825v-12.35Z"
+              fill="#7583FF"
+            >
+            </path>
+            <path
+              d="M2 6.825C2 5.265 3.254 4 4.8 4h16.8c1.546 0 2.8 1.265 2.8 2.825v12.35c0 1.56-1.253 2.825-2.8 2.825H4.8C3.254 22 2 20.735 2 19.175V6.825Z"
+              fill="#4255FF"
+            >
+            </path>
+          </symbol>
+        </use>
+      </svg>
+    </.link>
+    <.link
+      href={~p"/learnset/#{@learnset.id}/multiple_choice"}
+      phx-click={JS.push_focus()}
+      class="bg-gray-800 text-white p-6 rounded-lg text-center"
+    >
+      <svg class="w-7 h-7 ml-3 flex-shrink-0" aria-label="mode flashcards" role="img">
+        <use href="#study-multiple-choice">
+          <symbol
+            fill="none"
+            viewBox="0 0 32 32"
+            id="study-multiple-choice"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M4.667 4.5C3.194 4.5 2 5.764 2 7.324v8.47c0 1.56 1.194 2.824 2.667 2.824h18.666c1.473 0 2.667-1.264 2.667-2.824v-8.47c0-1.56-1.194-2.824-2.667-2.824H4.667Zm4 5.647c-.737 0-1.334.632-1.334 1.412 0 .78.597 1.412 1.334 1.412h10.666c.737 0 1.334-.633 1.334-1.412 0-.78-.597-1.412-1.334-1.412H8.667Z"
+              fill="#4255FF"
+            >
+            </path>
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M16.667 15.794c-1.473 0-2.667 1.264-2.667 2.824v7.059c0 1.559 1.194 2.823 2.667 2.823h10.666c1.473 0 2.667-1.264 2.667-2.823v-7.06c0-1.559-1.194-2.823-2.667-2.823H16.667Zm2.666 4.941c-.736 0-1.333.632-1.333 1.412 0 .78.597 1.412 1.334 1.412h5.333c.736 0 1.333-.632 1.333-1.412 0-.78-.597-1.412-1.333-1.412h-5.334Z"
+              fill="#51CFFF"
+            >
+            </path>
+            <path
+              d="M7.333 11.559c0-.78.597-1.412 1.333-1.412h10.667c.736 0 1.333.632 1.333 1.412 0 .78-.597 1.412-1.333 1.412H8.666c-.736 0-1.333-.633-1.333-1.412ZM18 22.147c0-.78.597-1.412 1.333-1.412h5.334c.736 0 1.333.632 1.333 1.412 0 .78-.597 1.412-1.333 1.412h-5.334c-.736 0-1.333-.632-1.333-1.412Z"
+              fill="#fff"
+            >
+            </path>
+          </symbol>
+        </use>
+      </svg>
+    </.link>
+  </div>
 
   <.modal
     :if={@live_action == :flashcard}
@@ -41,6 +97,7 @@
       title={@page_title}
       action={@live_action}
       learnset={@learnset}
+      current_user={@current_user}
       patch={~p"/learnset/#{@learnset}"}
     />
   </.modal>

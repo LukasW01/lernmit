@@ -11,5 +11,5 @@ defmodule Lernmit.Util.Message do
   message(:unauthorized) returns "Unauthorized"
   """
   def error(:unauthorized), do: gettext("Unauthorized")
-  def error(:not_found), do: gettext("Not found")
+  def error(:not_found), do: gettext("Item not found")
 end

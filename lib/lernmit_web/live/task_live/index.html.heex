@@ -1,6 +1,6 @@
 <div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
   <.header>
-    Tasks
+    <%= gettext("tasks") %>
   </.header>
 
   <div class="mx-auto flex flex-wrap items-center gap-6 sm:flex-nowrap">
@@ -53,7 +53,7 @@
     row_click={fn task -> JS.navigate(~p"/task/#{task.id}") end}
   >
     <:col :let={task} label="Title"><%= task.title %></:col>
-    <:col :let={task} label="Text"><%= String.slice(task.text, 0..100) %></:col>
+    <:col :let={task} label="Text"><%= String.slice(task.text, 0..50) %></:col>
     <:col :let={task} label="Types"><%= String.capitalize(task.types) %></:col>
     <:col :let={task} label="Due date"><%= task.due_date %></:col>
     <:col :let={task} label="Points"><%= task.points %></:col>

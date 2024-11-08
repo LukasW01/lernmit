@@ -2,9 +2,7 @@ defmodule LernmitWeb.LearnsetLive.FormComponent do
   use LernmitWeb, :live_component
 
   alias Lernmit.Learnsets
-  alias Lernmit.Learnsets.Learnset
   alias Lernmit.Cards.Card
-  alias Lernmit.Cards
   import LernmitWeb.LernmitComponents
 
   @impl true
@@ -27,15 +25,35 @@ defmodule LernmitWeb.LearnsetLive.FormComponent do
     """
   end
 
-  @impl true
-  def update(%{learnset: learnset} = assigns, socket) do
+  def mount(_params, %{"current_user" => current_user} = _session, socket) do
     {:ok,
      socket
-     |> assign(assigns)
-     |> assign(:cards, [%Card{id: 1, term: "", definition: ""}])
-     |> assign_new(:form, fn ->
-       to_form(Learnsets.change_learnset(learnset))
-     end)}
+     |> assign(:current_user, current_user)
+     |> assign(:title, "New Learnset")}
+  end
+
+  @impl true
+  def update(%{learnset: learnset, current_user: current_user} = assigns, socket) do
+    case learnset.user_id == current_user.id do
+      true ->
+        {:ok, apply_action(socket, assigns, learnset)}
+
+      false ->
+        if learnset.user_id == nil do
+          {:ok, apply_action(socket, assigns, learnset)}
+        else
+          {:error, :unauthorized}
+        end
+    end
+  end
+
+  def apply_action(socket, assigns, learnset) do
+    socket
+    |> assign(assigns)
+    |> assign(:cards, [%Card{id: 1, term: "", definition: ""}])
+    |> assign_new(:form, fn ->
+      to_form(Learnsets.change_learnset(learnset))
+    end)
   end
 
   @impl true
