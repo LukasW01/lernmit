@@ -70,7 +70,9 @@ defmodule Lernmit.MixProject do
       {:junit_formatter, "~> 3.4", only: [:test]},
       {:backpex, "~> 0.8.1"},
       {:phoenix_pubsub, "~> 2.1"},
-      {:let_me, "~> 1.2.4"}
+      {:let_me, "~> 1.2.4"},
+      {:sentry, "~> 10.2.0"},
+      {:hackney, "~> 1.8"}
     ]
   end
 

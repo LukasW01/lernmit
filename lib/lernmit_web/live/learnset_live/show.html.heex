@@ -1,5 +1,5 @@
-<div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
-  <.header>
+<div class="px-4 sm:px-6 lg:px-16 pt-10 pb-20">
+  <.header class="mb-4">
     <%= @learnset.title %>
     <:subtitle>
       <%= @learnset.desc %>
@@ -10,9 +10,9 @@
     <.link
       href={~p"/learnset/#{@learnset.id}/flashcard"}
       phx-click={JS.push_focus()}
-      class="bg-gray-800 text-white p-6 rounded-lg text-center"
+      class="relative dark:bg-gray-800 bg-slate-200 dark:text-white text-dark p-6 rounded-lg text-center flex flex-col justify-center items-center group"
     >
-      <svg class="w-7 h-7 ml-3 flex-shrink-0" aria-label="mode flashcards" role="img">
+      <svg class="w-14 h-14" role="img">
         <use href="#study-flashcards">
           <symbol
             fill="none"
@@ -33,13 +33,16 @@
           </symbol>
         </use>
       </svg>
+      <p class="mt-auto pt-4">Flashcards</p>
+      <div class="absolute bottom-0 left-0 w-full h-1 bg-sky-500 dark:bg-sky-400 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-b-lg">
+      </div>
     </.link>
     <.link
       href={~p"/learnset/#{@learnset.id}/multiple_choice"}
       phx-click={JS.push_focus()}
-      class="bg-gray-800 text-white p-6 rounded-lg text-center"
+      class="relative dark:bg-gray-800 bg-slate-200 dark:text-white text-dark p-6 rounded-lg text-center flex flex-col justify-center items-center group"
     >
-      <svg class="w-7 h-7 ml-3 flex-shrink-0" aria-label="mode flashcards" role="img">
+      <svg class="w-14 h-14" role="img">
         <use href="#study-multiple-choice">
           <symbol
             fill="none"
@@ -69,9 +72,33 @@
           </symbol>
         </use>
       </svg>
+      <p class="mt-auto pt-4">Multiple Choice</p>
+      <div class="absolute bottom-0 left-0 w-full h-1 bg-sky-500 dark:bg-sky-400 scale-y-0 group-hover:scale-y-100 rounded-b-lg">
+      </div>
     </.link>
   </div>
 
+  <div class="mt-8">
+    <h2 class="text-md font-bold mb-4">Cards</h2>
+    <ul>
+      <%= for card <- @cards do %>
+        <li
+          x-data="{ blurred: true }"
+          class="dark:bg-gray-800 bg-slate-200 dark:text-white text-dark p-6 rounded-lg mb-3 flex flex-col md:flex-row gap-4"
+        >
+          <span class="flex-1"><%= card.term %></span>
+          <div class="w-px h-16 bg-gray-600 mx-4 hidden md:block"></div>
+          <span
+            x-bind:class="{ 'blur-sm': blurred }"
+            x-on:click="blurred = !blurred"
+            class="flex-1 md:flex md:flex-col text-left items-start"
+          >
+            <%= card.definition %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
   <.modal
     :if={@live_action == :flashcard}
     id="learnset-modal"

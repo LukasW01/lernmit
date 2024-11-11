@@ -21,6 +21,6 @@ defmodule Lernmit.Tasks.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:title, :text, :types, :due_date, :points, :course_id])
-    |> validate_required([:title, :text, :types, :due_date, :course_id])
+    |> validate_required([:title, :types, :due_date, :course_id])
   end
 end

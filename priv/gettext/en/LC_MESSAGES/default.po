@@ -118,7 +118,7 @@ msgstr "Nothing on your schedule"
 #: lib/lernmit_web/components/lernmit_components.ex:17
 #, elixir-autogen, elixir-format
 msgid "upcoming_exams"
-msgstr "Upcoming events"
+msgstr "Upcoming exams"
 
 #: lib/lernmit_web/live/calendar_live/month.html.heex:40
 #, elixir-autogen, elixir-format

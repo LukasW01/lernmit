@@ -3,9 +3,6 @@ defmodule LernmitWeb.LearnsetLive.Index do
 
   alias Lernmit.Learnsets
   alias Lernmit.Learnsets.Learnset
-  alias Lernmit.Cards.Card
-  alias Lernmit.Cards
-  import LernmitWeb.LernmitComponents
 
   @impl true
   def mount(_params, _session, socket) do
@@ -21,9 +18,16 @@ defmodule LernmitWeb.LearnsetLive.Index do
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Learnset")
-    |> assign(:learnset, Learnsets.get_learnset!(id))
+    case Learnsets.get_learnset!(id) do
+      {:ok, learnset} ->
+        socket
+        |> assign(:page_title, "Edit Learnset")
+        |> assign(:learnset, learnset)
+
+      {:error, _} ->
+        socket
+        |> put_flash(:error, "Learnset not found")
+    end
   end
 
   defp apply_action(socket, :new, _params) do
@@ -45,9 +49,14 @@ defmodule LernmitWeb.LearnsetLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    learnset = Learnsets.get_learnset!(id)
-    {:ok, _} = Learnsets.delete_learnset(learnset)
+    case Learnsets.get_learnset!(id) do
+      {:ok, learnset} ->
+        {:ok, _} = Learnsets.delete_learnset(learnset)
 
-    {:noreply, stream_delete(socket, :learnset_collection, learnset)}
+        {:noreply, stream_delete(socket, :learnset_collection, learnset)}
+
+      {:error, _} ->
+        {:noreply, put_flash(socket, :error, "Learnset not found")}
+    end
   end
 end

@@ -35,7 +35,12 @@ defmodule Lernmit.Learnsets do
       ** (Ecto.NoResultsError)
 
   """
-  def get_learnset!(id), do: Repo.get!(Learnset, id)
+  def get_learnset!(id) do
+    case Repo.one(from l in Learnset, where: l.id == ^id) do
+      nil -> {:error, :not_found}
+      learnset -> {:ok, learnset}
+    end
+  end
 
   @doc """
   Creates a learnset.

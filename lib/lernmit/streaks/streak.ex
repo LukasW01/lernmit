@@ -14,7 +14,7 @@ defmodule Lernmit.Streaks.Streak do
   @doc false
   def changeset(streak, attrs) do
     streak
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:user_id])
+    |> validate_required([:user_id])
   end
 end

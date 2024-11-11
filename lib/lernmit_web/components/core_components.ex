@@ -70,7 +70,7 @@ defmodule LernmitWeb.CoreComponents do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 dark:shadow-zinc-900/20 ring-zinc-700/10 dark:ring-zinc-900/20 relative hidden rounded-2xl bg-white dark:bg-gray-900 p-14 shadow-lg ring-1 transition"
+              class="shadow-zinc-700/10 dark:shadow-zinc-900/20 ring-zinc-700/10 dark:ring-zinc-900/20 relative hidden rounded-2xl tile p-14 shadow-lg ring-1 transition"
             >
               <div class="absolute top-6 right-5">
                 <button
@@ -157,7 +157,6 @@ defmodule LernmitWeb.CoreComponents do
         id="client-error"
         kind={:error}
         title={gettext("We can't find the internet")}
-        phx-disconnected={show(".phx-client-error #client-error")}
         phx-connected={hide("#client-error")}
         hidden
       >
@@ -361,67 +360,61 @@ defmodule LernmitWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:divide-y sm:divide-gray-900/10 dark:sm:divide-gray-700 sm:border-t pb-4">
-      <div class="pt-2.5 pb-2">
-        <.label for={@id}><%= @label %></.label>
-      </div>
-      <select
-        id={@id}
-        name={@name}
-        class="block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-500 sm:text-sm/6"
-        multiple={@multiple}
-        {@rest}
-      >
-        <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
-      </select>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+    <div class="pt-2.5 pb-2">
+      <.label for={@id}><%= @label %></.label>
     </div>
+    <select
+      id={@id}
+      name={@name}
+      class="block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-500 sm:text-sm/6"
+      multiple={@multiple}
+      {@rest}
+    >
+      <option :if={@prompt} value=""><%= @prompt %></option>
+      <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+    </select>
+    <.error :for={msg <- @errors}><%= msg %></.error>
     """
   end
 
   def input(%{type: "textarea"} = assigns) do
     ~H"""
-    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:divide-y sm:divide-gray-900/10 dark:sm:divide-gray-700 sm:border-t pb-4">
-      <div class="pt-3 pb-2">
-        <.label for={@id}><%= @label %></.label>
-      </div>
-      <textarea
-        id={@id}
-        name={@name}
-        class={[
-          "block w-full rounded-md border-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm/6",
-          @errors == [] &&
-            "border-zinc-300 dark:border-gray-600 focus:border-zinc-400 dark:focus:border-gray-500",
-          @errors != [] &&
-            "border-rose-400 dark:border-rose-500 focus:border-rose-400 dark:focus:border-rose-500"
-        ]}
-        {@rest}
-      ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
-      <.error :for={msg <- @errors}><%= msg %></.error>
+    <div class="pt-3 pb-2">
+      <.label for={@id}><%= @label %></.label>
     </div>
+    <textarea
+      id={@id}
+      name={@name}
+      class={[
+        "block w-full rounded-md border-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm/6",
+        @errors == [] &&
+          "border-zinc-300 dark:border-gray-600 focus:border-zinc-400 dark:focus:border-gray-500",
+        @errors != [] &&
+          "border-rose-400 dark:border-rose-500 focus:border-rose-400 dark:focus:border-rose-500"
+      ]}
+      {@rest}
+    ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
+    <.error :for={msg <- @errors}><%= msg %></.error>
     """
   end
 
   # All other inputs text, datetime-local, url, password, etc. are handled here...
   def input(assigns) do
     ~H"""
-    <div class="border-b border-gray-900/10 dark:border-gray-700 sm:divide-y sm:divide-gray-900/10 dark:sm:divide-gray-700 sm:border-t pb-4">
-      <div class="pt-2.5 pb-2">
-        <.label for={@id}><%= @label %></.label>
-      </div>
-      <input
-        type={@type}
-        name={@name}
-        id={@id}
-        value={Phoenix.HTML.Form.normalize_value(@type, @value)}
-        class={[
-          "block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400"
-        ]}
-        {@rest}
-      />
-      <.error :for={msg <- @errors}><%= msg %></.error>
+    <div class="pt-2.5 pb-2">
+      <.label for={@id}><%= @label %></.label>
     </div>
+    <input
+      type={@type}
+      name={@name}
+      id={@id}
+      value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+      class={[
+        "block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400"
+      ]}
+      {@rest}
+    />
+    <.error :for={msg <- @errors}><%= msg %></.error>
     """
   end
 
@@ -672,7 +665,7 @@ defmodule LernmitWeb.CoreComponents do
   def show(js \\ %JS{}, selector) do
     JS.show(js,
       to: selector,
-      time: 300,
+      time: 0,
       transition:
         {"transition-all transform ease-out duration-300",
          "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",

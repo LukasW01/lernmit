@@ -5,7 +5,7 @@ defmodule Lernmit.Repo.Migrations.CreateCard do
     create table(:card) do
       add :term, :string
       add :definition, :text
-      add :learnset_id, references(:learnset, on_delete: :nothing)
+      add :learnset_id, references(:learnset, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end

@@ -16,7 +16,7 @@ defmodule Lernmit.Learnsets.Learnset do
   @doc false
   def changeset(learnset, attrs) do
     learnset
-    |> cast(attrs, [:title, :desc])
-    |> validate_required([:title, :desc])
+    |> cast(attrs, [:title, :desc, :user_id])
+    |> validate_required([:title, :user_id])
   end
 end

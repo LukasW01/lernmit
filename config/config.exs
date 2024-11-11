@@ -70,23 +70,22 @@ config :lernmit, :pow,
   user: Lernmit.Users.User,
   repo: Lernmit.Repo
 
-# Configure PowAssent (OAuth2 provider)
+# Configure Sentry
+config :sentry,
+  dsn:
+    "https://f1d98c8bf4a61cb1bc28f47c6e0bdc2d@o4506923162533888.ingest.us.sentry.io/4508278133882880",
+  environment_name: Mix.env(),
+  enable_source_code_context: true,
+  root_source_code_paths: [File.cwd!()]
+
 config :lernmit, :pow_assent,
   providers: [
-    Auth: [
+    Keycloak: [
       client_id: System.get_env("OAUTH_CLIENT_ID"),
       client_secret: System.get_env("OAUTH_CLIENT_SECRET"),
       strategy: Lernmit.Auth.Provider
     ]
   ]
-
-config :lernmit,
-  access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
-  secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
-  bucket: System.get_env("S3_BUCKET"),
-  region: System.get_env("AWS_REGION"),
-  url: System.get_env("S3_URL"),
-  host: System.get_env("S3_ALIAS_HOST")
 
 # Configures Elixir's Logger
 config :logger, :console,

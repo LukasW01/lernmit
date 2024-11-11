@@ -3,24 +3,33 @@ defmodule LernmitWeb.LearnsetLive.MultipleChoice do
 
   alias Lernmit.Learnsets
   alias Lernmit.Cards
+  alias Lernmit.Streaks
+  alias Lernmit.Util.Message
 
   defstruct option: [], answer: nil
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
-    cards = Cards.list_card(id)
+    case {Learnsets.get_learnset!(id), Cards.list_card(id)} do
+      {{:ok, lernset}, cards} ->
+        {:ok,
+         socket
+         |> assign(:nav, :fullscreen)
+         |> assign(:cards, cards)
+         |> assign(:learnset, lernset)
+         |> assign(:current_card, Enum.at(cards, 0))
+         |> assign(:length, length(cards))
+         |> assign(:index, 1)
+         |> assign(:percentage, 0)
+         |> assign(:multiple_choice, options(cards, Enum.at(cards, 0)))
+         |> assign(:selected, nil)}
 
-    {:ok,
-     socket
-     |> assign(:nav, :fullscreen)
-     |> assign(:cards, cards)
-     |> assign(:learnset, Learnsets.get_learnset!(id))
-     |> assign(:current_card, Enum.at(cards, 0))
-     |> assign(:length, length(cards))
-     |> assign(:index, 0)
-     |> assign(:percentage, 0)
-     |> assign(:multiple_choice, options(cards, Enum.at(cards, 0)))
-     |> assign(:selected, nil)}
+      {{:error, error}, []} ->
+        {:ok,
+         socket
+         |> put_flash(:error, Message.error(error))
+         |> push_navigate(to: "/learnset")}
+    end
   end
 
   @impl true
@@ -36,13 +45,22 @@ defmodule LernmitWeb.LearnsetLive.MultipleChoice do
 
   @impl true
   def handle_info(:next_card, socket) do
-    {:noreply,
-     socket
-     |> assign(:current_card, shift_card(socket.assigns, 1))
-     |> assign(:percentage, calc_percentage(socket.assigns))
-     |> assign(:index, socket.assigns.index + 1)
-     |> assign(:multiple_choice, options(socket.assigns.cards, shift_card(socket.assigns, 1)))
-     |> assign(:selected, nil)}
+    if socket.assigns.index == socket.assigns.length do
+      Streaks.create_streak(%{user_id: socket.assigns.current_user.id})
+
+      {:noreply,
+       socket
+       |> put_flash(:info, "You have completed the learnset")
+       |> redirect(to: "/learnset/#{socket.assigns.learnset.id}")}
+    else
+      {:noreply,
+       socket
+       |> assign(:current_card, shift_card(socket.assigns, 1))
+       |> assign(:percentage, calc_percentage(socket.assigns))
+       |> assign(:index, socket.assigns.index + 1)
+       |> assign(:multiple_choice, options(socket.assigns.cards, shift_card(socket.assigns, 1)))
+       |> assign(:selected, nil)}
+    end
   end
 
   defp options(cards, current_card) do

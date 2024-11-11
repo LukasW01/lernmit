@@ -2,6 +2,8 @@ defmodule LernmitWeb.LearnsetLive.Show do
   use LernmitWeb, :live_view
 
   alias Lernmit.Learnsets
+  alias Lernmit.Cards
+  alias Lernmit.Util.Message
 
   @impl true
   def mount(_params, _session, socket) do
@@ -10,10 +12,20 @@ defmodule LernmitWeb.LearnsetLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:learnset, Learnsets.get_learnset!(id))}
+    case {Learnsets.get_learnset!(id), Cards.list_card(id)} do
+      {{:ok, lernset}, cards} ->
+        {:noreply,
+         socket
+         |> assign(:page_title, page_title(socket.assigns.live_action))
+         |> assign(:learnset, lernset)
+         |> assign(:cards, cards)}
+
+      {{:error, error}, []} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, Message.error(error))
+         |> push_navigate(to: "/learnset")}
+    end
   end
 
   @impl true

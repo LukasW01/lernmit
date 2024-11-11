@@ -25,7 +25,7 @@
   </svg>
   <div class="flex flex-col items-center space-y-1">
     <span class="text-sm text-gray-700 dark:text-white">
-      <%= @index + 1 %> / <%= @length %>
+      <%= @index %> / <%= @length %>
     </span>
     <span class="text-lg font-semibold text-gray-700 dark:text-white">
       <%= @learnset.title %>
@@ -89,6 +89,7 @@
 
   <div class="flex justify-center mt-4 space-x-3">
     <button
+      @click="flipped = false"
       phx-click="prev-card"
       type="button"
       class="rounded-full bg-slate-200 dark:bg-gray-700 p-3 text-white shadow-sm hover:bg-slate-200 dark:hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
@@ -111,6 +112,7 @@
       </svg>
     </button>
     <button
+      @click="flipped = false"
       phx-click="next-card"
       type="button"
       class="rounded-full bg-slate-200 dark:bg-gray-700 p-3 text-white shadow-sm hover:bg-grey-600 dark:hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"

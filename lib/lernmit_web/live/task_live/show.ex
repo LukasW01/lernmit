@@ -2,7 +2,6 @@ defmodule LernmitWeb.TaskLive.Show do
   use LernmitWeb, :live_view
 
   alias Lernmit.Tasks
-  alias Lernmit.Auth.Policy
   alias Lernmit.Util.Message
 
   @impl true

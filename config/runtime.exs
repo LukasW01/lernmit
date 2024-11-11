@@ -28,6 +28,25 @@ if config_env() == :prod do
     hostname: System.get_env("DATABASE_HOST"),
     port: System.get_env("DATABASE_PORT", "5432")
 
+  # Configure PowAssent (OAuth2 provider)
+  config :lernmit, :pow_assent,
+    providers: [
+      Keycloak: [
+        client_id: System.get_env("OAUTH_CLIENT_ID"),
+        client_secret: System.get_env("OAUTH_CLIENT_SECRET"),
+        strategy: Lernmit.Auth.Provider
+      ]
+    ]
+
+  # Configure S3
+  config :lernmit,
+    access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
+    secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
+    bucket: System.get_env("S3_BUCKET"),
+    region: System.get_env("AWS_REGION"),
+    url: System.get_env("S3_URL"),
+    host: System.get_env("S3_ALIAS_HOST")
+
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want

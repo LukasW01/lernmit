@@ -29,8 +29,11 @@ defmodule Lernmit.Tasks do
            on: c.id == t.course_id,
            join: p in Participant,
            on: p.course_id == c.id,
-           where: p.student_id == ^current_user.id or c.teacher_id == ^current_user.id,
-           order_by: [asc: t.due_date]
+           where:
+             (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
+               t.due_date >= ^NaiveDateTime.utc_now(),
+           order_by: [asc: t.due_date],
+           distinct: t.id
        )}
     end
   end
@@ -61,7 +64,8 @@ defmodule Lernmit.Tasks do
             (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
               fragment("? BETWEEN ? AND ?", t.due_date, ^start_date_n, ^end_date_n) and
               t.types == "EXAM",
-          order_by: [asc: t.due_date]
+          order_by: [asc: t.due_date],
+          distinct: t.id
       )
     end
   end
@@ -89,8 +93,9 @@ defmodule Lernmit.Tasks do
            on: p.course_id == c.id,
            where:
              (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
-               t.status == ^filter,
-           order_by: [asc: t.due_date]
+               t.status == ^filter and t.due_date >= ^NaiveDateTime.utc_now(),
+           order_by: [asc: t.due_date],
+           distinct: t.id
        )}
     end
   end
@@ -119,7 +124,8 @@ defmodule Lernmit.Tasks do
            where:
              (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
                t.due_date < ^NaiveDateTime.utc_now(),
-           order_by: [asc: t.due_date]
+           order_by: [asc: t.due_date],
+           distinct: t.id
        )}
     end
   end
@@ -148,7 +154,8 @@ defmodule Lernmit.Tasks do
                on: p.course_id == c.id,
                where:
                  (p.student_id == ^current_user.id or c.teacher_id == ^current_user.id) and
-                   t.id == ^id
+                   t.id == ^id,
+               distinct: t.id
            ) do
         nil -> {:error, :not_found}
         task -> {:ok, task}

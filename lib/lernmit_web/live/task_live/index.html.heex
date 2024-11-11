@@ -1,4 +1,4 @@
-<div class="px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+<div class="px-4 sm:px-6 lg:px-16 pt-10 pb-20">
   <.header>
     <%= gettext("tasks") %>
   </.header>
@@ -55,7 +55,9 @@
     <:col :let={task} label="Title"><%= task.title %></:col>
     <:col :let={task} label="Text"><%= String.slice(task.text, 0..50) %></:col>
     <:col :let={task} label="Types"><%= String.capitalize(task.types) %></:col>
-    <:col :let={task} label="Due date"><%= task.due_date %></:col>
+    <:col :let={task} label="Due date">
+      <%= Calendar.strftime(task.due_date, "%d.%m.%y %H:%M:%S") %>
+    </:col>
     <:col :let={task} label="Points"><%= task.points %></:col>
     <:action :let={task}>
       <div class="sr-only">

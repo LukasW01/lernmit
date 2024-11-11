@@ -15,6 +15,8 @@
 //     import "some-package"
 //
 import Alpine from "alpinejs";
+import persist from '@alpinejs/persist'
+import validation from 'alpinejs-form-validation'
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
@@ -23,6 +25,8 @@ import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
 window.Alpine = Alpine;
+Alpine.plugin(persist)
+Alpine.plugin(validation)
 Alpine.start();
 
 let Uploaders = {}

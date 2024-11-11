@@ -37,7 +37,7 @@ defmodule LernmitWeb.TaskLive.FormComponent do
           <div class="ml-auto mt-6 flex items-center justify-end gap-x-6">
             <.simple_button
               phx-click={JS.navigate(~p"/task")}
-              class="text-sm/6 font-semibold text-gray-900"
+              class="text-sm/6 font-semibold text-gray-900 dark:text-white"
             >
               Cancel
             </.simple_button>
@@ -58,21 +58,21 @@ defmodule LernmitWeb.TaskLive.FormComponent do
 
   @impl true
   def update(%{task: task, current_user: current_user} = assigns, socket) do
-    if Policy.authorize(:task_create, current_user) == :ok and task.user_id == current_user.id do
-      {:ok, apply_action(socket, assigns, task)}
+    if Policy.authorize(:task_create, current_user) == :ok do
+      {:ok, apply_action(socket, assigns, task, current_user)}
     else
       {:error, :unauthorized}
     end
   end
 
-  defp apply_action(socket, assigns, task) do
+  defp apply_action(socket, assigns, task, current_user) do
     socket
     |> assign(assigns)
     |> assign(:exam, task_types(task.types))
     |> assign(
       :courses,
       Enum.map(
-        Courses.list_course_distinct(socket.assigns.current_user),
+        Courses.list_course_distinct(current_user),
         &{"#{&1.class} (#{&1.subject})", &1.id}
       )
     )
@@ -125,8 +125,8 @@ defmodule LernmitWeb.TaskLive.FormComponent do
     end
   end
 
-  defp task_types(task) do
-    case task do
+  defp task_types(type) do
+    case type do
       "EXAM" -> true
       "EXERCISE" -> false
       _ -> true

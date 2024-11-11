@@ -9,7 +9,7 @@ defmodule Lernmit.Users.User do
 
   schema "users" do
     pow_user_fields()
-    field :role, :string
+    field :role, :string, default: "student"
     field :locale, :string
     field :name, :string
 

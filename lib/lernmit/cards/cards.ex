@@ -58,6 +58,14 @@ defmodule Lernmit.Cards do
     |> Repo.insert()
   end
 
+  def create_cards(cards \\ []) do
+    Enum.each(cards, fn card ->
+      %Card{}
+      |> Card.changeset(card)
+      |> Repo.insert()
+    end)
+  end
+
   @doc """
   Updates a card.
 
