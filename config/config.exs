@@ -78,15 +78,6 @@ config :sentry,
   enable_source_code_context: true,
   root_source_code_paths: [File.cwd!()]
 
-config :lernmit, :pow_assent,
-  providers: [
-    Keycloak: [
-      client_id: System.get_env("OAUTH_CLIENT_ID"),
-      client_secret: System.get_env("OAUTH_CLIENT_SECRET"),
-      strategy: Lernmit.Auth.Provider
-    ]
-  ]
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -96,6 +87,25 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :lernmit, LernmitWeb.Gettext, locales: ~w(de en), default_locale: "de"
+
+# Runtime configuration (defaults for all environments)
+config :lernmit, :pow_assent,
+  providers: [
+    Keycloak: [
+      client_id: System.get_env("OAUTH_CLIENT_ID"),
+      client_secret: System.get_env("OAUTH_CLIENT_SECRET"),
+      strategy: Lernmit.Auth.Provider
+    ]
+  ]
+
+# Configure S3
+config :lernmit,
+  access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
+  secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
+  bucket: System.get_env("S3_BUCKET"),
+  region: System.get_env("AWS_REGION"),
+  url: System.get_env("S3_URL"),
+  host: System.get_env("S3_ALIAS_HOST")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

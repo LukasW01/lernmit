@@ -20,7 +20,7 @@ Install dependencies
 
 ```bash
 mix deps.get
-cd assets && npm install && cd ..
+cd assets && npm install
 ```
 
 Run setup
@@ -36,7 +36,5 @@ mix phx.server
 ```
 
 ## License
-
-License
 
 This program is licensed under the Business Source License 1.1. See the "LICENSE" file for more information

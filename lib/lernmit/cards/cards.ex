@@ -58,6 +58,14 @@ defmodule Lernmit.Cards do
     |> Repo.insert()
   end
 
+  @doc """
+  Creates a list of cards.  
+    
+  ## Examples
+
+      iex> create_cards([%{field: value}, %{field: value}])
+      [%Card{}, %Card{}]
+  """
   def create_cards(cards \\ []) do
     Enum.each(cards, fn card ->
       %Card{}

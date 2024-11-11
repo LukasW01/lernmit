@@ -1,4 +1,4 @@
-defmodule Lernmit.StreaksFixtures do
+defmodule Lernmit.StreakFixtures do
   @moduledoc """
   This module defines test helpers for creating
   entities via the `Lernmit.Streaks` context.

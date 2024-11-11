@@ -1,4 +1,4 @@
-defmodule Lernmit.TasksFixtures do
+defmodule Lernmit.TaskFixtures do
   @moduledoc """
   This module defines test helpers for creating
   entities via the `Lernmit.Tasks` context.
