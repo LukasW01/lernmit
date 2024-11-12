@@ -1,6 +1,6 @@
 {
   "name": "lernmit",
-  "version": "0.1.0",
+  "version": "0.5",
   "dependencies": {
     "@alpinejs/persist": "^3.14.3",
     "alpinejs": "^3.14.1",
