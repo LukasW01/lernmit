@@ -7,6 +7,7 @@ defmodule Lernmit.Learnsets do
   alias Lernmit.Repo
 
   alias Lernmit.Learnsets.Learnset
+  alias Lernmit.Users.User
 
   @doc """
   Returns the list of learnset.
@@ -36,7 +37,7 @@ defmodule Lernmit.Learnsets do
 
   """
   def get_learnset!(id) do
-    case Repo.one(from l in Learnset, where: l.id == ^id) do
+    case Repo.one(from l in Learnset, where: l.id == ^id) |> Repo.preload(:cards) do
       nil -> {:error, :not_found}
       learnset -> {:ok, learnset}
     end
@@ -72,10 +73,16 @@ defmodule Lernmit.Learnsets do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_learnset(%Learnset{} = learnset, attrs) do
-    learnset
-    |> Learnset.changeset(attrs)
-    |> Repo.update()
+  def update_learnset(%User{} = current_user, %Learnset{} = learnset, attrs) do
+    case learnset.user_id == current_user.id do
+      true ->
+        learnset
+        |> Learnset.changeset(attrs)
+        |> Repo.update()
+
+      false ->
+        {:error, :unauthorized}
+    end
   end
 
   @doc """
@@ -90,8 +97,11 @@ defmodule Lernmit.Learnsets do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_learnset(%Learnset{} = learnset) do
-    Repo.delete(learnset)
+  def delete_learnset(%User{} = current_user, %Learnset{} = learnset) do
+    case learnset.user_id == current_user.id do
+      true -> Repo.delete(learnset)
+      false -> {:error, :unauthorized}
+    end
   end
 
   @doc """

@@ -68,6 +68,8 @@ defmodule LernmitWeb.Router do
 
     live "/calendar/month", CalendarLive.Month, :index
     live "/calendar/week", CalendarLive.Week, :index
+
+    resources "/cards", CardController, only: [:show, :index]
   end
 
   scope "/admin", LernmitWeb do

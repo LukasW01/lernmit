@@ -49,23 +49,22 @@ defmodule LernmitWeb.TaskLive.FormComponent do
     """
   end
 
-  def mount(_params, %{"current_user" => current_user} = _session, socket) do
+  def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign(:current_user, current_user)
      |> assign(:title, "New Task")}
   end
 
   @impl true
-  def update(%{task: task, current_user: current_user} = assigns, socket) do
+  def update(%{current_user: current_user} = assigns, socket) do
     if Policy.authorize(:task_create, current_user) == :ok do
-      {:ok, apply_action(socket, assigns, task, current_user)}
+      {:ok, apply_action(assigns, socket)}
     else
       {:error, :unauthorized}
     end
   end
 
-  defp apply_action(socket, assigns, task, current_user) do
+  defp apply_action(%{task: task, current_user: current_user} = assigns, socket) do
     socket
     |> assign(assigns)
     |> assign(:exam, task_types(task.types))

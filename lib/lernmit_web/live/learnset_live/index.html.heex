@@ -10,24 +10,24 @@
 
   <.table
     id="learnset"
-    rows={@streams.learnset_collection}
-    row_click={fn {_id, learnset} -> JS.navigate(~p"/learnset/#{learnset}") end}
+    rows={@learnset_collection}
+    row_click={fn learnset -> JS.navigate(~p"/learnset/#{learnset.id}") end}
   >
-    <:col :let={{_id, learnset}} label="Title"><%= learnset.title %></:col>
-    <:action :let={{_id, learnset}}>
+    <:col :let={learnset} label="Title"><%= learnset.title %></:col>
+    <:action :let={learnset}>
       <div class="sr-only">
-        <.link navigate={~p"/learnset/#{learnset}"}>Show</.link>
+        <.link navigate={~p"/learnset/#{learnset.id}"}>Show</.link>
       </div>
       <%= if learnset.user_id == @current_user.id do %>
-        <.link patch={~p"/learnset/#{learnset}/edit"}>
+        <.link patch={~p"/learnset/#{learnset.id}/edit"}>
           Edit
         </.link>
       <% end %>
     </:action>
-    <:action :let={{id, learnset}}>
+    <:action :let={learnset}>
       <%= if learnset.user_id == @current_user.id do %>
         <.link
-          phx-click={JS.push("delete", value: %{id: learnset.id}) |> hide("##{id}")}
+          phx-click={JS.push("delete", value: %{id: learnset.id}) |> hide("##{learnset.id}")}
           data-confirm="Are you sure?"
         >
           Delete

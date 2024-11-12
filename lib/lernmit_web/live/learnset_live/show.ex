@@ -28,13 +28,6 @@ defmodule LernmitWeb.LearnsetLive.Show do
     end
   end
 
-  @impl true
-  def handle_event("flashcard", _, socket) do
-    {:noreply,
-     socket
-     |> assign(:live_action, :flashcard)}
-  end
-
   defp page_title(:show), do: "Show Learnset"
   defp page_title(:edit), do: "Edit Learnset"
 end

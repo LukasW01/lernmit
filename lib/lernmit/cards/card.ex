@@ -17,6 +17,6 @@ defmodule Lernmit.Cards.Card do
   def changeset(card, attrs) do
     card
     |> cast(attrs, [:term, :definition, :learnset_id])
-    |> validate_required([:term, :definition, :learnset_id])
+    |> validate_required([:term, :definition])
   end
 end

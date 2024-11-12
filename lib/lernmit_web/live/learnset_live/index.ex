@@ -8,7 +8,7 @@ defmodule LernmitWeb.LearnsetLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> stream(:learnset_collection, Learnsets.list_learnset())
+     |> assign(:learnset_collection, Learnsets.list_learnset())
      |> assign(:current_user, socket.assigns.current_user)}
   end
 
@@ -27,6 +27,7 @@ defmodule LernmitWeb.LearnsetLive.Index do
       {:error, _} ->
         socket
         |> put_flash(:error, "Learnset not found")
+        |> push_navigate(to: "/learnset")
     end
   end
 
@@ -44,16 +45,25 @@ defmodule LernmitWeb.LearnsetLive.Index do
 
   @impl true
   def handle_info({LernmitWeb.LearnsetLive.FormComponent, {:saved, learnset}}, socket) do
-    {:noreply, stream_insert(socket, :learnset_collection, learnset)}
+    {:noreply,
+     assign(socket,
+       learnset_collection: [
+         learnset | Enum.reject(socket.assigns.learnset_collection, &(&1.id == learnset.id))
+       ]
+     )}
   end
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     case Learnsets.get_learnset!(id) do
       {:ok, learnset} ->
-        {:ok, _} = Learnsets.delete_learnset(learnset)
+        {:ok, _} = Learnsets.delete_learnset(socket.assigns.current_user, learnset)
 
-        {:noreply, stream_delete(socket, :learnset_collection, learnset)}
+        {:noreply,
+         assign(socket,
+           learnset_collection:
+             Enum.reject(socket.assigns.learnset_collection, &(&1.id == learnset.id))
+         )}
 
       {:error, _} ->
         {:noreply, put_flash(socket, :error, "Learnset not found")}

@@ -48,58 +48,94 @@ defmodule LernmitWeb.LernmitComponents do
 
   def card(assigns) do
     ~H"""
-    <ul class="space-y-6 pt-4">
-      <%= for card <- @cards do %>
-        <li class="p-4 border rounded-lg shadow space-y-4 dark:border-gray-700 dark:shadow-gray-800">
-          <div class="form-group flex-grow-1 mb-0">
-            <label class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">
-              Term
-            </label>
-            <input
-              type="text"
-              placeholder="Add term"
-              class="block w-full mt-1 text-gray-900 dark:text-white dark:bg-gray-700 border-transparent rounded-md focus:border-gray-500 dark:focus:border-gray-400 focus:bg-white dark:focus:bg-gray-700 focus:ring-0"
-              value={card.term}
-            />
-          </div>
-          <div class="form-group flex-grow-1 mb-0 mt-4">
-            <label class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">
-              Definition
-            </label>
-            <textarea
-              placeholder="Add definition"
-              class="block w-full mt-1 text-gray-900 dark:text-white dark:bg-gray-700 border-transparent rounded-md focus:border-gray-500 dark:focus:border-gray-400 focus:bg-white dark:focus:bg-gray-700 focus:ring-0"
-              rows="3"
-            ><%= card.definition %></textarea>
-          </div>
-          <button type="button" phx-click="remove-card" phx-value-id={card.id} phx-target={@myself}>
-            <svg
-              class="w-6 h-6 text-gray-900 dark:text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+    <div class="py-6 sm:py-8">
+      <h2 class="text-md font-bold">Cards</h2>
+      <ul class="space-y-6" phx-update="ignore" id="cards">
+        <template x-for="(card, index) in cards" x-bind:key="index">
+          <li class="p-4 border rounded-lg shadow space-y-4 dark:border-gray-700 dark:shadow-gray-800">
+            <div
+              class="form-group flex-grow-1 mb-0"
+              x-data="{ required: false }"
+              @error="required = $valid($event.detail, 'required')"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              <label
+                x-bind:for="'term_' + index"
+                class="block text-sm font-medium leading-6 text-gray-900 dark:text-white pb-1"
               >
-              </path>
-            </svg>
-          </button>
-        </li>
-      <% end %>
-    </ul>
-    <div class="flex justify-center mt-4">
-      <button
-        phx-click="add-card"
-        phx-target={@myself}
-        class="inline-flex items-center px-3 py-1.5 text-base font-semibold text-gray-900 dark:text-white bg-white dark:bg-gray-800 rounded-md border border-gray-900 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400"
-      >
-        Add Card
-      </button>
+                Term
+              </label>
+              <input
+                type="text"
+                x-bind:id="'term_' + index"
+                x-model="card.term"
+                x-validation.required="card.term"
+                placeholder="Add term"
+                class="block w-full rounded-md border-0 py-1.5 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400"
+              />
+              <small
+                x-cloak
+                x-show="required"
+                class="mt-1 flex gap-3 text-sm leading-6 text-rose-600 dark:text-rose-500"
+              >
+                Term is required
+              </small>
+            </div>
+            <div
+              class="form-group flex-grow-1 mb-0 mt-4"
+              x-data="{ required: false }"
+              @error="required = $valid($event.detail, 'required')"
+            >
+              <label
+                x-bind:for="'definition_' + index"
+                class="block text-sm font-medium leading-6 text-gray-900 dark:text-white pb-1"
+              >
+                Definition
+              </label>
+              <textarea
+                x-bind:id="'definition_' + index"
+                x-model="card.definition"
+                x-validation.required="card.definition"
+                placeholder="Add definition"
+                class="block w-full rounded-md border-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-400 sm:text-sm/6 border-zinc-300 dark:border-gray-600 focus:border-zinc-400 dark:focus:border-gray-500"
+                rows="3"
+              ></textarea>
+              <small
+                x-cloak
+                x-show="required"
+                class="mt-1 flex gap-3 text-sm leading-6 text-rose-600 dark:text-rose-500"
+              >
+                Definition is required
+              </small>
+            </div>
+            <button @click="cards.splice(index, 1)" type="button">
+              <svg
+                class="w-6 h-6 text-gray-900 dark:text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                >
+                </path>
+              </svg>
+            </button>
+          </li>
+        </template>
+      </ul>
+      <div class="flex justify-center mt-4">
+        <button
+          @click="cards.push({ term: '', definition: '' })"
+          type="button"
+          class="inline-flex items-center px-3 py-1.5 text-base font-semibold text-gray-900 dark:text-white bg-white dark:bg-gray-800 rounded-md border border-gray-900 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400"
+        >
+          Add Card
+        </button>
+      </div>
     </div>
     """
   end

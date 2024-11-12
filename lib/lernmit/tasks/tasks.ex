@@ -175,7 +175,7 @@ defmodule Lernmit.Tasks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_task(current_user, attrs \\ %{}) do
+  def create_task(%User{} = current_user, attrs \\ %{}) do
     with :ok <- Policy.authorize(:task_create, current_user) do
       %Task{}
       |> Task.changeset(attrs)

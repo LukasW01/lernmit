@@ -24,6 +24,10 @@ defmodule Lernmit.Cards do
     )
   end
 
+  def list_card do
+    Repo.all(Card)
+  end
+
   @doc """
   Gets a single card.
 
@@ -66,7 +70,9 @@ defmodule Lernmit.Cards do
       iex> create_cards([%{field: value}, %{field: value}])
       [%Card{}, %Card{}]
   """
-  def create_cards(cards \\ []) do
+  def create_cards(cards \\ [], set_id) do
+    delete_card(set_id)
+
     Enum.each(cards, fn card ->
       %Card{}
       |> Card.changeset(card)
@@ -106,6 +112,10 @@ defmodule Lernmit.Cards do
   """
   def delete_card(%Card{} = card) do
     Repo.delete(card)
+  end
+
+  def delete_card(set_id) do
+    Repo.delete_all(from(c in Card, where: c.learnset_id == ^set_id))
   end
 
   @doc """
