@@ -20,7 +20,7 @@ defmodule LernmitWeb.LearnsetLive.Show do
          |> assign(:learnset, lernset)
          |> assign(:cards, cards)}
 
-      {{:error, error}, []} ->
+      {{:error, error}, _} ->
         {:noreply,
          socket
          |> put_flash(:error, Message.error(error))

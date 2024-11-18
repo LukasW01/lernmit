@@ -50,11 +50,6 @@ defmodule LernmitWeb.TaskLive.Index do
     |> assign(:task, %Task{})
   end
 
-  defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, "Tasks")
-  end
-
   @impl true
   def handle_info({LernmitWeb.TaskLive.FormComponent, {:saved, task}}, socket) do
     {:noreply,

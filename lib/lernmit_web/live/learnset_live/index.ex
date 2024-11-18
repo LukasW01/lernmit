@@ -8,6 +8,7 @@ defmodule LernmitWeb.LearnsetLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
      socket
+     |> assign(:page_title, "Learnset")
      |> assign(:learnset_collection, Learnsets.list_learnset())
      |> assign(:current_user, socket.assigns.current_user)}
   end
@@ -35,12 +36,6 @@ defmodule LernmitWeb.LearnsetLive.Index do
     socket
     |> assign(:page_title, "New Learnset")
     |> assign(:learnset, %Learnset{})
-  end
-
-  defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, "Listing Learnset")
-    |> assign(:learnset, nil)
   end
 
   @impl true

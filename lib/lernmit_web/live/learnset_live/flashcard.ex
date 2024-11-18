@@ -20,7 +20,7 @@ defmodule LernmitWeb.LearnsetLive.Flashcard do
          |> assign(:percentage, 0)
          |> assign(:nav, :fullscreen)}
 
-      {{:error, error}, []} ->
+      {{:error, error}, _} ->
         {:ok,
          socket
          |> put_flash(:error, Message.error(error))

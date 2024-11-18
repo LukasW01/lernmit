@@ -19,7 +19,6 @@ A online learn platform for schools
 Install dependencies
 
 ```bash
-mix deps.get
 cd assets && npm install
 ```
 

@@ -24,7 +24,7 @@ defmodule LernmitWeb.LearnsetLive.MultipleChoice do
          |> assign(:multiple_choice, options(cards, Enum.at(cards, 0)))
          |> assign(:selected, nil)}
 
-      {{:error, error}, []} ->
+      {{:error, error}, _} ->
         {:ok,
          socket
          |> put_flash(:error, Message.error(error))
