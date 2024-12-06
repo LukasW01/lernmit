@@ -1,8 +1,8 @@
 <div class="px-4 sm:px-6 lg:px-16 pt-10 pb-20">
   <.header class="mb-4">
-    <%= @learnset.title %>
+    {@learnset.title}
     <:subtitle>
-      <%= @learnset.desc %>
+      {@learnset.desc}
     </:subtitle>
   </.header>
 
@@ -86,14 +86,14 @@
           x-data="{ blurred: true }"
           class="dark:bg-gray-800 bg-slate-200 dark:text-white text-dark p-6 rounded-lg mb-3 flex flex-col md:flex-row gap-4"
         >
-          <span class="flex-1"><%= card.term %></span>
+          <span class="flex-1">{card.term}</span>
           <div class="w-px h-16 bg-gray-600 mx-4 hidden md:block"></div>
           <span
             x-bind:class="{ 'blur-sm': blurred }"
             x-on:click="blurred = !blurred"
             class="flex-1 md:flex md:flex-col text-left items-start"
           >
-            <%= card.definition %>
+            {card.definition}
           </span>
         </li>
       <% end %>

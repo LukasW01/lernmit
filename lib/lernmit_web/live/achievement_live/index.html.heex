@@ -1,10 +1,10 @@
 <div class="px-4 sm:px-6 lg:px-16 pt-10 pb-20">
   <h1 class="mb-10 text-gray-800 dark:text-white text-3xl font-bold">
-    <%= gettext("achievements") %>
+    {gettext("achievements")}
   </h1>
 
   <h2 class="mb-4 text-lg text-gray-800 dark:text-white font-bold">
-    <%= gettext("recent_activity") %>
+    {gettext("recent_activity")}
   </h2>
   <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
     <% recent_achievement =
@@ -26,9 +26,9 @@
         >
           <div class="flex flex-col my-6">
             <p class="mx-2 text-black font-bold dark:text-white">
-              <%= gettext("recently_earned") %>
+              {gettext("recently_earned")}
             </p>
-            <p class="mx-2 text-black dark:text-white text-xs"><%= recent_achievement.title %></p>
+            <p class="mx-2 text-black dark:text-white text-xs">{recent_achievement.title}</p>
             <img
               src={"/images/achievement/#{recent_achievement.image}"}
               class="pt-4 h-auto max-w-full rounded-lg mx-auto"
@@ -38,7 +38,7 @@
         </button>
       <% else %>
         <div class="flex flex-col my-6">
-          <p class="mx-2 text-black dark:text-white"><%= gettext("no_achievements") %></p>
+          <p class="mx-2 text-black dark:text-white">{gettext("no_achievements")}</p>
           <img
             src="/images/achievement/locked_badge_Overachiever.svg"
             class="pt-4 h-auto max-w-full rounded-lg mx-auto opacity-50"
@@ -47,12 +47,12 @@
         </div>
       <% end %>
       <div class="flex flex-col my-6">
-        <p class="mx-2 text-black font-bold dark:text-white"><%= gettext("current_streak") %></p>
+        <p class="mx-2 text-black font-bold dark:text-white">{gettext("current_streak")}</p>
         <%= if @streak.weekly == 0 do %>
-          <p class="mx-2 text-black dark:text-white text-xs"><%= gettext("no_progress") %></p>
+          <p class="mx-2 text-black dark:text-white text-xs">{gettext("no_progress")}</p>
         <% else %>
           <p class="mx-2 text-black dark:text-white text-xs">
-            <%= @streak.weekly %>-<%= gettext("week") %>
+            {@streak.weekly}-{gettext("week")}
           </p>
           <div class="relative pt-4">
             <span class="flame"></span>
@@ -68,13 +68,13 @@
   </div>
 
   <h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">
-    <%= gettext("study") %>
+    {gettext("study")}
   </h2>
   <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
     <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
       <%= if Enum.empty?(@achievements) do %>
         <div class="my-6">
-          <p class="mx-2 text-black dark:text-white"><%= gettext("no_achievements") %></p>
+          <p class="mx-2 text-black dark:text-white">{gettext("no_achievements")}</p>
         </div>
       <% else %>
         <%= for achievement <- @achievements do %>
@@ -90,12 +90,12 @@
                   class="mx-auto"
                   loading="lazy"
                 />
-                <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
+                <p class="mx-2 text-black dark:text-white">{achievement.title}</p>
                 <p class="mb-2 text-sm text-gray-500">
-                  <%= gettext("earned") %> <%= Calendar.strftime(
+                  {gettext("earned")} {Calendar.strftime(
                     achievement.inserted_at,
                     "%d/%m/%Y"
-                  ) %>
+                  )}
                 </p>
               <% else %>
                 <img
@@ -103,8 +103,8 @@
                   class="h-auto max-w-full rounded-lg mx-auto opacity-50"
                   loading="lazy"
                 />
-                <p class="mx-2 text-black dark:text-white"><%= achievement.title %></p>
-                <p class="mb-2 text-sm text-gray-500"><%= gettext("locked") %></p>
+                <p class="mx-2 text-black dark:text-white">{achievement.title}</p>
+                <p class="mb-2 text-sm text-gray-500">{gettext("locked")}</p>
               <% end %>
             </div>
           </button>
@@ -114,11 +114,11 @@
   </div>
 
   <h2 class="mt-8 mb-4 text-lg text-gray-800 dark:text-white font-bold">
-    <%= gettext("streak") %>
+    {gettext("streak")}
   </h2>
   <div class="bg-gray-200 dark:bg-gray-800 p-4 rounded-md">
     <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white">
-      <%= gettext("daily_streak") %>
+      {gettext("daily_streak")}
     </h1>
     <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
       <%= for e <- [3, 5, 7, 10, 20, 30, 45, 60, 70, 80] do %>
@@ -134,7 +134,7 @@
               class="absolute font-bold text-xl text-gray-950"
               style="top: 40%; transform: translate(-50%,-50%);"
             >
-              <%= e %>
+              {e}
             </span>
           <% else %>
             <img
@@ -147,10 +147,10 @@
               class="absolute font-bold text-xl text-slate-500"
               style="top: 40%; transform: translate(-50%,-50%);"
             >
-              <%= e %>
+              {e}
             </span>
           <% end %>
-          <p class="mt-2 text-black dark:text-white"><%= e %><%= gettext("streak_days") %></p>
+          <p class="mt-2 text-black dark:text-white">{e}{gettext("streak_days")}</p>
         </div>
       <% end %>
     </div>
@@ -160,7 +160,7 @@
       </div>
     </div>
     <h1 class="pl-8 py-4 text-lg text-gray-800 dark:text-white">
-      <%= gettext("weekly_streak") %>
+      {gettext("weekly_streak")}
     </h1>
     <div class="pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-center justify-center text-center">
       <%= for e <- [3, 5, 7, 10, 20, 30, 45] do %>
@@ -176,7 +176,7 @@
               class="absolute font-bold text-xl text-gray-950"
               style="top: 40%; transform: translate(-50%,-50%);"
             >
-              <%= e %>
+              {e}
             </span>
           <% else %>
             <img
@@ -189,10 +189,10 @@
               class="absolute font-bold text-xl text-slate-500"
               style="top: 40%; transform: translate(-50%,-50%);"
             >
-              <%= e %>
+              {e}
             </span>
           <% end %>
-          <p class="mt-2 text-black dark:text-white"><%= e %><%= gettext("streak_weeks") %></p>
+          <p class="mt-2 text-black dark:text-white">{e}{gettext("streak_weeks")}</p>
         </div>
       <% end %>
     </div>
@@ -201,7 +201,7 @@
   <.modal :if={@show == true} id="achievement" show on_cancel={JS.push("cancel")}>
     <div class="text-center">
       <h2 class="mx-2 text-xl text-black font-bold dark:text-white">
-        <%= @selected_achievement.title %>
+        {@selected_achievement.title}
       </h2>
       <%= if @locked do %>
         <img
@@ -216,7 +216,7 @@
           class="pt-4 h-52 max-w-full rounded-lg mx-auto"
         />
       <% end %>
-      <p class="mx-2 text-sm text-black dark:text-white"><%= @selected_achievement.desc %></p>
+      <p class="mx-2 text-sm text-black dark:text-white">{@selected_achievement.desc}</p>
     </div>
   </.modal>
 </div>

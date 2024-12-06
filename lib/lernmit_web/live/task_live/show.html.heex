@@ -1,13 +1,13 @@
 <div class="px-4 sm:px-6 lg:px-16 pt-10 pb-20">
   <.header>
-    <%= @task.title %>
+    {@task.title}
   </.header>
 
   <.list>
-    <:item title="Text"><%= @task.text %></:item>
-    <:item title="Types"><%= String.capitalize(@task.types) %></:item>
-    <:item title="Due date"><%= Calendar.strftime(@task.due_date, "%d.%m.%y %H:%M:%S") %></:item>
-    <:item :if={@task.points} title="Points"><%= @task.points %></:item>
+    <:item title="Text">{@task.text}</:item>
+    <:item title="Types">{String.capitalize(@task.types)}</:item>
+    <:item title="Due date">{Calendar.strftime(@task.due_date, "%d.%m.%y %H:%M:%S")}</:item>
+    <:item :if={@task.points} title="Points">{@task.points}</:item>
   </.list>
 
   <.modal

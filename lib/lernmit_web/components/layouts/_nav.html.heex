@@ -18,9 +18,9 @@
                 <ul class="flex space-x-8 items-center">
                   <li>
                     <.link patch={~p"/task"} class="hover:text-sky-500 dark:hover:text-sky-400">
-                      <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                      {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                         gettext("tasks")
-                      end) %>
+                      end)}
                     </.link>
                   </li>
                   <li>
@@ -28,9 +28,9 @@
                       patch={~p"/calendar/month"}
                       class="hover:text-sky-500 dark:hover:text-sky-400"
                     >
-                      <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                      {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                         gettext("calendar")
-                      end) %>
+                      end)}
                     </.link>
                   </li>
                   <li>
@@ -38,9 +38,9 @@
                       patch={~p"/learnset"}
                       class="hover:text-sky-500 dark:hover:text-sky-400"
                     >
-                      <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                      {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                         gettext("learnsets")
-                      end) %>
+                      end)}
                     </.link>
                   </li>
                   <li>
@@ -48,9 +48,9 @@
                       patch={~p"/achievement"}
                       class="hover:text-sky-500 dark:hover:text-sky-400"
                     >
-                      <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                      {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                         gettext("achievements")
-                      end) %>
+                      end)}
                     </.link>
                   </li>
                   <li>
@@ -128,9 +128,9 @@
                             patch={~p"/task"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
-                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                            {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                               gettext("tasks")
-                            end) %>
+                            end)}
                           </.link>
                         </li>
                         <li>
@@ -138,9 +138,9 @@
                             patch={~p"/calendar/week"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
-                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                            {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                               gettext("calendar")
-                            end) %>
+                            end)}
                           </.link>
                         </li>
                         <li>
@@ -148,9 +148,9 @@
                             patch={~p"/learnset"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
-                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                            {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                               gettext("learnsets")
-                            end) %>
+                            end)}
                           </.link>
                         </li>
                         <li>
@@ -158,9 +158,9 @@
                             patch={~p"/achievement"}
                             class="hover:text-sky-500 dark:hover:text-sky-400"
                           >
-                            <%= Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
+                            {Gettext.with_locale(Pow.Plug.current_user(@conn).locale, fn ->
                               gettext("achievements")
-                            end) %>
+                            end)}
                           </.link>
                         </li>
                       </ul>

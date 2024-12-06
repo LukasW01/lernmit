@@ -18,7 +18,7 @@ defmodule LernmitWeb.LearnsetLive.FormComponent do
       "}
     >
       <.header>
-        <%= @title %>
+        {@title}
       </.header>
 
       <.simple_form

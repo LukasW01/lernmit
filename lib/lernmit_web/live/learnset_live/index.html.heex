@@ -13,7 +13,7 @@
     rows={@learnset_collection}
     row_click={fn learnset -> JS.navigate(~p"/learnset/#{learnset.id}") end}
   >
-    <:col :let={learnset} label="Title"><%= learnset.title %></:col>
+    <:col :let={learnset} label="Title">{learnset.title}</:col>
     <:action :let={learnset}>
       <div class="sr-only">
         <.link navigate={~p"/learnset/#{learnset.id}"}>Show</.link>

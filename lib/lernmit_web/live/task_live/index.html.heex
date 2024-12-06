@@ -1,6 +1,6 @@
 <div class="px-4 sm:px-6 lg:px-16 pt-10 pb-20">
   <.header>
-    <%= gettext("tasks") %>
+    {gettext("tasks")}
   </.header>
 
   <div class="mx-auto flex flex-wrap items-center gap-6 sm:flex-nowrap">
@@ -52,13 +52,13 @@
     rows={@task_collection}
     row_click={fn task -> JS.navigate(~p"/task/#{task.id}") end}
   >
-    <:col :let={task} label="Title"><%= task.title %></:col>
-    <:col :let={task} label="Text"><%= String.slice(task.text, 0..50) %></:col>
-    <:col :let={task} label="Types"><%= String.capitalize(task.types) %></:col>
+    <:col :let={task} label="Title">{task.title}</:col>
+    <:col :let={task} label="Text">{String.slice(task.text, 0..50)}</:col>
+    <:col :let={task} label="Types">{String.capitalize(task.types)}</:col>
     <:col :let={task} label="Due date">
-      <%= Calendar.strftime(task.due_date, "%d.%m.%y %H:%M:%S") %>
+      {Calendar.strftime(task.due_date, "%d.%m.%y %H:%M:%S")}
     </:col>
-    <:col :let={task} label="Points"><%= task.points %></:col>
+    <:col :let={task} label="Points">{task.points}</:col>
     <:action :let={task}>
       <div class="sr-only">
         <.link navigate={~p"/task/#{task}"}>Show</.link>
