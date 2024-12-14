@@ -5,7 +5,7 @@ defmodule Lernmit.MixProject do
     [
       app: :lernmit,
       version: "0.5.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
