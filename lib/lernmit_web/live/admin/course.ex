@@ -8,7 +8,7 @@ defmodule LernmitWeb.Live.CourseLive do
     ],
     layout: {LernmitWeb.Layouts, :admin},
     pubsub: [
-      topic: "course",
+      topic: "course"
     ]
 
   @impl Backpex.LiveResource
