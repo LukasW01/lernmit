@@ -13,7 +13,7 @@ config :lernmit, Lernmit.Repo,
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :lernmit, LernmitWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 4002],
+  http: [ip: {127, 0, 0, 1}, port: 4000],
   secret_key_base: "B57Gpc/dDTfHuWCSnklT2gek5bg5dQBKwU3udSS5+PHbSSViI45orJaSFvtY0wRZ",
   server: false
 
@@ -33,7 +33,7 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
 
-# Configure JUnit formatter
+# JUnit formatter
 config :junit_formatter,
   report_file: "unit.xml",
   report_dir: "test/",

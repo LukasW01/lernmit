@@ -21,6 +21,7 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
+  # Database
   config :lernmit, Lernmit.Repo,
     database: System.get_env("DATABASE_NAME"),
     username: System.get_env("DATABASE_USER"),
@@ -28,7 +29,7 @@ if config_env() == :prod do
     hostname: System.get_env("DATABASE_HOST"),
     port: System.get_env("DATABASE_PORT", "5432")
 
-  # Configure PowAssent (OAuth2 provider)
+  # PowAssent (OAuth2 provider)
   config :lernmit, :pow_assent,
     providers: [
       Keycloak: [
@@ -38,7 +39,7 @@ if config_env() == :prod do
       ]
     ]
 
-  # Configure S3
+  # S3
   config :lernmit,
     access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
     secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),

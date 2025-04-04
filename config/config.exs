@@ -35,7 +35,7 @@ config :lernmit, LernmitWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :lernmit, Lernmit.Mailer, adapter: Swoosh.Adapters.Local
 
-# Configure esbuild
+# esbuild
 config :esbuild,
   version: "0.17.11",
   lernmit: [
@@ -45,7 +45,7 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-# Configure tailwind
+# tailwind
 config :tailwind,
   version: "3.4.3",
   lernmit: [
@@ -57,7 +57,7 @@ config :tailwind,
     cd: Path.expand("../assets", __DIR__)
   ]
 
-# Configure dart_sass
+# dart_sass
 config :dart_sass,
   version: "1.77.8",
   lernmit: [
@@ -70,14 +70,6 @@ config :lernmit, :pow,
   user: Lernmit.Users.User,
   repo: Lernmit.Repo
 
-# Configure Sentry
-config :sentry,
-  dsn:
-    "https://f1d98c8bf4a61cb1bc28f47c6e0bdc2d@o4506923162533888.ingest.us.sentry.io/4508278133882880",
-  environment_name: Mix.env(),
-  enable_source_code_context: true,
-  root_source_code_paths: [File.cwd!()]
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -89,6 +81,7 @@ config :phoenix, :json_library, Jason
 config :lernmit, LernmitWeb.Gettext, locales: ~w(de en), default_locale: "de"
 
 # Runtime configuration (defaults for all environments)
+# PowAssent (OAuth2 provider)
 config :lernmit, :pow_assent,
   providers: [
     Keycloak: [
@@ -98,7 +91,7 @@ config :lernmit, :pow_assent,
     ]
   ]
 
-# Configure S3
+# S3
 config :lernmit,
   access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
   secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
@@ -106,6 +99,17 @@ config :lernmit,
   region: System.get_env("AWS_REGION"),
   url: System.get_env("S3_URL"),
   host: System.get_env("S3_ALIAS_HOST")
+
+# Backpex
+config :backpex, :pubsub_server, Lernmit.PubSub
+
+# Sentry
+config :sentry,
+  dsn:
+    "https://f1d98c8bf4a61cb1bc28f47c6e0bdc2d@o4506923162533888.ingest.us.sentry.io/4508278133882880",
+  environment_name: Mix.env(),
+  enable_source_code_context: true,
+  root_source_code_paths: [File.cwd!()]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

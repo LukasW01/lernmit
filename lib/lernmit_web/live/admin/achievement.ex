@@ -8,9 +8,7 @@ defmodule LernmitWeb.Live.AchievementLive do
     ],
     layout: {LernmitWeb.Layouts, :admin},
     pubsub: [
-      name: Lernmit.PubSub,
       topic: "achievement",
-      event_prefix: "achievement_"
     ]
 
   @impl Backpex.LiveResource
